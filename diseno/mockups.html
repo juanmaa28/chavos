@@ -1,0 +1,993 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Chavos — Finanzas personales · Entrega 3</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Public+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#16211C; --ink2:#4A574F; --ink3:#7E8C84;
+  --paper:#F2F3EE; --surface:#FFFFFF; --line:#E3E6DE; --line2:#EEF0EA;
+  --deep:#0C2B23; --deep2:#123A2F; --brand:#146B55; --brand-ink:#0E7A5D;
+  --brand300:#9CC7B6; --brand50:#E3EFE9;
+  --gold:#C9891B; --gold50:#F7ECD6;
+  --clay:#B0432F; --clay50:#F7E5E0;
+  --blue:#2D6BA8; --blue50:#E4ECF5;
+  --plum:#8E4585; --plum50:#F2E6F0;
+  --r-card:20px; --r-lg:26px; --r-stamp:13px;
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-font-smoothing:antialiased}
+body{background:#E7E9E3;font-family:'Public Sans',system-ui,sans-serif;color:var(--ink)}
+.num{font-variant-numeric:tabular-nums;font-feature-settings:"tnum" 1}
+.fr{font-family:'Fraunces',Georgia,serif;font-optical-sizing:auto}
+
+/* ---------- stage ---------- */
+.stage{padding:20px;display:flex;gap:20px;flex-wrap:wrap;align-items:flex-start}
+.phone{width:390px;height:844px;background:var(--paper);border-radius:44px;overflow:hidden;position:relative;
+  box-shadow:0 30px 60px -20px rgba(12,43,35,.35),0 0 0 1px rgba(12,43,35,.06);flex:0 0 auto}
+.screen{position:absolute;inset:0;display:flex;flex-direction:column}
+.grain::after{content:'';position:absolute;inset:0;pointer-events:none;opacity:.10;mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>")}
+
+/* ---------- chrome ---------- */
+.statusbar{height:46px;flex:0 0 46px;display:flex;align-items:center;justify-content:space-between;padding:0 26px 0 30px;font-size:14px;font-weight:600;letter-spacing:.01em}
+.statusbar .r{display:flex;align-items:center;gap:6px}
+.homebar{position:absolute;left:50%;transform:translateX(-50%);bottom:8px;width:134px;height:5px;border-radius:3px;background:rgba(22,33,28,.25)}
+.homebar.light{background:rgba(255,255,255,.4)}
+
+/* ---------- type ---------- */
+.h1{font-family:'Fraunces',serif;font-size:27px;line-height:1.08;letter-spacing:-.018em;font-weight:600}
+.h2{font-size:15px;font-weight:700;letter-spacing:-.005em}
+.lbl{font-size:12px;font-weight:600;color:var(--ink3);letter-spacing:.005em}
+.cap{font-size:11.5px;color:var(--ink3);line-height:1.35}
+.body{font-size:14px;color:var(--ink2);line-height:1.5}
+
+/* ---------- layout ---------- */
+.pad{padding:0 20px}
+.body-scroll{flex:1 1 auto;overflow:hidden;display:flex;flex-direction:column;gap:16px;padding-bottom:6px}
+.body-scroll>*{flex:0 0 auto}
+
+/* section header w/ ledger rule */
+.sect{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.sect .t{display:flex;flex-direction:column;gap:6px}
+.rule{height:3px;width:26px;background:var(--gold);border-radius:2px}
+.link{font-size:12.5px;font-weight:600;color:var(--brand);display:flex;align-items:center;gap:3px}
+
+/* ---------- cards ---------- */
+.card{background:var(--surface);border-radius:var(--r-card);border:1px solid var(--line2)}
+.hero{background:linear-gradient(158deg,#164A3C 0%,var(--deep) 72%);border-radius:var(--r-lg);position:relative;overflow:hidden;color:#fff}
+.hero .glow{position:absolute;width:220px;height:220px;right:-70px;top:-90px;border-radius:50%;
+  background:radial-gradient(circle,rgba(201,137,27,.42) 0%,rgba(201,137,27,0) 70%)}
+.hairgold{height:1px;background:linear-gradient(90deg,rgba(201,137,27,.85),rgba(201,137,27,0))}
+
+/* ---------- stamps (category tiles) ---------- */
+.stamp{width:40px;height:40px;border-radius:var(--r-stamp);display:flex;align-items:center;justify-content:center;flex:0 0 auto}
+.stamp.s48{width:48px;height:48px;border-radius:15px}
+.stamp.s56{width:56px;height:56px;border-radius:18px}
+.st-green{background:var(--brand50);color:var(--brand-ink)}
+.st-gold{background:var(--gold50);color:#8F6112}
+.st-clay{background:var(--clay50);color:var(--clay)}
+.st-blue{background:var(--blue50);color:var(--blue)}
+.st-plum{background:var(--plum50);color:var(--plum)}
+.st-ink{background:#EDEFE9;color:var(--ink2)}
+
+/* ---------- rows ---------- */
+.row{display:flex;align-items:center;gap:12px;padding:11px 0}
+.row+.row{border-top:1px solid var(--line2)}
+.row .grow{flex:1 1 auto;min-width:0}
+.row .tt{font-size:14.5px;font-weight:600;letter-spacing:-.006em}
+.row .ss{font-size:11.5px;color:var(--ink3);margin-top:1px}
+.amt{font-size:14.5px;font-weight:600;letter-spacing:-.01em}
+.amt.neg{color:var(--clay)} .amt.pos{color:var(--brand-ink)}
+
+/* ---------- controls ---------- */
+.btn{height:52px;border-radius:999px;display:flex;align-items:center;justify-content:center;gap:8px;
+  font-size:15px;font-weight:600;letter-spacing:-.005em}
+.btn-primary{background:var(--brand);color:#fff;box-shadow:0 8px 18px -8px rgba(20,107,85,.7)}
+.btn-ghost{background:transparent;border:1.5px solid var(--line);color:var(--ink)}
+.btn-sm{height:44px;font-size:14px}
+.chip{height:32px;padding:0 13px;border-radius:999px;display:inline-flex;align-items:center;gap:6px;
+  font-size:12.5px;font-weight:600;background:var(--surface);border:1px solid var(--line);color:var(--ink2)}
+.chip.on{background:var(--brand);border-color:var(--brand);color:#fff}
+.chip.ghost{background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.22);color:#fff}
+.field{border-bottom:1.5px solid var(--line);padding-bottom:9px;display:flex;align-items:center;gap:8px}
+.field.on{border-bottom-color:var(--brand)}
+.field input{border:0;outline:0;font:inherit;font-size:15px;color:var(--ink);background:transparent;width:100%}
+.ph{font-size:15px;color:#A6B0A8}
+.sw{width:42px;height:25px;border-radius:999px;background:#D8DCD4;position:relative;flex:0 0 auto}
+.sw::after{content:'';position:absolute;width:19px;height:19px;border-radius:50%;background:#fff;top:3px;left:3px;box-shadow:0 1px 3px rgba(0,0,0,.2)}
+.sw.on{background:var(--brand)} .sw.on::after{left:20px}
+
+/* ---------- bottom nav ---------- */
+.nav{flex:0 0 78px;background:rgba(255,255,255,.92);backdrop-filter:blur(14px);border-top:1px solid var(--line2);
+  display:flex;align-items:flex-start;padding:11px 12px 0;position:relative}
+.nav .it{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;color:#98A39B;font-size:10.5px;font-weight:600}
+.nav .it.on{color:var(--brand)}
+.nav .dot{width:4px;height:4px;border-radius:50%;background:var(--brand)}
+.navfab{flex:0 0 62px;display:flex;justify-content:center}
+.navfab i{width:52px;height:52px;border-radius:18px;background:var(--brand);color:#fff;display:flex;
+  align-items:center;justify-content:center;margin-top:-18px;box-shadow:0 12px 22px -8px rgba(20,107,85,.8)}
+
+/* ---------- chart ---------- */
+.bars{display:flex;align-items:flex-end;gap:11px;height:104px;position:relative}
+.bar{flex:1;border-radius:4px 4px 0 0;background:var(--brand-ink)}
+.bar.now{background:var(--gold)}
+.avg{position:absolute;left:0;right:0;border-top:1.5px dashed #C3CBC4}
+.xlab{display:flex;gap:11px;margin-top:7px}
+.xlab span{flex:1;text-align:center;font-size:10.5px;color:var(--ink3);font-weight:500}
+
+/* ---------- misc ---------- */
+.stack{height:7px;border-radius:4px;display:flex;gap:2px;overflow:hidden}
+.prog{height:7px;border-radius:4px;background:var(--gold50);overflow:hidden}
+.prog i{display:block;height:100%;border-radius:4px;background:var(--gold)}
+.avatar{width:44px;height:44px;border-radius:15px;background:var(--deep);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:15px;letter-spacing:.02em}
+.divider{height:1px;background:var(--line2)}
+#config .row{padding:9px 0}
+#config .body-scroll{gap:12px}
+.seg{height:44px;background:var(--brand50);border-radius:999px;padding:4px;display:flex;gap:4px}
+.seg div{flex:1;border-radius:999px;display:flex;align-items:center;justify-content:center;gap:6px;font-size:13.5px;font-weight:600;color:#43655A}
+.seg div.on{background:var(--brand);color:#fff;box-shadow:0 4px 10px -4px rgba(20,107,85,.8)}
+.topbar{height:52px;flex:0 0 52px;display:flex;align-items:center;justify-content:space-between;padding:0 20px}
+.iconbtn{width:38px;height:38px;border-radius:13px;background:var(--surface);border:1px solid var(--line2);display:flex;align-items:center;justify-content:center;color:var(--ink)}
+
+svg.i{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+svg.i.s16{width:16px;height:16px;stroke-width:1.9}
+svg.i.s24{width:24px;height:24px;stroke-width:1.6}
+svg.i.s28{width:28px;height:28px;stroke-width:1.5}
+
+/* ---------- board / style guide ---------- */
+.board{width:1360px;background:var(--paper);border-radius:28px;padding:38px 40px 44px;box-shadow:0 30px 60px -22px rgba(12,43,35,.3)}
+.swatch{height:76px;border-radius:14px;display:flex;align-items:flex-end;padding:9px 11px;color:#fff;font-size:11px;font-weight:600}
+.gcol{display:grid;gap:14px}
+</style>
+</head>
+<body>
+<svg style="display:none">
+<defs>
+  <symbol id="i-home" viewBox="0 0 24 24"><path d="M3 10.2 12 3l9 7.2"/><path d="M5.5 9.3V20h13V9.3"/><path d="M9.8 20v-5.6h4.4V20"/></symbol>
+  <symbol id="i-list" viewBox="0 0 24 24"><path d="M8 6h12M8 12h12M8 18h12"/><circle cx="4" cy="6" r="1.1"/><circle cx="4" cy="12" r="1.1"/><circle cx="4" cy="18" r="1.1"/></symbol>
+  <symbol id="i-target" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.4"/><circle cx="12" cy="12" r="4.4"/><circle cx="12" cy="12" r="1"/></symbol>
+  <symbol id="i-gear" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3.1"/><path d="M19.3 14.2a1.5 1.5 0 0 0 .3 1.7l.1.1a1.8 1.8 0 1 1-2.6 2.6l-.1-.1a1.5 1.5 0 0 0-2.6 1.1v.3a1.8 1.8 0 1 1-3.6 0v-.2a1.5 1.5 0 0 0-2.7-1.1l-.1.1a1.8 1.8 0 1 1-2.6-2.6l.1-.1a1.5 1.5 0 0 0-1.1-2.6h-.3a1.8 1.8 0 0 1 0-3.6h.2A1.5 1.5 0 0 0 5.4 7l-.1-.1a1.8 1.8 0 1 1 2.6-2.6l.1.1a1.5 1.5 0 0 0 1.7.3h.1A1.5 1.5 0 0 0 10.7 3.3V3a1.8 1.8 0 1 1 3.6 0v.2a1.5 1.5 0 0 0 2.6 1.1l.1-.1a1.8 1.8 0 1 1 2.6 2.6l-.1.1a1.5 1.5 0 0 0 1.1 2.6h.3a1.8 1.8 0 0 1 0 3.6h-.2a1.5 1.5 0 0 0-1.4.9z"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.6"/><path d="m16 16 4 4"/></symbol>
+  <symbol id="i-filter" viewBox="0 0 24 24"><path d="M4 7h16M7 12h10M10 17h4"/></symbol>
+  <symbol id="i-chev" viewBox="0 0 24 24"><path d="m9 5 7 7-7 7"/></symbol>
+  <symbol id="i-chevl" viewBox="0 0 24 24"><path d="m15 5-7 7 7 7"/></symbol>
+  <symbol id="i-more" viewBox="0 0 24 24"><circle cx="12" cy="5" r="1.4"/><circle cx="12" cy="12" r="1.4"/><circle cx="12" cy="19" r="1.4"/></symbol>
+  <symbol id="i-up" viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></symbol>
+  <symbol id="i-down" viewBox="0 0 24 24"><path d="M17 7 7 17M15 17H7V9"/></symbol>
+  <symbol id="i-cart" viewBox="0 0 24 24"><path d="M3 4h2.2l2 11.2h10.3l2-8.2H6.4"/><circle cx="9" cy="19.2" r="1.3"/><circle cx="17" cy="19.2" r="1.3"/></symbol>
+  <symbol id="i-bus" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="13" rx="3"/><path d="M4 11h16"/><circle cx="8" cy="14.4" r="1"/><circle cx="16" cy="14.4" r="1"/><path d="M7 17v2.4M17 17v2.4"/></symbol>
+  <symbol id="i-play" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="3.2"/><path d="m10.5 9.6 4.4 2.4-4.4 2.4z"/></symbol>
+  <symbol id="i-book" viewBox="0 0 24 24"><path d="M4 5.2A2 2 0 0 1 6 3.4h4.6A2.4 2.4 0 0 1 13 5.8v14a2 2 0 0 0-2-2H4z"/><path d="M20 5.2a2 2 0 0 0-2-1.8h-4.6A2.4 2.4 0 0 0 11 5.8"/><path d="M20 5.2v12.6h-7"/></symbol>
+  <symbol id="i-heart" viewBox="0 0 24 24"><path d="M12 19.5s-7.2-4.3-7.2-9A3.9 3.9 0 0 1 12 8.2a3.9 3.9 0 0 1 7.2 2.3c0 4.7-7.2 9-7.2 9z"/></symbol>
+  <symbol id="i-home2" viewBox="0 0 24 24"><path d="M4 11 12 4.5 20 11v8a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 4 19z"/></symbol>
+  <symbol id="i-gift" viewBox="0 0 24 24"><rect x="3.5" y="8.5" width="17" height="4" rx="1"/><path d="M5 12.5V20h14v-7.5M12 8.5V20"/><path d="M12 8.5S10.6 4 8.6 4a2 2 0 0 0 0 4.5zM12 8.5S13.4 4 15.4 4a2 2 0 0 1 0 4.5z"/></symbol>
+  <symbol id="i-wallet" viewBox="0 0 24 24"><path d="M4 7.5A2.5 2.5 0 0 1 6.5 5h11A1.5 1.5 0 0 1 19 6.5V8"/><rect x="4" y="7.5" width="16" height="11.5" rx="2.5"/><circle cx="16" cy="13.2" r="1.2"/></symbol>
+  <symbol id="i-card" viewBox="0 0 24 24"><rect x="3" y="5.5" width="18" height="13" rx="2.6"/><path d="M3 10h18M6.5 14.6h3.5"/></symbol>
+  <symbol id="i-cal" viewBox="0 0 24 24"><rect x="3.6" y="5" width="16.8" height="15" rx="2.6"/><path d="M3.6 9.6h16.8M8.4 3.4v3.2M15.6 3.4v3.2"/></symbol>
+  <symbol id="i-bell" viewBox="0 0 24 24"><path d="M18 16.2V11a6 6 0 1 0-12 0v5.2L4.4 18.4h15.2z"/><path d="M10.2 21.2a2 2 0 0 0 3.6 0"/></symbol>
+  <symbol id="i-moon" viewBox="0 0 24 24"><path d="M20 14.2A8.2 8.2 0 0 1 9.8 4 8.4 8.4 0 1 0 20 14.2z"/></symbol>
+  <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8.4" r="3.8"/><path d="M4.8 20c.9-3.6 3.8-5.6 7.2-5.6s6.3 2 7.2 5.6"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3.4 5 6v6c0 4.2 2.9 7.3 7 8.6 4.1-1.3 7-4.4 7-8.6V6z"/><path d="m9.2 12 2 2 3.6-3.8"/></symbol>
+  <symbol id="i-out" viewBox="0 0 24 24"><path d="M14.5 4.5h-8A1.5 1.5 0 0 0 5 6v12a1.5 1.5 0 0 0 1.5 1.5h8"/><path d="m15.5 15.5 3.5-3.5-3.5-3.5M19 12h-9"/></symbol>
+  <symbol id="i-edit" viewBox="0 0 24 24"><path d="M15.6 4.8 19.2 8.4 8.6 19H5v-3.6z"/><path d="m13.4 7 3.6 3.6"/></symbol>
+  <symbol id="i-trash" viewBox="0 0 24 24"><path d="M4.6 6.6h14.8M9.4 6.6V4.8h5.2v1.8"/><path d="M6.6 6.6 7.6 19a1.4 1.4 0 0 0 1.4 1.3h6a1.4 1.4 0 0 0 1.4-1.3l1-12.4"/></symbol>
+  <symbol id="i-eye" viewBox="0 0 24 24"><path d="M2.8 12S6.4 5.8 12 5.8 21.2 12 21.2 12 17.6 18.2 12 18.2 2.8 12 2.8 12z"/><circle cx="12" cy="12" r="2.8"/></symbol>
+  <symbol id="i-finger" viewBox="0 0 24 24"><path d="M6.2 11a5.8 5.8 0 0 1 11.6 0v2.2"/><path d="M9 11.4a3 3 0 0 1 6 0v3.4a6 6 0 0 1-.7 2.8"/><path d="M12 11.6v4.2a9 9 0 0 1-1 4.2"/><path d="M4.5 8.2A9 9 0 0 1 19.4 8"/><path d="M17.7 15.6a13 13 0 0 1-.7 4"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="m5.5 12.5 4 4 9-9"/></symbol>
+  <symbol id="i-camera" viewBox="0 0 24 24"><path d="M4 8.6h3.2L8.8 6h6.4l1.6 2.6H20a1.6 1.6 0 0 1 1.6 1.6v7.2A1.6 1.6 0 0 1 20 19H4a1.6 1.6 0 0 1-1.6-1.6v-7.2A1.6 1.6 0 0 1 4 8.6z"/><circle cx="12" cy="13.4" r="3.2"/></symbol>
+  <symbol id="i-cap" viewBox="0 0 24 24"><path d="m12 4.2 9 4.3-9 4.3-9-4.3z"/><path d="M6.8 10.8v4.6c0 1.6 2.4 2.8 5.2 2.8s5.2-1.2 5.2-2.8v-4.6"/><path d="M21 8.5v5"/></symbol>
+  <symbol id="i-trend" viewBox="0 0 24 24"><path d="M4 15.5 9 10l3.4 3.4L20 6"/><path d="M15.4 6H20v4.6"/></symbol>
+  <symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5.5" width="18" height="13" rx="2.4"/><path d="m3.8 7 8.2 6 8.2-6"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18"/></symbol>
+  <symbol id="i-repeat" viewBox="0 0 24 24"><path d="M4 9.5A4 4 0 0 1 8 5.5h11l-3-3"/><path d="M20 14.5a4 4 0 0 1-4 4H5l3 3"/></symbol>
+  <symbol id="i-down2" viewBox="0 0 24 24"><path d="M12 4.5v12M7 12l5 5 5-5M5 20h14"/></symbol>
+  <symbol id="i-wifi" viewBox="0 0 24 24"><path d="M2.5 9.2a14 14 0 0 1 19 0M5.8 12.6a9.4 9.4 0 0 1 12.4 0M9 16a4.8 4.8 0 0 1 6 0"/><circle cx="12" cy="19.2" r=".9" fill="currentColor" stroke="none"/></symbol>
+</defs>
+</svg>
+
+<div class="stage">
+
+<!-- ======================= 01 LOGIN ======================= -->
+<div class="phone" id="login"><div class="screen" style="background:var(--paper)">
+  <div class="hero grain" style="border-radius:0 0 36px 36px;padding:0 26px 40px;flex:0 0 auto">
+    <div class="glow"></div>
+    <div class="statusbar" style="color:#fff;padding-left:4px;padding-right:0;position:relative"><span class="num">9:41</span>
+      <span class="r"><svg class="i s16"><use href="#i-wifi"/></svg>
+        <svg width="24" height="12" viewBox="0 0 24 12" fill="none"><rect x="1" y="1.5" width="18" height="9" rx="2.6" stroke="currentColor" stroke-width="1.2" opacity=".5"/><rect x="2.8" y="3.3" width="13" height="5.4" rx="1.5" fill="currentColor"/><path d="M21 5v2.4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" opacity=".5"/></svg>
+      </span>
+    </div>
+    <div style="position:relative;display:flex;align-items:center;gap:11px;margin-top:22px">
+      <svg width="36" height="36" viewBox="0 0 34 34" fill="none">
+        <circle cx="11" cy="22" r="9" fill="#9CC7B6" opacity=".45"/>
+        <circle cx="19" cy="15" r="9" fill="#C9891B"/>
+        <circle cx="24" cy="9" r="6.4" fill="#fff" opacity=".92"/>
+      </svg>
+      <span class="fr" style="font-size:20px;font-weight:600;letter-spacing:.005em">Chavos</span>
+    </div>
+    <div class="fr" style="position:relative;font-size:37px;line-height:1.04;letter-spacing:-.03em;font-weight:600;margin-top:36px">Tus finanzas,<br>en calma.</div>
+    <div style="position:relative;font-size:14px;color:#A9C7BB;margin-top:13px;line-height:1.5">Registra, presupuesta y ahorra<br>sin salir de una sola pantalla.</div>
+  </div>
+
+  <div class="pad" style="padding-top:30px;display:flex;flex-direction:column;gap:24px;flex:1 1 auto">
+    <div>
+      <div class="lbl" style="margin-bottom:10px">Correo electrónico</div>
+      <div class="field"><svg class="i s16" style="color:#A6B0A8"><use href="#i-mail"/></svg><span style="font-size:15px">juanm@upb.edu.co</span></div>
+    </div>
+    <div>
+      <div class="lbl" style="margin-bottom:10px">Contraseña</div>
+      <div class="field on">
+        <span style="font-size:15px;letter-spacing:.18em;flex:1">••••••••</span>
+        <svg class="i s16" style="color:#8C978F"><use href="#i-eye"/></svg>
+      </div>
+    </div>
+    <div style="display:flex;align-items:center;justify-content:space-between">
+      <div style="display:flex;align-items:center;gap:8px">
+        <div style="width:19px;height:19px;border-radius:6px;background:var(--brand);display:flex;align-items:center;justify-content:center;color:#fff"><svg class="i" style="width:13px;height:13px;stroke-width:2.4"><use href="#i-check"/></svg></div>
+        <span style="font-size:13px;color:var(--ink2);font-weight:500">Recordarme</span>
+      </div>
+      <span style="font-size:13px;color:var(--brand);font-weight:600">¿Olvidaste tu contraseña?</span>
+    </div>
+
+    <div class="btn btn-primary">Iniciar sesión</div>
+
+    <div style="display:flex;align-items:center;gap:12px">
+      <div style="flex:1;height:1px;background:var(--line)"></div>
+      <span class="cap">o continúa con</span>
+      <div style="flex:1;height:1px;background:var(--line)"></div>
+    </div>
+
+    <div class="btn btn-ghost btn-sm"><svg class="i"><use href="#i-finger"/></svg>Huella digital</div>
+
+    <div style="display:flex;align-items:center;gap:9px;justify-content:center;opacity:.9">
+      <svg class="i s16" style="color:var(--brand)"><use href="#i-shield"/></svg>
+      <span class="cap">Tus datos se guardan solo en este dispositivo</span>
+    </div>
+  </div>
+
+  <div style="padding:0 20px 34px;text-align:center;font-size:13.5px;color:var(--ink2)">
+    ¿Aún no tienes cuenta? <b style="color:var(--brand)">Crear cuenta</b>
+  </div>
+  <div class="homebar"></div>
+</div></div>
+
+<!-- ======================= 02 REGISTRO ======================= -->
+<div class="phone" id="registro"><div class="screen" style="background:var(--paper)">
+  <div class="hero grain" style="border-radius:0 0 34px 34px;padding:44px 26px 28px;flex:0 0 auto">
+    <div class="glow"></div>
+    <div style="position:relative;display:flex;align-items:center;gap:14px">
+      <div style="width:36px;height:36px;border-radius:12px;background:rgba(255,255,255,.14);display:flex;align-items:center;justify-content:center"><svg class="i"><use href="#i-chevl"/></svg></div>
+      <div style="flex:1">
+        <div style="display:flex;gap:5px;margin-bottom:7px">
+          <div style="flex:1;height:3px;border-radius:2px;background:var(--gold)"></div>
+          <div style="flex:1;height:3px;border-radius:2px;background:rgba(255,255,255,.22)"></div>
+        </div>
+        <div style="font-size:11.5px;color:#A9C7BB;font-weight:600">Paso 1 de 2 · Datos de la cuenta</div>
+      </div>
+    </div>
+    <div class="fr" style="position:relative;font-size:30px;line-height:1.08;letter-spacing:-.025em;font-weight:600;margin-top:22px">Crea tu cuenta</div>
+    <div style="position:relative;font-size:13.5px;color:#A9C7BB;margin-top:9px">Empieza a ordenar tu dinero hoy mismo.</div>
+  </div>
+
+  <div class="pad" style="padding-top:24px;display:flex;flex-direction:column;gap:17px;flex:1 1 auto">
+    <div>
+      <div class="lbl" style="margin-bottom:8px">Nombre completo</div>
+      <div class="field"><svg class="i s16" style="color:#A6B0A8"><use href="#i-user"/></svg><span style="font-size:15px">Juan Manuel Arias</span></div>
+    </div>
+    <div>
+      <div class="lbl" style="margin-bottom:8px">Correo electrónico</div>
+      <div class="field"><svg class="i s16" style="color:#A6B0A8"><use href="#i-mail"/></svg><span style="font-size:15px">juanm@upb.edu.co</span></div>
+    </div>
+    <div>
+      <div class="lbl" style="margin-bottom:8px">Contraseña</div>
+      <div class="field on"><span style="font-size:15px;letter-spacing:.18em;flex:1">••••••••••</span><svg class="i s16" style="color:#8C978F"><use href="#i-eye"/></svg></div>
+      <div style="display:flex;align-items:center;gap:8px;margin-top:9px">
+        <div style="display:flex;gap:4px;flex:1">
+          <div style="flex:1;height:4px;border-radius:2px;background:var(--brand)"></div>
+          <div style="flex:1;height:4px;border-radius:2px;background:var(--brand)"></div>
+          <div style="flex:1;height:4px;border-radius:2px;background:#DCE1DA"></div>
+        </div>
+        <span style="font-size:11px;font-weight:700;color:var(--brand)">Segura</span>
+      </div>
+    </div>
+    <div>
+      <div class="lbl" style="margin-bottom:8px">Confirmar contraseña</div>
+      <div class="field"><span style="font-size:15px;letter-spacing:.18em;flex:1">••••••••••</span><svg class="i s16" style="color:var(--brand)"><use href="#i-check"/></svg></div>
+    </div>
+
+    <div style="display:flex;align-items:flex-start;gap:9px;margin-top:2px">
+      <div style="width:19px;height:19px;border-radius:6px;background:var(--brand);display:flex;align-items:center;justify-content:center;color:#fff;flex:0 0 auto;margin-top:1px"><svg class="i" style="width:13px;height:13px;stroke-width:2.4"><use href="#i-check"/></svg></div>
+      <span style="font-size:12.5px;color:var(--ink2);line-height:1.45">Acepto los <b style="color:var(--brand)">términos de uso</b> y el tratamiento de mis datos.</span>
+    </div>
+
+    <div class="btn btn-primary" style="margin-top:4px">Crear cuenta</div>
+  </div>
+
+  <div style="padding:0 20px 34px;text-align:center;font-size:13px;color:var(--ink2)">
+    ¿Ya tienes cuenta? <b style="color:var(--brand)">Inicia sesión</b>
+  </div>
+  <div class="homebar"></div>
+</div></div>
+
+<!-- ======================= 03 MENÚ / DASHBOARD ======================= -->
+<div class="phone" id="menu"><div class="screen" style="background:var(--paper)">
+  <div class="statusbar"><span class="num">9:41</span>
+    <span class="r"><svg class="i s16"><use href="#i-wifi"/></svg>
+      <svg width="24" height="12" viewBox="0 0 24 12" fill="none"><rect x="1" y="1.5" width="18" height="9" rx="2.6" stroke="currentColor" stroke-width="1.2" opacity=".5"/><rect x="2.8" y="3.3" width="13" height="5.4" rx="1.5" fill="currentColor"/><path d="M21 5v2.4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" opacity=".5"/></svg>
+    </span>
+  </div>
+
+  <div class="pad" style="display:flex;align-items:center;gap:12px;padding-bottom:16px">
+    <div class="avatar">JM</div>
+    <div style="flex:1">
+      <div class="cap" style="font-weight:600">Buenos días,</div>
+      <div style="font-size:16px;font-weight:700;letter-spacing:-.015em;margin-top:1px">Juan Manuel</div>
+    </div>
+    <div class="iconbtn" style="position:relative"><svg class="i"><use href="#i-bell"/></svg>
+      <span style="position:absolute;top:9px;right:10px;width:7px;height:7px;border-radius:50%;background:var(--clay);border:1.5px solid #fff"></span>
+    </div>
+  </div>
+
+  <div class="body-scroll pad" style="gap:11px">
+    <!-- balance -->
+    <div class="hero grain" style="padding:16px 20px 14px">
+      <div class="glow"></div>
+      <div style="position:relative;display:flex;align-items:center;justify-content:space-between">
+        <span style="font-size:12px;color:#A9C7BB;font-weight:600">Saldo disponible · septiembre</span>
+        <span class="chip ghost" style="height:24px;padding:0 9px;font-size:11px"><svg class="i" style="width:12px;height:12px;stroke-width:2.2"><use href="#i-trend"/></svg>12,4%</span>
+      </div>
+      <div class="fr num" style="position:relative;font-size:37px;letter-spacing:-.03em;font-weight:600;margin-top:7px;line-height:1">$1.250.000</div>
+      <div class="hairgold" style="position:relative;margin:16px 0 13px"></div>
+      <div style="position:relative;display:flex">
+        <div style="flex:1">
+          <div style="display:flex;align-items:center;gap:6px;color:#9CC7B6"><svg class="i" style="width:13px;height:13px;stroke-width:2.2"><use href="#i-down"/></svg><span style="font-size:11px;font-weight:600">Ingresos</span></div>
+          <div class="num" style="font-size:15px;font-weight:600;margin-top:3px">$2.500.000</div>
+        </div>
+        <div style="width:1px;background:rgba(255,255,255,.14);margin:0 14px"></div>
+        <div style="flex:1">
+          <div style="display:flex;align-items:center;gap:6px;color:#E3A98F"><svg class="i" style="width:13px;height:13px;stroke-width:2.2"><use href="#i-up"/></svg><span style="font-size:11px;font-weight:600">Gastos</span></div>
+          <div class="num" style="font-size:15px;font-weight:600;margin-top:3px">$1.250.000</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- quick actions -->
+    <div style="display:flex;gap:9px">
+      <div style="flex:1;background:var(--surface);border:1px solid var(--line2);border-radius:16px;padding:11px 8px;display:flex;flex-direction:column;align-items:center;gap:6px">
+        <svg class="i" style="color:var(--brand-ink)"><use href="#i-down"/></svg><span style="font-size:11px;font-weight:600">Ingreso</span></div>
+      <div style="flex:1;background:var(--surface);border:1px solid var(--line2);border-radius:16px;padding:11px 8px;display:flex;flex-direction:column;align-items:center;gap:6px">
+        <svg class="i" style="color:var(--clay)"><use href="#i-up"/></svg><span style="font-size:11px;font-weight:600">Gasto</span></div>
+      <div style="flex:1;background:var(--surface);border:1px solid var(--line2);border-radius:16px;padding:11px 8px;display:flex;flex-direction:column;align-items:center;gap:6px">
+        <svg class="i" style="color:var(--gold)"><use href="#i-target"/></svg><span style="font-size:11px;font-weight:600">Meta</span></div>
+      <div style="flex:1;background:var(--surface);border:1px solid var(--line2);border-radius:16px;padding:11px 8px;display:flex;flex-direction:column;align-items:center;gap:6px">
+        <svg class="i" style="color:var(--blue)"><use href="#i-trend"/></svg><span style="font-size:11px;font-weight:600">Informe</span></div>
+    </div>
+
+    <!-- chart -->
+    <div class="card" style="padding:15px 16px 13px">
+      <div class="sect" style="margin-bottom:14px">
+        <div class="t"><span class="h2">Gasto mensual</span><span class="rule"></span></div>
+        <span class="cap num">Promedio $1,09 M</span>
+      </div>
+      <div style="position:relative">
+        <div class="bars" style="height:76px">
+          <div class="avg" style="bottom:62px"></div>
+          <div class="bar" style="height:55px"></div>
+          <div class="bar" style="height:63px"></div>
+          <div class="bar" style="height:49px"></div>
+          <div class="bar" style="height:70px"></div>
+          <div class="bar" style="height:62px"></div>
+          <div class="bar now" style="height:76px"></div>
+        </div>
+        <div class="num" style="position:absolute;right:0;bottom:80px;font-size:11.5px;font-weight:700">$1,25 M</div>
+      </div>
+      <div class="xlab"><span>abr</span><span>may</span><span>jun</span><span>jul</span><span>ago</span><span style="color:var(--ink);font-weight:700">sep</span></div>
+    </div>
+
+    <!-- goal -->
+    <div class="card" style="padding:12px 16px;display:flex;align-items:center;gap:14px">
+      <svg width="56" height="56" viewBox="0 0 56 56" style="flex:0 0 auto">
+        <circle cx="28" cy="28" r="23" stroke="#F0E3CC" stroke-width="6" fill="none"/>
+        <circle cx="28" cy="28" r="23" stroke="#C9891B" stroke-width="6" fill="none" stroke-linecap="round"
+          stroke-dasharray="144.5 144.5" stroke-dashoffset="54.9" transform="rotate(-90 28 28)"/>
+        <text x="28" y="32" text-anchor="middle" font-family="Public Sans" font-size="14" font-weight="700" fill="#16211C">62%</text>
+      </svg>
+      <div style="flex:1;min-width:0">
+        <div style="display:flex;align-items:center;gap:7px">
+          <span class="h2">Viaje a Cartagena</span>
+          <span class="chip" style="height:20px;padding:0 7px;font-size:10px;background:var(--gold50);border-color:#F0E3CC;color:#8F6112">dic 2026</span>
+        </div>
+        <div class="num" style="font-size:12.5px;color:var(--ink2);margin-top:4px">$3.100.000 de $5.000.000</div>
+        <div class="cap" style="margin-top:3px">Ahorra $475.000/mes para llegar a tiempo</div>
+      </div>
+    </div>
+
+    <!-- recent -->
+    <div class="sect" style="margin-top:2px">
+      <div class="t"><span class="h2">Movimientos recientes</span></div>
+      <span class="link">Ver todos <svg class="i" style="width:13px;height:13px;stroke-width:2.4"><use href="#i-chev"/></svg></span>
+    </div>
+    <div class="card" style="padding:0 14px 4px;margin-top:-6px">
+      <div class="row" style="padding:9px 0">
+        <div class="stamp st-green"><svg class="i"><use href="#i-cart"/></svg></div>
+        <div class="grow"><div class="tt">Mercado del mes</div><div class="ss">Alimentación · Hoy</div></div>
+        <div class="amt neg num">−$120.000</div>
+      </div>
+      <div class="row" style="padding:9px 0">
+        <div class="stamp st-ink"><svg class="i"><use href="#i-wallet"/></svg></div>
+        <div class="grow"><div class="tt">Salario</div><div class="ss">Ingresos · Ayer</div></div>
+        <div class="amt pos num">+$2.500.000</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="nav">
+    <div class="it on"><svg class="i s24"><use href="#i-home"/></svg>Inicio<div class="dot"></div></div>
+    <div class="it"><svg class="i s24"><use href="#i-list"/></svg>Movimientos</div>
+    <div class="navfab"><i><svg class="i s24"><use href="#i-plus"/></svg></i></div>
+    <div class="it"><svg class="i s24"><use href="#i-target"/></svg>Metas</div>
+    <div class="it"><svg class="i s24"><use href="#i-gear"/></svg>Ajustes</div>
+  </div>
+  <div class="homebar"></div>
+</div></div>
+
+<!-- ======================= 04 LISTADO ======================= -->
+<div class="phone" id="listado"><div class="screen" style="background:var(--paper)">
+  <div class="statusbar"><span class="num">9:41</span>
+    <span class="r"><svg class="i s16"><use href="#i-wifi"/></svg>
+      <svg width="24" height="12" viewBox="0 0 24 12" fill="none"><rect x="1" y="1.5" width="18" height="9" rx="2.6" stroke="currentColor" stroke-width="1.2" opacity=".5"/><rect x="2.8" y="3.3" width="13" height="5.4" rx="1.5" fill="currentColor"/><path d="M21 5v2.4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" opacity=".5"/></svg>
+    </span>
+  </div>
+
+  <div class="pad" style="display:flex;align-items:center;justify-content:space-between;padding-bottom:14px">
+    <div class="h1">Movimientos</div>
+    <div style="display:flex;gap:8px">
+      <div class="iconbtn"><svg class="i"><use href="#i-search"/></svg></div>
+      <div class="iconbtn"><svg class="i"><use href="#i-filter"/></svg></div>
+    </div>
+  </div>
+
+  <div class="body-scroll pad" style="gap:13px">
+    <!-- month + summary -->
+    <div class="card" style="padding:13px 15px">
+      <div style="display:flex;align-items:center;justify-content:space-between">
+        <svg class="i s16" style="color:var(--ink3)"><use href="#i-chevl"/></svg>
+        <span style="font-size:13.5px;font-weight:700;letter-spacing:-.01em">Septiembre 2026</span>
+        <svg class="i s16" style="color:var(--ink3)"><use href="#i-chev"/></svg>
+      </div>
+      <div class="stack" style="margin:13px 0 11px">
+        <div style="width:66%;background:var(--brand-ink)"></div>
+        <div style="width:34%;background:var(--clay)"></div>
+      </div>
+      <div style="display:flex">
+        <div style="flex:1">
+          <div style="display:flex;align-items:center;gap:6px"><span style="width:8px;height:8px;border-radius:3px;background:var(--brand-ink)"></span><span class="cap" style="font-weight:600">Ingresos</span></div>
+          <div class="num" style="font-size:14.5px;font-weight:700;margin-top:3px">$2.500.000</div>
+        </div>
+        <div style="flex:1">
+          <div style="display:flex;align-items:center;gap:6px"><span style="width:8px;height:8px;border-radius:3px;background:var(--clay)"></span><span class="cap" style="font-weight:600">Gastos</span></div>
+          <div class="num" style="font-size:14.5px;font-weight:700;margin-top:3px">$1.250.000</div>
+        </div>
+        <div style="flex:1">
+          <div style="display:flex;align-items:center;gap:6px;justify-content:flex-end"><span class="cap" style="font-weight:600">Balance</span></div>
+          <div class="num" style="font-size:14.5px;font-weight:700;margin-top:3px;color:var(--brand-ink);text-align:right">+$1.250.000</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- chips -->
+    <div style="display:flex;gap:7px">
+      <span class="chip on">Todos</span>
+      <span class="chip">Ingresos</span>
+      <span class="chip">Gastos</span>
+      <span class="chip">Metas</span>
+    </div>
+
+    <!-- day group -->
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-top:2px">
+      <span class="lbl" style="color:var(--ink2)">Hoy · 21 sep</span>
+      <span class="cap num">−$155.000</span>
+    </div>
+    <div class="card" style="padding:2px 14px 6px;margin-top:-6px">
+      <div class="row">
+        <div class="stamp st-green"><svg class="i"><use href="#i-cart"/></svg></div>
+        <div class="grow"><div class="tt">Mercado del mes</div><div class="ss">Alimentación · 10:24</div></div>
+        <div class="amt neg num">−$120.000</div>
+      </div>
+      <div class="row">
+        <div class="stamp st-blue"><svg class="i"><use href="#i-bus"/></svg></div>
+        <div class="grow"><div class="tt">Metro y buses</div><div class="ss">Transporte · 08:10</div></div>
+        <div class="amt neg num">−$35.000</div>
+      </div>
+    </div>
+
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-top:2px">
+      <span class="lbl" style="color:var(--ink2)">Ayer · 20 sep</span>
+      <span class="cap num">+$2.465.000</span>
+    </div>
+    <div class="card" style="padding:2px 14px 6px;margin-top:-6px">
+      <div class="row">
+        <div class="stamp st-ink"><svg class="i"><use href="#i-wallet"/></svg></div>
+        <div class="grow"><div class="tt">Salario</div><div class="ss">Ingresos · 09:00</div></div>
+        <div class="amt pos num">+$2.500.000</div>
+      </div>
+      <div class="row">
+        <div class="stamp st-clay"><svg class="i"><use href="#i-play"/></svg></div>
+        <div class="grow"><div class="tt">Netflix</div><div class="ss">Suscripciones · 07:30</div></div>
+        <div class="amt neg num">−$35.000</div>
+      </div>
+    </div>
+
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-top:2px">
+      <span class="lbl" style="color:var(--ink2)">18 sep</span>
+      <span class="cap num">−$260.000</span>
+    </div>
+    <div class="card" style="padding:2px 14px 6px;margin-top:-6px">
+      <div class="row">
+        <div class="stamp st-gold"><svg class="i"><use href="#i-target"/></svg></div>
+        <div class="grow"><div class="tt">Ahorro meta viaje</div><div class="ss">Metas · 12:05</div></div>
+        <div class="amt neg num">−$200.000</div>
+      </div>
+      <div class="row">
+        <div class="stamp st-plum"><svg class="i"><use href="#i-heart"/></svg></div>
+        <div class="grow"><div class="tt">Farmacia</div><div class="ss">Salud · 11:40</div></div>
+        <div class="amt neg num">−$60.000</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="nav">
+    <div class="it"><svg class="i s24"><use href="#i-home"/></svg>Inicio</div>
+    <div class="it on"><svg class="i s24"><use href="#i-list"/></svg>Movimientos<div class="dot"></div></div>
+    <div class="navfab"><i><svg class="i s24"><use href="#i-plus"/></svg></i></div>
+    <div class="it"><svg class="i s24"><use href="#i-target"/></svg>Metas</div>
+    <div class="it"><svg class="i s24"><use href="#i-gear"/></svg>Ajustes</div>
+  </div>
+  <div class="homebar"></div>
+</div></div>
+
+<!-- ======================= 05 DETALLE ======================= -->
+<div class="phone" id="detalle"><div class="screen" style="background:var(--paper)">
+  <div class="statusbar"><span class="num">9:41</span>
+    <span class="r"><svg class="i s16"><use href="#i-wifi"/></svg>
+      <svg width="24" height="12" viewBox="0 0 24 12" fill="none"><rect x="1" y="1.5" width="18" height="9" rx="2.6" stroke="currentColor" stroke-width="1.2" opacity=".5"/><rect x="2.8" y="3.3" width="13" height="5.4" rx="1.5" fill="currentColor"/><path d="M21 5v2.4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" opacity=".5"/></svg>
+    </span>
+  </div>
+
+  <div class="topbar">
+    <div class="iconbtn"><svg class="i"><use href="#i-chevl"/></svg></div>
+    <span class="h2">Detalle</span>
+    <div class="iconbtn"><svg class="i"><use href="#i-more"/></svg></div>
+  </div>
+
+  <div class="body-scroll pad" style="gap:14px;padding-top:10px">
+    <div style="display:flex;flex-direction:column;align-items:center;gap:9px;padding:2px 0 0">
+      <div class="stamp st-green s48"><svg class="i s24"><use href="#i-cart"/></svg></div>
+      <div class="fr num" style="font-size:34px;letter-spacing:-.03em;font-weight:600;color:var(--clay);line-height:1">−$120.000</div>
+      <div style="font-size:15px;font-weight:600;letter-spacing:-.01em">Mercado del mes</div>
+      <div style="display:flex;gap:6px">
+        <span class="chip" style="height:26px;font-size:11.5px;background:var(--clay50);border-color:#F0DAD3;color:var(--clay)">Gasto</span>
+        <span class="chip" style="height:26px;font-size:11.5px">Alimentación</span>
+      </div>
+    </div>
+
+    <div class="card" style="padding:2px 16px 6px">
+      <div class="row" style="padding:10px 0"><span class="lbl" style="flex:1">Fecha</span><span style="font-size:14px;font-weight:600">21 sep 2026 · 10:24</span></div>
+      <div class="row" style="padding:10px 0"><span class="lbl" style="flex:1">Método</span>
+        <span style="display:flex;align-items:center;gap:7px;font-size:14px;font-weight:600"><svg class="i s16" style="color:var(--ink2)"><use href="#i-card"/></svg>Bancolombia ··4821</span></div>
+      <div class="row" style="padding:10px 0"><span class="lbl" style="flex:1">Comercio</span><span style="font-size:14px;font-weight:600">Éxito Laureles</span></div>
+      <div class="row" style="align-items:flex-start;padding:10px 0">
+        <span class="lbl" style="flex:0 0 auto;padding-top:2px">Nota</span>
+        <span style="flex:1;text-align:right;font-size:13.5px;color:var(--ink2);line-height:1.45">Mercado quincenal, incluye artículos de aseo</span>
+      </div>
+      <div class="row" style="padding:10px 0"><span class="lbl" style="flex:1">Recibo</span>
+        <span style="display:flex;align-items:center;gap:6px;font-size:13.5px;font-weight:600;color:var(--brand)"><svg class="i s16"><use href="#i-camera"/></svg>Adjuntar</span></div>
+    </div>
+
+    <div class="card" style="padding:14px 16px">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:11px">
+        <span class="h2">Alimentación en septiembre</span>
+        <span class="cap num" style="font-weight:700;color:var(--ink)">70%</span>
+      </div>
+      <div class="prog" style="background:var(--clay50)"><i style="width:70%;background:var(--clay)"></i></div>
+      <div style="display:flex;justify-content:space-between;margin-top:9px">
+        <span class="cap num">$420.000 gastados</span>
+        <span class="cap num">Presupuesto $600.000</span>
+      </div>
+    </div>
+
+    <div class="sect" style="margin-top:2px">
+      <div class="t"><span class="h2">Otros gastos en Alimentación</span></div>
+      <span class="link">Ver todos <svg class="i" style="width:13px;height:13px;stroke-width:2.4"><use href="#i-chev"/></svg></span>
+    </div>
+    <div class="card" style="padding:2px 16px 6px;margin-top:-6px">
+      <div class="row" style="padding:9px 0">
+        <div class="stamp st-green" style="width:34px;height:34px;border-radius:11px"><svg class="i s16"><use href="#i-cart"/></svg></div>
+        <div class="grow"><div class="tt" style="font-size:13.5px">Frutas y verduras</div><div class="ss">14 sep</div></div>
+        <div class="amt neg num" style="font-size:13.5px">−$62.000</div>
+      </div>
+      <div class="row" style="padding:9px 0">
+        <div class="stamp st-green" style="width:34px;height:34px;border-radius:11px"><svg class="i s16"><use href="#i-cart"/></svg></div>
+        <div class="grow"><div class="tt" style="font-size:13.5px">Mercado quincenal</div><div class="ss">6 sep</div></div>
+        <div class="amt neg num" style="font-size:13.5px">−$138.000</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="pad" style="display:flex;gap:10px;padding-bottom:30px;padding-top:6px">
+    <div class="btn btn-ghost btn-sm" style="flex:1"><svg class="i s16"><use href="#i-edit"/></svg>Editar</div>
+    <div class="btn btn-sm" style="flex:1;background:var(--clay50);color:var(--clay)"><svg class="i s16"><use href="#i-trash"/></svg>Eliminar</div>
+  </div>
+  <div class="homebar"></div>
+</div></div>
+
+<!-- ======================= 06 FORMULARIO ======================= -->
+<div class="phone" id="formulario"><div class="screen" style="background:var(--paper)">
+  <div class="statusbar"><span class="num">9:41</span>
+    <span class="r"><svg class="i s16"><use href="#i-wifi"/></svg>
+      <svg width="24" height="12" viewBox="0 0 24 12" fill="none"><rect x="1" y="1.5" width="18" height="9" rx="2.6" stroke="currentColor" stroke-width="1.2" opacity=".5"/><rect x="2.8" y="3.3" width="13" height="5.4" rx="1.5" fill="currentColor"/><path d="M21 5v2.4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" opacity=".5"/></svg>
+    </span>
+  </div>
+
+  <div class="topbar">
+    <div class="iconbtn"><svg class="i"><use href="#i-x"/></svg></div>
+    <span class="h2">Nuevo movimiento</span>
+    <div style="width:38px"></div>
+  </div>
+
+  <div class="body-scroll pad" style="gap:13px;padding-top:6px">
+    <div class="seg">
+      <div><svg class="i s16"><use href="#i-down"/></svg>Ingreso</div>
+      <div class="on"><svg class="i s16"><use href="#i-up"/></svg>Gasto</div>
+    </div>
+
+    <div style="text-align:center;padding:4px 0 0">
+      <div class="lbl" style="margin-bottom:7px">Monto</div>
+      <div class="fr num" style="font-size:44px;letter-spacing:-.035em;font-weight:600;line-height:1;display:flex;align-items:center;justify-content:center;gap:2px">
+        <span style="color:var(--ink3);font-size:26px">$</span>120.000<span style="width:2px;height:34px;background:var(--brand);border-radius:2px;margin-left:3px"></span>
+      </div>
+      <div class="cap" style="margin-top:9px">Pesos colombianos (COP)</div>
+    </div>
+
+    <div>
+      <div class="lbl" style="margin-bottom:10px">Categoría</div>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:9px">
+        <div style="display:flex;flex-direction:column;align-items:center;gap:5px">
+          <div class="stamp st-green s48" style="box-shadow:0 0 0 2px var(--brand-ink)"><svg class="i s24"><use href="#i-cart"/></svg></div>
+          <span style="font-size:10px;font-weight:700;color:var(--ink)">Alimentos</span></div>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:5px">
+          <div class="stamp st-blue s48"><svg class="i s24"><use href="#i-bus"/></svg></div>
+          <span style="font-size:10px;font-weight:600;color:var(--ink3)">Transporte</span></div>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:5px">
+          <div class="stamp st-clay s48"><svg class="i s24"><use href="#i-play"/></svg></div>
+          <span style="font-size:10px;font-weight:600;color:var(--ink3)">Ocio</span></div>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:5px">
+          <div class="stamp st-plum s48"><svg class="i s24"><use href="#i-heart"/></svg></div>
+          <span style="font-size:10px;font-weight:600;color:var(--ink3)">Salud</span></div>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:5px">
+          <div class="stamp st-gold s48"><svg class="i s24"><use href="#i-target"/></svg></div>
+          <span style="font-size:10px;font-weight:600;color:var(--ink3)">Metas</span></div>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:5px">
+          <div class="stamp st-ink s48"><svg class="i s24"><use href="#i-book"/></svg></div>
+          <span style="font-size:10px;font-weight:600;color:var(--ink3)">Estudio</span></div>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:5px">
+          <div class="stamp st-ink s48"><svg class="i s24"><use href="#i-home2"/></svg></div>
+          <span style="font-size:10px;font-weight:600;color:var(--ink3)">Hogar</span></div>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:5px">
+          <div class="stamp st-ink s48" style="border:1.5px dashed #C9D0C8;background:transparent;color:var(--ink3)"><svg class="i s24"><use href="#i-plus"/></svg></div>
+          <span style="font-size:10px;font-weight:600;color:var(--ink3)">Nueva</span></div>
+      </div>
+    </div>
+
+    <div class="card" style="padding:2px 16px 6px">
+      <div class="row"><svg class="i s16" style="color:var(--ink2)"><use href="#i-cal"/></svg>
+        <span class="grow" style="font-size:14px;font-weight:600">Fecha</span>
+        <span style="font-size:13.5px;color:var(--ink2)">21 sep 2026</span>
+        <svg class="i s16" style="color:var(--ink3)"><use href="#i-chev"/></svg></div>
+      <div class="row"><svg class="i s16" style="color:var(--ink2)"><use href="#i-card"/></svg>
+        <span class="grow" style="font-size:14px;font-weight:600">Cuenta</span>
+        <span style="font-size:13.5px;color:var(--ink2)">Bancolombia ··4821</span>
+        <svg class="i s16" style="color:var(--ink3)"><use href="#i-chev"/></svg></div>
+      <div class="row"><svg class="i s16" style="color:var(--ink2)"><use href="#i-repeat"/></svg>
+        <span class="grow" style="font-size:14px;font-weight:600">Repetir cada mes</span>
+        <span class="sw"></span></div>
+    </div>
+
+    <div>
+      <div class="lbl" style="margin-bottom:9px">Nota</div>
+      <div class="field"><span class="ph">Ej. mercado quincenal…</span></div>
+    </div>
+
+    <div>
+      <div class="lbl" style="margin-bottom:9px">Así se verá</div>
+      <div class="card" style="padding:2px 14px 6px;border-style:dashed;border-color:#D4DACF">
+        <div class="row">
+          <div class="stamp st-green"><svg class="i"><use href="#i-cart"/></svg></div>
+          <div class="grow"><div class="tt">Alimentos</div><div class="ss">Bancolombia · 21 sep</div></div>
+          <div class="amt neg num">−$120.000</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="pad" style="padding-bottom:30px;padding-top:8px">
+    <div class="btn btn-primary">Guardar movimiento</div>
+  </div>
+  <div class="homebar"></div>
+</div></div>
+
+<!-- ======================= 07 CONFIGURACIÓN ======================= -->
+<div class="phone" id="config"><div class="screen" style="background:var(--paper)">
+  <div class="statusbar"><span class="num">9:41</span>
+    <span class="r"><svg class="i s16"><use href="#i-wifi"/></svg>
+      <svg width="24" height="12" viewBox="0 0 24 12" fill="none"><rect x="1" y="1.5" width="18" height="9" rx="2.6" stroke="currentColor" stroke-width="1.2" opacity=".5"/><rect x="2.8" y="3.3" width="13" height="5.4" rx="1.5" fill="currentColor"/><path d="M21 5v2.4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" opacity=".5"/></svg>
+    </span>
+  </div>
+
+  <div class="pad" style="padding-bottom:14px"><div class="h1">Ajustes</div></div>
+
+  <div class="body-scroll pad" style="gap:14px">
+    <div class="hero grain" style="padding:15px 16px;display:flex;align-items:center;gap:13px">
+      <div class="glow"></div>
+      <div style="position:relative;width:48px;height:48px;border-radius:16px;background:rgba(255,255,255,.14);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:16px">JM</div>
+      <div style="position:relative;flex:1;min-width:0">
+        <div style="font-size:15.5px;font-weight:700;letter-spacing:-.01em">Juan Manuel Arias</div>
+        <div style="font-size:12px;color:#A9C7BB;margin-top:2px">juanm@upb.edu.co</div>
+      </div>
+      <svg class="i s16" style="position:relative;color:#A9C7BB"><use href="#i-chev"/></svg>
+    </div>
+
+    <div>
+      <div class="lbl" style="margin-bottom:8px">Preferencias</div>
+      <div class="card" style="padding:2px 16px 6px">
+        <div class="row"><div class="stamp st-ink" style="width:34px;height:34px;border-radius:11px"><svg class="i s16"><use href="#i-wallet"/></svg></div>
+          <span class="grow" style="font-size:14.5px;font-weight:600">Moneda</span><span style="font-size:13.5px;color:var(--ink2)">COP $</span><svg class="i s16" style="color:var(--ink3)"><use href="#i-chev"/></svg></div>
+        <div class="row"><div class="stamp st-ink" style="width:34px;height:34px;border-radius:11px"><svg class="i s16"><use href="#i-moon"/></svg></div>
+          <span class="grow" style="font-size:14.5px;font-weight:600">Tema oscuro</span><span class="sw"></span></div>
+        <div class="row"><div class="stamp st-ink" style="width:34px;height:34px;border-radius:11px"><svg class="i s16"><use href="#i-bell"/></svg></div>
+          <span class="grow" style="font-size:14.5px;font-weight:600">Notificaciones</span><span class="sw on"></span></div>
+        <div class="row"><div class="stamp st-ink" style="width:34px;height:34px;border-radius:11px"><svg class="i s16"><use href="#i-cal"/></svg></div>
+          <span class="grow" style="font-size:14.5px;font-weight:600">Recordatorio diario</span><span style="font-size:13.5px;color:var(--ink2)">20:00</span><svg class="i s16" style="color:var(--ink3)"><use href="#i-chev"/></svg></div>
+      </div>
+    </div>
+
+    <div>
+      <div class="lbl" style="margin-bottom:8px">Seguridad y datos</div>
+      <div class="card" style="padding:2px 16px 6px">
+        <div class="row"><div class="stamp st-ink" style="width:34px;height:34px;border-radius:11px"><svg class="i s16"><use href="#i-finger"/></svg></div>
+          <span class="grow" style="font-size:14.5px;font-weight:600">Desbloqueo con huella</span><span class="sw on"></span></div>
+        <div class="row"><div class="stamp st-ink" style="width:34px;height:34px;border-radius:11px"><svg class="i s16"><use href="#i-shield"/></svg></div>
+          <span class="grow" style="font-size:14.5px;font-weight:600">Cambiar contraseña</span><svg class="i s16" style="color:var(--ink3)"><use href="#i-chev"/></svg></div>
+        <div class="row"><div class="stamp st-ink" style="width:34px;height:34px;border-radius:11px"><svg class="i s16"><use href="#i-down2"/></svg></div>
+          <span class="grow" style="font-size:14.5px;font-weight:600">Exportar movimientos</span><span style="font-size:13.5px;color:var(--ink2)">CSV</span><svg class="i s16" style="color:var(--ink3)"><use href="#i-chev"/></svg></div>
+      </div>
+    </div>
+
+    <div class="card" style="padding:2px 16px 6px">
+      <div class="row"><div class="stamp" style="width:34px;height:34px;border-radius:11px;background:var(--clay50);color:var(--clay)"><svg class="i s16"><use href="#i-out"/></svg></div>
+        <span class="grow" style="font-size:14.5px;font-weight:600;color:var(--clay)">Cerrar sesión</span></div>
+    </div>
+
+    <div style="text-align:center;padding-top:2px">
+      <div style="display:flex;align-items:center;justify-content:center;gap:7px;opacity:.55">
+        <svg width="16" height="16" viewBox="0 0 34 34" fill="none"><circle cx="11" cy="22" r="9" fill="#9CC7B6"/><circle cx="19" cy="15" r="9" fill="#C9891B"/><circle cx="24" cy="9" r="6.4" fill="#16211C"/></svg>
+        <span class="fr" style="font-size:13px;font-weight:600">Chavos</span>
+      </div>
+      <div class="cap num" style="margin-top:5px">Versión 1.0.0 · Entrega 3</div>
+    </div>
+  </div>
+
+  <div class="nav">
+    <div class="it"><svg class="i s24"><use href="#i-home"/></svg>Inicio</div>
+    <div class="it"><svg class="i s24"><use href="#i-list"/></svg>Movimientos</div>
+    <div class="navfab"><i><svg class="i s24"><use href="#i-plus"/></svg></i></div>
+    <div class="it"><svg class="i s24"><use href="#i-target"/></svg>Metas</div>
+    <div class="it on"><svg class="i s24"><use href="#i-gear"/></svg>Ajustes<div class="dot"></div></div>
+  </div>
+  <div class="homebar"></div>
+</div></div>
+
+<!-- ======================= 08 CRÉDITOS ======================= -->
+<div class="phone" id="creditos"><div class="screen" style="background:var(--paper)">
+  <div class="statusbar"><span class="num">9:41</span>
+    <span class="r"><svg class="i s16"><use href="#i-wifi"/></svg>
+      <svg width="24" height="12" viewBox="0 0 24 12" fill="none"><rect x="1" y="1.5" width="18" height="9" rx="2.6" stroke="currentColor" stroke-width="1.2" opacity=".5"/><rect x="2.8" y="3.3" width="13" height="5.4" rx="1.5" fill="currentColor"/><path d="M21 5v2.4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" opacity=".5"/></svg>
+    </span>
+  </div>
+
+  <div class="topbar">
+    <div class="iconbtn"><svg class="i"><use href="#i-chevl"/></svg></div>
+    <span class="h2">Créditos</span>
+    <div style="width:38px"></div>
+  </div>
+
+  <div class="body-scroll pad" style="gap:15px;padding-top:6px">
+    <div class="hero grain" style="padding:24px 20px 22px;position:relative">
+      <div class="glow"></div>
+      <div style="position:relative;display:flex;align-items:center;gap:14px">
+        <div style="width:64px;height:64px;border-radius:22px;background:rgba(255,255,255,.12);box-shadow:0 0 0 2px rgba(201,137,27,.85);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:21px;letter-spacing:.02em">JM</div>
+        <div style="flex:1;min-width:0">
+          <div class="fr" style="font-size:22px;font-weight:600;letter-spacing:-.02em;line-height:1.15">Juan Manuel<br>Arias</div>
+          <div style="font-size:12px;color:#A9C7BB;margin-top:6px">Ingeniería de Sistemas</div>
+        </div>
+      </div>
+      <div class="hairgold" style="position:relative;margin:18px 0 14px"></div>
+      <div style="position:relative;display:flex;align-items:center;gap:8px;font-size:12.5px;color:#C9DBD2">
+        <svg class="i s16" style="color:#9CC7B6"><use href="#i-mail"/></svg>juanm@upb.edu.co
+      </div>
+    </div>
+
+    <div class="card" style="padding:4px 16px 8px">
+      <div class="row"><svg class="i s16" style="color:var(--ink2)"><use href="#i-cap"/></svg>
+        <span class="grow"><span class="lbl">Universidad</span></span>
+        <span style="font-size:13.5px;font-weight:600;text-align:right">Pontificia Bolivariana</span></div>
+      <div class="row"><svg class="i s16" style="color:var(--ink2)"><use href="#i-book"/></svg>
+        <span class="grow"><span class="lbl">Curso</span></span>
+        <span style="font-size:13.5px;font-weight:600">Aplicaciones Móviles</span></div>
+      <div class="row"><svg class="i s16" style="color:var(--ink2)"><use href="#i-cal"/></svg>
+        <span class="grow"><span class="lbl">Periodo</span></span>
+        <span style="font-size:13.5px;font-weight:600" class="num">2026-2</span></div>
+      <div class="row"><svg class="i s16" style="color:var(--ink2)"><use href="#i-target"/></svg>
+        <span class="grow"><span class="lbl">Entrega</span></span>
+        <span style="font-size:13.5px;font-weight:600">3 · App nativa</span></div>
+    </div>
+
+    <div>
+      <div class="lbl" style="margin-bottom:9px">Construido con</div>
+      <div style="display:flex;flex-wrap:wrap;gap:7px">
+        <span class="chip">Kotlin</span>
+        <span class="chip">Jetpack Compose</span>
+        <span class="chip">Room</span>
+        <span class="chip">Material 3</span>
+        <span class="chip">Android Studio</span>
+      </div>
+    </div>
+
+    <div class="card" style="padding:16px;display:flex;align-items:center;gap:14px;position:relative;overflow:hidden">
+      <svg width="74" height="74" viewBox="0 0 74 74" style="flex:0 0 auto;transform:rotate(-8deg)">
+        <circle cx="37" cy="37" r="34" fill="none" stroke="#C9891B" stroke-width="1.4" opacity=".6"/>
+        <circle cx="37" cy="37" r="29" fill="none" stroke="#C9891B" stroke-width="2.6"/>
+        <text x="37" y="34" text-anchor="middle" font-family="Fraunces" font-size="15" font-weight="700" fill="#8F6112">UPB</text>
+        <text x="37" y="47" text-anchor="middle" font-family="Public Sans" font-size="9" font-weight="700" fill="#8F6112" letter-spacing="1">2026-2</text>
+      </svg>
+      <div style="flex:1">
+        <div class="h2" style="margin-bottom:5px">Chavos</div>
+        <div class="cap" style="line-height:1.5">Proyecto académico de finanzas personales. Diseño, arquitectura e implementación por el estudiante.</div>
+      </div>
+    </div>
+
+  </div>
+
+  <div style="padding:0 20px 30px;text-align:center">
+    <div class="divider" style="margin-bottom:14px"></div>
+    <div class="cap" style="line-height:1.55">Hecho con Kotlin en Medellín, Colombia<br>© 2026 Juan Manuel Arias</div>
+  </div>
+  <div class="homebar"></div>
+</div></div>
+
+<!-- ======================= 09 SISTEMA DE DISEÑO ======================= -->
+<div class="board" id="sistema">
+  <div style="display:flex;align-items:flex-end;justify-content:space-between;border-bottom:1px solid var(--line);padding-bottom:20px;margin-bottom:26px">
+    <div>
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px">
+        <svg width="30" height="30" viewBox="0 0 34 34" fill="none"><circle cx="11" cy="22" r="9" fill="#9CC7B6"/><circle cx="19" cy="15" r="9" fill="#C9891B"/><circle cx="24" cy="9" r="6.4" fill="#0C2B23"/></svg>
+        <span class="fr" style="font-size:22px;font-weight:600">Chavos</span>
+      </div>
+      <div class="fr" style="font-size:34px;font-weight:600;letter-spacing:-.025em">Sistema de diseño</div>
+      <div class="body" style="margin-top:6px;max-width:560px">Fundamentos visuales de la app nativa de finanzas personales. Paleta validada para daltonismo, escala tipográfica y componentes base.</div>
+    </div>
+    <div style="text-align:right">
+      <div class="lbl">Entrega 3 · App nativa</div>
+      <div class="num" style="font-size:13px;color:var(--ink2);margin-top:4px">Aplicaciones Móviles · UPB · 2026-2</div>
+    </div>
+  </div>
+
+  <div style="display:grid;grid-template-columns:1.15fr 1fr;gap:34px">
+    <!-- COLOR -->
+    <div>
+      <div class="sect" style="margin-bottom:14px"><div class="t"><span class="h2">Color</span><span class="rule"></span></div></div>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:10px">
+        <div class="swatch" style="background:#0C2B23"><div><div class="num">#0C2B23</div><div style="opacity:.7;font-weight:500;margin-top:2px">Marca profunda</div></div></div>
+        <div class="swatch" style="background:#146B55"><div><div class="num">#146B55</div><div style="opacity:.7;font-weight:500;margin-top:2px">Acción</div></div></div>
+        <div class="swatch" style="background:#C9891B"><div><div class="num">#C9891B</div><div style="opacity:.8;font-weight:500;margin-top:2px">Metas / logro</div></div></div>
+        <div class="swatch" style="background:#B0432F"><div><div class="num">#B0432F</div><div style="opacity:.8;font-weight:500;margin-top:2px">Gasto / eliminar</div></div></div>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px">
+        <div class="swatch" style="background:#F2F3EE;color:#16211C;border:1px solid var(--line)"><div><div class="num">#F2F3EE</div><div style="opacity:.6;font-weight:500;margin-top:2px">Papel</div></div></div>
+        <div class="swatch" style="background:#FFFFFF;color:#16211C;border:1px solid var(--line)"><div><div class="num">#FFFFFF</div><div style="opacity:.6;font-weight:500;margin-top:2px">Superficie</div></div></div>
+        <div class="swatch" style="background:#16211C"><div><div class="num">#16211C</div><div style="opacity:.7;font-weight:500;margin-top:2px">Tinta</div></div></div>
+        <div class="swatch" style="background:#7E8C84"><div><div class="num">#7E8C84</div><div style="opacity:.8;font-weight:500;margin-top:2px">Tinta suave</div></div></div>
+      </div>
+
+      <div class="sect" style="margin:26px 0 12px"><div class="t"><span class="h2">Categorías · validadas para daltonismo</span><span class="rule"></span></div></div>
+      <div style="display:flex;gap:18px">
+        <div style="display:flex;flex-direction:column;align-items:center;gap:7px"><div class="stamp st-green s48"><svg class="i s24"><use href="#i-cart"/></svg></div><span class="cap num">#0E7A5D</span></div>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:7px"><div class="stamp st-gold s48"><svg class="i s24"><use href="#i-target"/></svg></div><span class="cap num">#C9891B</span></div>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:7px"><div class="stamp st-clay s48"><svg class="i s24"><use href="#i-play"/></svg></div><span class="cap num">#B0432F</span></div>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:7px"><div class="stamp st-blue s48"><svg class="i s24"><use href="#i-bus"/></svg></div><span class="cap num">#2D6BA8</span></div>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:7px"><div class="stamp st-plum s48"><svg class="i s24"><use href="#i-heart"/></svg></div><span class="cap num">#8E4585</span></div>
+        <div style="flex:1;padding-left:6px">
+          <div class="cap" style="line-height:1.55">Cada categoría lleva <b>ícono + etiqueta</b>, nunca color solo. Separación CVD verificada con validador automático.</div>
+        </div>
+      </div>
+
+      <div class="sect" style="margin:26px 0 14px"><div class="t"><span class="h2">Íconos</span><span class="rule"></span></div></div>
+      <div style="display:flex;flex-wrap:wrap;gap:13px;color:var(--ink2)">
+        <svg class="i s24"><use href="#i-home"/></svg><svg class="i s24"><use href="#i-list"/></svg>
+        <svg class="i s24"><use href="#i-target"/></svg><svg class="i s24"><use href="#i-gear"/></svg>
+        <svg class="i s24"><use href="#i-plus"/></svg><svg class="i s24"><use href="#i-search"/></svg>
+        <svg class="i s24"><use href="#i-filter"/></svg><svg class="i s24"><use href="#i-up"/></svg>
+        <svg class="i s24"><use href="#i-down"/></svg><svg class="i s24"><use href="#i-wallet"/></svg>
+        <svg class="i s24"><use href="#i-card"/></svg><svg class="i s24"><use href="#i-cal"/></svg>
+        <svg class="i s24"><use href="#i-bell"/></svg><svg class="i s24"><use href="#i-moon"/></svg>
+        <svg class="i s24"><use href="#i-user"/></svg><svg class="i s24"><use href="#i-shield"/></svg>
+        <svg class="i s24"><use href="#i-finger"/></svg><svg class="i s24"><use href="#i-edit"/></svg>
+        <svg class="i s24"><use href="#i-trash"/></svg><svg class="i s24"><use href="#i-out"/></svg>
+        <svg class="i s24"><use href="#i-camera"/></svg><svg class="i s24"><use href="#i-repeat"/></svg>
+        <svg class="i s24"><use href="#i-trend"/></svg><svg class="i s24"><use href="#i-cap"/></svg>
+      </div>
+      <div class="cap" style="margin-top:12px;line-height:1.55">Set propio de trazo uniforme (1,7 px) sobre retícula de 24 px, con puntas y uniones redondeadas.</div>
+    </div>
+
+    <!-- TIPOGRAFÍA -->
+    <div>
+      <div class="sect" style="margin-bottom:14px"><div class="t"><span class="h2">Tipografía</span><span class="rule"></span></div></div>
+      <div style="border-bottom:1px solid var(--line2);padding-bottom:14px;margin-bottom:14px">
+        <div style="display:flex;align-items:baseline;justify-content:space-between;margin-bottom:6px">
+          <span class="lbl">Fraunces · display</span><span class="cap">Cifras y titulares</span>
+        </div>
+        <div class="fr num" style="font-size:40px;font-weight:600;letter-spacing:-.03em">$1.250.000</div>
+        <div class="fr" style="font-size:24px;font-weight:600;letter-spacing:-.02em;margin-top:4px">Tus finanzas, en calma.</div>
+      </div>
+      <div>
+        <div style="display:flex;align-items:baseline;justify-content:space-between;margin-bottom:8px">
+          <span class="lbl">Public Sans · interfaz</span><span class="cap">Cuerpo, etiquetas, botones</span>
+        </div>
+        <div style="font-size:18px;font-weight:700;letter-spacing:-.01em">Movimientos recientes</div>
+        <div class="body" style="margin-top:4px">Registra ingresos y gastos, define metas de ahorro y revisa tu mes de un vistazo.</div>
+        <div class="lbl" style="margin-top:8px">ETIQUETA · 12 / 600</div>
+      </div>
+
+      <div class="sect" style="margin:26px 0 14px"><div class="t"><span class="h2">Componentes</span><span class="rule"></span></div></div>
+      <div style="display:flex;flex-direction:column;gap:12px">
+        <div style="display:flex;gap:10px">
+          <div class="btn btn-primary btn-sm" style="flex:1">Guardar</div>
+          <div class="btn btn-ghost btn-sm" style="flex:1">Editar</div>
+          <div class="btn btn-sm" style="flex:1;background:var(--clay50);color:var(--clay)">Eliminar</div>
+        </div>
+        <div style="display:flex;gap:7px;align-items:center">
+          <span class="chip on">Todos</span><span class="chip">Ingresos</span><span class="chip">Gastos</span>
+          <span class="sw on" style="margin-left:6px"></span><span class="sw"></span>
+        </div>
+        <div style="display:flex;gap:14px;align-items:flex-end">
+          <div style="flex:1"><div class="lbl" style="margin-bottom:8px">Campo activo</div><div class="field on"><span style="font-size:15px">juanm@upb.edu.co</span></div></div>
+          <div style="flex:1"><div class="lbl" style="margin-bottom:8px">Campo vacío</div><div class="field"><span class="ph">Escribe una nota…</span></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:22px;margin-top:30px;border-top:1px solid var(--line);padding-top:22px">
+    <div><div class="lbl" style="margin-bottom:6px">Radios</div><div class="cap num" style="line-height:1.7">Tarjeta 20 · Bloque 26<br>Sello 13 · Botón 999</div></div>
+    <div><div class="lbl" style="margin-bottom:6px">Retícula</div><div class="cap num" style="line-height:1.7">Base 8 px · Margen 20 px<br>Alto fila 62 px</div></div>
+    <div><div class="lbl" style="margin-bottom:6px">Íconos</div><div class="cap" style="line-height:1.7">Trazo 1,7 px · 24 px<br>Puntas redondeadas</div></div>
+    <div><div class="lbl" style="margin-bottom:6px">Cifras</div><div class="cap" style="line-height:1.7">Siempre tabulares<br>Gasto en negativo, color arcilla</div></div>
+  </div>
+</div>
+
+</div>
+
+<script>
+const p = new URLSearchParams(location.search);
+const only = p.get('s');
+if (only) {
+  document.querySelectorAll('.stage > *').forEach(el => { if (el.id !== only) el.remove(); });
+  document.body.style.background = '#E7E9E3';
+  document.querySelector('.stage').style.padding = '20px';
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Chavos — Monocromo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#EDEDED;--surface:#FFFFFF;--surface2:#F1F1F1;--line:#D9D9D9;--hair:#ECECEC;--ink:#000;--ink2:#4D4D4D;--ink3:#8A8A8A;--pos:#2E6B45;--neg:#9E2A2B;--track:#E6E6E6}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-font-smoothing:antialiased}
+body{background:#E4E4E2;font-family:'Schibsted Grotesk',sans-serif;color:var(--ink)}
+.stage{padding:20px;display:flex;gap:20px;flex-wrap:wrap;align-items:flex-start}
+svg.i{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;flex:0 0 auto}
+
+.phone{width:390px;height:844px;background:var(--bg);border-radius:44px;overflow:hidden;position:relative;flex:0 0 auto;
+  box-shadow:0 30px 60px -22px rgba(0,0,0,.35),0 0 0 1px rgba(0,0,0,.06)}
+.screen{position:absolute;inset:0;display:flex;flex-direction:column}
+.sb{height:46px;flex:0 0 46px;display:flex;align-items:center;justify-content:space-between;padding:0 26px 0 30px;font-size:14px;font-weight:600}
+.sb .r{display:flex;align-items:center;gap:6px}
+.pad{padding-left:20px;padding-right:20px}
+.homebar{position:absolute;left:50%;transform:translateX(-50%);bottom:8px;width:134px;height:5px;border-radius:3px;background:rgba(0,0,0,.3);z-index:9}
+.body{flex:1 1 auto;overflow:hidden;display:flex;flex-direction:column}
+.body>*{flex:0 0 auto}
+
+.muted{font-size:12.5px;color:var(--ink3);font-weight:500}
+.av{width:38px;height:38px;border-radius:8px;background:#000;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13.5px}
+.ib{width:38px;height:38px;border-radius:8px;background:#fff;border:1px solid #E3E3E3;display:flex;align-items:center;justify-content:center}
+
+/* hero */
+.hero{background:#000;color:#fff;border-radius:12px;padding:20px 20px 18px}
+.hero .top{display:flex;align-items:center;justify-content:space-between}
+.hero .lab{font-size:12.5px;color:#9A9A9A;font-weight:500}
+.hero .go{display:flex;align-items:center;gap:2px;font-size:12.5px;font-weight:600;color:#fff}
+.hero .amt{font-size:48px;font-weight:700;letter-spacing:-.045em;line-height:1;margin:14px 0 22px}
+.hero .split{display:flex;border-top:1px solid rgba(255,255,255,.16);padding-top:14px}
+.hero .split>div{flex:1}
+.hero .l{font-size:11.5px;color:#9A9A9A;font-weight:500}
+.hero .v{font-size:16px;font-weight:600;margin-top:4px;letter-spacing:-.01em}
+
+/* lists */
+.card{background:#fff;border-radius:10px;border:1px solid #E3E3E3}
+.row{display:flex;align-items:center;gap:12px;padding:12px 0}
+.row+.row{border-top:1px solid var(--hair)}
+.g{flex:1 1 auto;min-width:0}
+.stamp{width:40px;height:40px;border-radius:8px;background:var(--surface2);color:var(--ink2);display:flex;align-items:center;justify-content:center;flex:0 0 auto}
+.stamp.s36{width:36px;height:36px}
+.stamp.dark{background:#000;color:#fff}
+.tt{font-size:15px;font-weight:600;letter-spacing:-.01em}
+.ss{font-size:12px;color:var(--ink3);margin-top:2px}
+.amt{font-size:15px;font-weight:600;letter-spacing:-.01em;white-space:nowrap}
+.neg{color:var(--neg)} .pos{color:var(--pos)}
+.sect{display:flex;align-items:baseline;justify-content:space-between}
+.sect h2{font-size:18px;font-weight:700;letter-spacing:-.02em}
+.link{font-size:13px;font-weight:600;display:flex;align-items:center;gap:1px}
+
+/* nav */
+.nav{flex:0 0 78px;background:#fff;border-top:1px solid #E0E0E0;display:flex;align-items:flex-start;padding:11px 12px 0}
+.nav .it{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;color:#9A9A9A;font-size:10.5px;font-weight:600}
+.nav .it.on{color:#000}
+.nav .dot{width:4px;height:4px;border-radius:50%;background:#000}
+.nfab{flex:0 0 62px;display:flex;justify-content:center}
+.nfab>div{width:52px;height:52px;border-radius:10px;background:#000;color:#fff;display:flex;align-items:center;justify-content:center;margin-top:-18px}
+
+/* sheet */
+.scrim{position:absolute;inset:0;background:rgba(0,0,0,.45);z-index:6}
+.sheet{position:absolute;left:0;right:0;bottom:0;background:#fff;border-radius:18px 18px 0 0;padding:10px 20px 40px;z-index:7}
+.grab{width:38px;height:5px;border-radius:3px;background:#D4D4D4;margin:0 auto 16px}
+.shead{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+.stitle{font-size:24px;font-weight:700;letter-spacing:-.03em}
+.xbtn{width:32px;height:32px;border-radius:50%;background:var(--surface2);display:flex;align-items:center;justify-content:center;color:var(--ink2)}
+.opt{display:flex;align-items:center;gap:14px;padding:15px 0}
+.opt+.opt{border-top:1px solid var(--hair)}
+.opt .stamp{width:46px;height:46px;border-radius:10px}
+
+/* charts & bars */
+.bars{display:flex;align-items:flex-end;gap:12px;height:110px;position:relative}
+.bar{flex:1;border-radius:4px 4px 0 0;background:#C8C8C8}
+.bar.now{background:#000}
+.avg{position:absolute;left:0;right:0;border-top:1.5px dashed #9A9A9A}
+.xl{display:flex;gap:12px;margin-top:8px}
+.xl span{flex:1;text-align:center;font-size:11px;color:var(--ink3);font-weight:500}
+.xl span:last-child{color:#000;font-weight:700}
+.track{height:6px;border-radius:3px;background:var(--track);overflow:hidden}
+.track i{display:block;height:100%;background:#000;border-radius:3px}
+.track.big{height:8px;border-radius:4px}
+.catrow{display:flex;align-items:center;gap:12px;padding:10px 0}
+.catrow+.catrow{border-top:1px solid var(--hair)}
+.ct{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:7px}
+.ct span{font-size:14px;font-weight:600;letter-spacing:-.01em}
+.ct b{font-size:14px;font-weight:600}
+.pct{width:34px;text-align:right;font-size:12px;color:var(--ink3);font-weight:600}
+
+/* auth + settings */
+.fld .lb{font-size:12.5px;font-weight:600;color:var(--ink3);margin-bottom:9px}
+.fld .in{display:flex;align-items:center;gap:10px;border-bottom:1.5px solid #CFCFCF;padding-bottom:10px;font-size:16px;min-height:32px}
+.fld.on .in{border-bottom-color:#000}
+.dots{letter-spacing:.2em;flex:1}
+.btn{height:52px;border-radius:8px;display:flex;align-items:center;justify-content:center;gap:8px;font-size:15.5px;font-weight:600}
+.btn.pri{background:#000;color:#fff}
+.btn.sec{border:1.5px solid #CFCFCF;color:#000}
+.chk{width:20px;height:20px;border-radius:5px;background:#000;color:#fff;display:flex;align-items:center;justify-content:center;flex:0 0 auto}
+.tg{width:44px;height:26px;border-radius:13px;background:#D6D6D6;position:relative;flex:0 0 auto}
+.tg::after{content:'';position:absolute;width:20px;height:20px;top:3px;left:3px;border-radius:50%;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.25)}
+.tg.on{background:#000}.tg.on::after{left:21px}
+.srow{display:flex;align-items:center;gap:12px;padding:9px 0}
+.srow+.srow{border-top:1px solid var(--hair)}
+.srow .stamp{width:34px;height:34px;border-radius:8px}
+.stamp.red{background:#F5E7E7;color:var(--neg)}
+.srow .lbl{flex:1;font-size:15px;font-weight:600;letter-spacing:-.01em}
+.srow .val{font-size:14px;color:var(--ink3)}
+.gl{font-size:12.5px;font-weight:600;color:var(--ink3);margin:0 0 8px 2px}
+.badge{min-width:22px;height:22px;padding:0 7px;border-radius:11px;background:#000;color:#fff;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center}
+
+/* board */
+.board{width:1400px;background:#E4E4E2;border-radius:28px;padding:40px 44px 36px;box-shadow:0 0 0 1px rgba(0,0,0,.05)}
+.bhead{display:flex;justify-content:space-between;align-items:flex-end;border-bottom:1px solid #DADADA;padding-bottom:22px;margin-bottom:28px}
+.btitle{font-size:48px;font-weight:700;letter-spacing:-.04em;line-height:1;margin-top:10px}
+.bsub{font-size:15px;color:var(--ink2);margin-top:12px;max-width:620px;line-height:1.55}
+.bgrid{display:grid;grid-template-columns:368px 368px 1fr;gap:0;align-items:start}
+.bgrid>div:last-child{padding-left:28px}
+.plab{margin:0 0 -18px 34px}
+.plab .a{font-size:20px;font-weight:700;letter-spacing:-.02em}
+.plab .b{font-size:12.5px;color:var(--ink3);margin-top:3px}
+.shot{width:368px;display:block}
+.maph{font-size:14px;font-weight:700;display:flex;flex-direction:column;gap:7px;margin-bottom:12px}
+.maph::after{content:'';width:24px;height:3px;border-radius:2px;background:#000}
+.keep{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:28px}
+.keep span{height:32px;padding:0 12px;border-radius:8px;background:#fff;border:1px solid #DDD;display:inline-flex;align-items:center;gap:7px;font-size:13px;font-weight:600}
+.mtab{background:#fff;border:1px solid #E3E3E3;border-radius:10px;padding:4px 18px}
+.mrow{display:grid;grid-template-columns:36px 1fr 1fr;gap:12px;align-items:center;padding:13px 0}
+.mrow+.mrow{border-top:1px solid var(--hair)}
+.mrow.h{padding:12px 0 10px;font-size:11.5px;color:var(--ink3);font-weight:600}
+.mrow .w{font-size:14px;font-weight:600;letter-spacing:-.01em}
+.mrow .d{font-size:13.5px;color:var(--ink2);line-height:1.4}
+.note{margin-top:22px;font-size:13px;color:var(--ink2);line-height:1.6}
+</style>
+</head>
+<body>
+<div class="stage" id="root"></div>
+<script>
+const P={
+ home:'<path d="M3 10.2 12 3l9 7.2"/><path d="M5.5 9.3V20h13V9.3"/><path d="M9.8 20v-5.6h4.4V20"/>',
+ list:'<path d="M8 6h12M8 12h12M8 18h12"/><circle cx="4" cy="6" r="1.1"/><circle cx="4" cy="12" r="1.1"/><circle cx="4" cy="18" r="1.1"/>',
+ target:'<circle cx="12" cy="12" r="8.4"/><circle cx="12" cy="12" r="4.4"/><circle cx="12" cy="12" r="1"/>',
+ gear:'<circle cx="12" cy="12" r="3.1"/><path d="M19.3 14.2a1.5 1.5 0 0 0 .3 1.7l.1.1a1.8 1.8 0 1 1-2.6 2.6l-.1-.1a1.5 1.5 0 0 0-2.6 1.1v.3a1.8 1.8 0 1 1-3.6 0v-.2a1.5 1.5 0 0 0-2.7-1.1l-.1.1a1.8 1.8 0 1 1-2.6-2.6l.1-.1a1.5 1.5 0 0 0-1.1-2.6h-.3a1.8 1.8 0 0 1 0-3.6h.2A1.5 1.5 0 0 0 5.4 7l-.1-.1a1.8 1.8 0 1 1 2.6-2.6l.1.1a1.5 1.5 0 0 0 1.7.3h.1A1.5 1.5 0 0 0 10.7 3.3V3a1.8 1.8 0 1 1 3.6 0v.2a1.5 1.5 0 0 0 2.6 1.1l.1-.1a1.8 1.8 0 1 1 2.6 2.6l-.1.1a1.5 1.5 0 0 0 1.1 2.6h.3a1.8 1.8 0 0 1 0 3.6h-.2a1.5 1.5 0 0 0-1.4.9z"/>',
+ plus:'<path d="M12 5v14M5 12h14"/>', x:'<path d="m6 6 12 12M18 6 6 18"/>',
+ chev:'<path d="m9 5 7 7-7 7"/>', chevl:'<path d="m15 5-7 7 7 7"/>',
+ up:'<path d="M7 17 17 7M9 7h8v8"/>', down:'<path d="M17 7 7 17M15 17H7V9"/>',
+ cart:'<path d="M3 4h2.2l2 11.2h10.3l2-8.2H6.4"/><circle cx="9" cy="19.2" r="1.3"/><circle cx="17" cy="19.2" r="1.3"/>',
+ bus:'<rect x="4" y="4" width="16" height="13" rx="3"/><path d="M4 11h16"/><circle cx="8" cy="14.4" r="1"/><circle cx="16" cy="14.4" r="1"/><path d="M7 17v2.4M17 17v2.4"/>',
+ play:'<rect x="3" y="5" width="18" height="14" rx="3.2"/><path d="m10.5 9.6 4.4 2.4-4.4 2.4z"/>',
+ heart:'<path d="M12 19.5s-7.2-4.3-7.2-9A3.9 3.9 0 0 1 12 8.2a3.9 3.9 0 0 1 7.2 2.3c0 4.7-7.2 9-7.2 9z"/>',
+ wallet:'<path d="M4 7.5A2.5 2.5 0 0 1 6.5 5h11A1.5 1.5 0 0 1 19 6.5V8"/><rect x="4" y="7.5" width="16" height="11.5" rx="2.5"/><circle cx="16" cy="13.2" r="1.2"/>',
+ bell:'<path d="M18 16.2V11a6 6 0 1 0-12 0v5.2L4.4 18.4h15.2z"/><path d="M10.2 21.2a2 2 0 0 0 3.6 0"/>',
+ trend:'<path d="M4 15.5 9 10l3.4 3.4L20 6"/><path d="M15.4 6H20v4.6"/>',
+ shield:'<path d="M12 3.4 5 6v6c0 4.2 2.9 7.3 7 8.6 4.1-1.3 7-4.4 7-8.6V6z"/>',
+ send:'<path d="M21 3 3 10.5l7 2.5 2.5 7z"/><path d="m10 13 4-4"/>',
+ laptop:'<rect x="4.5" y="5" width="15" height="10.5" rx="1.6"/><path d="M2.5 19h19"/>',
+ more:'<circle cx="5" cy="12" r="1.3"/><circle cx="12" cy="12" r="1.3"/><circle cx="19" cy="12" r="1.3"/>',
+ dots:'<circle cx="12" cy="12" r="7.5"/><path d="M12 8v4l2.5 2"/>',
+ cal:'<rect x="3.6" y="5" width="16.8" height="15" rx="2.6"/><path d="M3.6 9.6h16.8M8.4 3.4v3.2M15.6 3.4v3.2"/>',
+ mail:'<rect x="3" y="5.5" width="18" height="13" rx="2.4"/><path d="m3.8 7 8.2 6 8.2-6"/>',
+ user:'<circle cx="12" cy="8.4" r="3.8"/><path d="M4.8 20c.9-3.6 3.8-5.6 7.2-5.6s6.3 2 7.2 5.6"/>',
+ eye:'<path d="M2.8 12S6.4 5.8 12 5.8 21.2 12 21.2 12 17.6 18.2 12 18.2 2.8 12 2.8 12z"/><circle cx="12" cy="12" r="2.8"/>',
+ check:'<path d="m5.5 12.5 4 4 9-9"/>',
+ finger:'<path d="M6.2 11a5.8 5.8 0 0 1 11.6 0v2.2"/><path d="M9 11.4a3 3 0 0 1 6 0v3.4a6 6 0 0 1-.7 2.8"/><path d="M12 11.6v4.2a9 9 0 0 1-1 4.2"/><path d="M4.5 8.2A9 9 0 0 1 19.4 8"/><path d="M17.7 15.6a13 13 0 0 1-.7 4"/>',
+ moon:'<path d="M20 14.2A8.2 8.2 0 0 1 9.8 4 8.4 8.4 0 1 0 20 14.2z"/>',
+ export:'<path d="M12 4.5v11M7.5 9 12 4.5 16.5 9"/><path d="M5 14.5V19h14v-4.5"/>',
+ out:'<path d="M14.5 4.5h-8A1.5 1.5 0 0 0 5 6v12a1.5 1.5 0 0 0 1.5 1.5h8"/><path d="m15.5 15.5 3.5-3.5-3.5-3.5M19 12h-9"/>',
+ info:'<circle cx="12" cy="12" r="8.6"/><path d="M12 11v5.2"/><circle cx="12" cy="7.8" r=".9" fill="currentColor" stroke="none"/>',
+ coin:'<circle cx="12" cy="12" r="8.4"/><path d="M14.6 9.4c-.5-.8-1.5-1.3-2.6-1.3-1.5 0-2.6.8-2.6 2 0 2.7 5.4 1.3 5.4 4 0 1.2-1.2 2-2.8 2-1.2 0-2.2-.5-2.7-1.4M12 6.6v1.5M12 15.9v1.5"/>',
+ wifi:'<path d="M2.5 9.2a14 14 0 0 1 19 0M5.8 12.6a9.4 9.4 0 0 1 12.4 0M9 16a4.8 4.8 0 0 1 6 0"/><circle cx="12" cy="19.2" r=".9" fill="currentColor" stroke="none"/>',
+};
+const I=(n,s=20,w)=>`<svg class="i" style="width:${s}px;height:${s}px${w?';stroke-width:'+w:''}" viewBox="0 0 24 24">${P[n]}</svg>`;
+const BATT='<svg width="24" height="12" viewBox="0 0 24 12" fill="none"><rect x="1" y="1.5" width="18" height="9" rx="2.6" stroke="currentColor" stroke-width="1.2" opacity=".5"/><rect x="2.8" y="3.3" width="13" height="5.4" rx="1.5" fill="currentColor"/><path d="M21 5v2.4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" opacity=".5"/></svg>';
+const SB=`<div class="sb"><span>9:41</span><span class="r">${I('wifi',16)}${BATT}</span></div>`;
+const nav=(on)=>`<div class="nav">
+  <div class="it ${on==='inicio'?'on':''}">${I('home',24)}Inicio${on==='inicio'?'<div class="dot"></div>':''}</div>
+  <div class="it ${on==='mov'?'on':''}">${I('list',24)}Movimientos${on==='mov'?'<div class="dot"></div>':''}</div>
+  <div class="nfab"><div>${I('plus',24,2)}</div></div>
+  <div class="it ${on==='metas'?'on':''}">${I('target',24)}Metas${on==='metas'?'<div class="dot"></div>':''}</div>
+  <div class="it ${on==='ajustes'?'on':''}">${I('gear',24)}Ajustes${on==='ajustes'?'<div class="dot"></div>':''}</div></div>`;
+const row=(ic,t,s,a,cls)=>`<div class="row"><div class="stamp">${I(ic)}</div><div class="g"><div class="tt">${t}</div><div class="ss">${s}</div></div><div class="amt ${cls}">${a}</div></div>`;
+
+function inicioBody(){
+  return `${SB}
+  <div class="pad" style="display:flex;align-items:flex-end;justify-content:space-between;padding-top:6px;padding-bottom:20px">
+    <div><div class="muted">Jueves 24 de septiembre</div><div style="font-size:26px;font-weight:700;letter-spacing:-.035em;margin-top:3px">Hola, Juan</div></div>
+    <div class="av">JM</div>
+  </div>
+  <div class="body pad" style="gap:30px">
+    <div class="hero">
+      <div class="top"><span class="lab">Saldo de septiembre</span><span class="go">Informe${I('chev',14,2.2)}</span></div>
+      <div class="amt">$1.250.000</div>
+      <div class="split"><div><div class="l">Ingresos</div><div class="v">$2.500.000</div></div>
+        <div><div class="l">Gastos</div><div class="v">$1.250.000</div></div></div>
+    </div>
+    <div>
+      <div class="sect" style="margin-bottom:12px"><h2>Recientes</h2><span class="link">Ver todos${I('chev',14,2.2)}</span></div>
+      <div class="card" style="padding:2px 16px">
+        ${row('cart','Mercado del mes','Alimentación, hoy','−$120.000','neg')}
+        ${row('bus','Metro y buses','Transporte, hoy','−$35.000','neg')}
+        ${row('wallet','Salario','Ingresos, ayer','+$2.500.000','pos')}
+        ${row('play','Netflix','Suscripciones, 21 sep','−$35.000','neg')}
+        ${row('heart','Farmacia','Salud, 20 sep','−$60.000','neg')}
+      </div>
+    </div>
+  </div>
+  ${nav('inicio')}`;
+}
+
+const S={};
+S.inicio=`<div class="phone" id="inicio"><div class="screen">${inicioBody()}<div class="homebar"></div></div></div>`;
+
+S.registrar=`<div class="phone" id="registrar"><div class="screen">${inicioBody()}
+  <div class="scrim"></div>
+  <div class="sheet">
+    <div class="grab"></div>
+    <div class="shead"><div class="stitle">Registrar</div><div class="xbtn">${I('x',16,2.2)}</div></div>
+    <div class="opt"><div class="stamp dark">${I('up',22)}</div><div class="g"><div class="tt" style="font-size:16px">Gasto</div><div class="ss">Compras, pagos y suscripciones</div></div><span style="color:#B0B0B0">${I('chev',18)}</span></div>
+    <div class="opt"><div class="stamp">${I('down',22)}</div><div class="g"><div class="tt" style="font-size:16px">Ingreso</div><div class="ss">Salario, ventas o reembolsos</div></div><span style="color:#B0B0B0">${I('chev',18)}</span></div>
+    <div class="opt"><div class="stamp">${I('target',22)}</div><div class="g"><div class="tt" style="font-size:16px">Aporte a una meta</div><div class="ss">Suma dinero a tus ahorros</div></div><span style="color:#B0B0B0">${I('chev',18)}</span></div>
+  </div>
+  <div class="homebar"></div></div></div>`;
+
+const cats=[['cart','Alimentación','$425.000',100,'34 %'],['bus','Transporte','$262.500',61.8,'21 %'],['target','Aportes a metas','$200.000',47.1,'16 %'],
+  ['play','Ocio y suscripciones','$175.000',41.2,'14 %'],['heart','Salud','$125.000',29.4,'10 %'],['more','Otros','$62.500',14.7,'5 %']];
+S.informe=`<div class="phone" id="informe"><div class="screen">${SB}
+  <div class="pad" style="height:52px;flex:0 0 52px;display:flex;align-items:center;justify-content:space-between">
+    <div class="ib">${I('chevl')}</div><span style="font-size:15px;font-weight:700">Informe</span><div style="width:38px"></div></div>
+  <div class="body pad" style="gap:18px;padding-top:6px">
+    <div style="display:flex;align-items:center;justify-content:space-between;color:var(--ink3)">${I('chevl',16)}<span style="font-size:14px;font-weight:700;color:#000">Septiembre 2026</span>${I('chev',16)}</div>
+    <div>
+      <div class="muted">Gastaste</div>
+      <div style="font-size:40px;font-weight:700;letter-spacing:-.045em;line-height:1;margin-top:6px">$1.250.000</div>
+      <div style="font-size:13px;color:var(--ink2);margin-top:9px">14 % por encima de tu promedio de seis meses</div>
+    </div>
+    <div class="card" style="padding:16px 16px 14px">
+      <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:22px">
+        <span style="font-size:15px;font-weight:700">Últimos seis meses</span><span class="muted" style="font-size:11.5px">Promedio $1,09 M</span></div>
+      <div style="position:relative"><div class="bars" style="height:96px">
+        <div class="avg" style="bottom:80px"></div>
+        <div class="bar" style="height:68px"></div><div class="bar" style="height:78px"></div><div class="bar" style="height:61px"></div>
+        <div class="bar" style="height:87px"></div><div class="bar" style="height:78px"></div><div class="bar now" style="height:96px"></div></div>
+        <div style="position:absolute;right:0;bottom:100px;font-size:11.5px;font-weight:700">$1,25 M</div></div>
+      <div class="xl"><span>abr</span><span>may</span><span>jun</span><span>jul</span><span>ago</span><span>sep</span></div>
+    </div>
+    <div>
+      <div class="sect" style="margin-bottom:10px"><h2 style="font-size:16px">Por categoría</h2></div>
+      <div class="card" style="padding:2px 16px">
+        ${cats.map(([ic,n,a,w,p])=>`<div class="catrow"><div class="stamp s36">${I(ic,18)}</div><div class="g"><div class="ct"><span>${n}</span><b>${a}</b></div><div class="track"><i style="width:${w}%"></i></div></div><span class="pct">${p}</span></div>`).join('')}
+      </div>
+    </div>
+  </div>
+  <div class="homebar"></div></div></div>`;
+
+const goals=[['send','Viaje a Cartagena','Para diciembre de 2026','62 %',62,'$3.100.000','$5.000.000','$475.000 al mes'],
+  ['shield','Fondo de emergencia','Sin fecha límite','50 %',50,'$750.000','$1.500.000','Aporte libre'],
+  ['laptop','Portátil nuevo','Para marzo de 2027','38 %',37.5,'$1.200.000','$3.200.000','$333.000 al mes']];
+S.metas=`<div class="phone" id="metas"><div class="screen">${SB}
+  <div class="pad" style="display:flex;align-items:flex-end;justify-content:space-between;padding-top:6px;padding-bottom:22px">
+    <div style="font-size:30px;font-weight:700;letter-spacing:-.04em">Metas</div><div class="ib">${I('plus',20,2)}</div></div>
+  <div class="body pad" style="gap:14px">
+    <div style="padding-bottom:10px">
+      <div class="muted">Llevas ahorrado</div>
+      <div style="font-size:40px;font-weight:700;letter-spacing:-.045em;line-height:1;margin-top:6px">$5.050.000</div>
+      <div style="font-size:13px;color:var(--ink2);margin:9px 0 14px">de $9.700.000 entre tres metas</div>
+      <div class="track big" style="background:#DADADA"><i style="width:52%"></i></div>
+    </div>
+    ${goals.map(([ic,n,d,p,w,a,t,m])=>`<div class="card" style="padding:16px">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px"><div class="stamp">${I(ic)}</div>
+        <div class="g"><div class="tt">${n}</div><div class="ss">${d}</div></div><span style="font-size:18px;font-weight:700;letter-spacing:-.02em">${p}</span></div>
+      <div class="track big"><i style="width:${w}%"></i></div>
+      <div style="display:flex;justify-content:space-between;margin-top:11px;font-size:13px"><span><b style="font-weight:700">${a}</b> <span style="color:var(--ink3)">de ${t}</span></span><span style="color:var(--ink3)">${m}</span></div>
+    </div>`).join('')}
+  </div>
+  ${nav('metas')}
+  <div class="homebar"></div></div></div>`;
+
+const LOGO=(s=34)=>`<svg width="${s}" height="${s}" viewBox="0 0 34 34" fill="none"><circle cx="11" cy="22" r="9" fill="#BDBDBD"/><circle cx="19" cy="15" r="9" fill="#000"/><circle cx="24" cy="9" r="6.2" fill="#fff" stroke="#000" stroke-width="1.6"/></svg>`;
+const fld=(lb,inner,on)=>`<div class="fld ${on?'on':''}"><div class="lb">${lb}</div><div class="in">${inner}</div></div>`;
+
+S.login=`<div class="phone" id="login"><div class="screen">${SB}
+  <div class="body pad" style="justify-content:space-between;padding-top:22px;padding-bottom:34px">
+    <div>
+      <div style="display:flex;align-items:center;gap:10px">${LOGO()}<span style="font-size:20px;font-weight:700;letter-spacing:-.02em">Chavos</span></div>
+      <div style="font-size:46px;font-weight:700;letter-spacing:-.05em;line-height:.98;margin-top:64px">Tus finanzas,<br>en calma.</div>
+      <div style="font-size:15px;color:var(--ink2);line-height:1.5;margin-top:16px;max-width:290px">Registra lo que gastas, ahorra para tus metas y entiende tu mes de un vistazo.</div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:22px">
+      ${fld('Correo electrónico',`<span style="color:#9A9A9A">${I('mail',18)}</span><span>juanm@upb.edu.co</span>`)}
+      ${fld('Contraseña',`<span class="dots">••••••••</span><span style="color:#8A8A8A">${I('eye',18)}</span>`,true)}
+      <div style="display:flex;align-items:center;justify-content:space-between">
+        <div style="display:flex;align-items:center;gap:9px"><div class="chk">${I('check',13,2.6)}</div><span style="font-size:13.5px;color:var(--ink2);font-weight:500">Recordarme</span></div>
+        <span style="font-size:13.5px;font-weight:600;text-decoration:underline;text-underline-offset:3px">¿Olvidaste tu contraseña?</span>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:10px;margin-top:4px">
+        <div class="btn pri">Iniciar sesión</div>
+        <div class="btn sec">${I('finger',20)}Entrar con huella</div>
+      </div>
+      <div style="text-align:center;font-size:14px;color:var(--ink2)">¿Aún no tienes cuenta? <b style="color:#000">Crear cuenta</b></div>
+    </div>
+  </div>
+  <div class="homebar"></div></div></div>`;
+
+S.registro=`<div class="phone" id="registro"><div class="screen">${SB}
+  <div class="pad" style="height:52px;flex:0 0 52px;display:flex;align-items:center;justify-content:space-between">
+    <div class="ib">${I('chevl')}</div><span class="muted" style="font-weight:600">Paso 1 de 2</span></div>
+  <div class="body pad" style="justify-content:space-between;padding-top:14px;padding-bottom:34px">
+    <div>
+      <div style="display:flex;gap:6px"><div style="flex:1;height:3px;border-radius:2px;background:#000"></div><div style="flex:1;height:3px;border-radius:2px;background:#D0D0D0"></div></div>
+      <div style="font-size:34px;font-weight:700;letter-spacing:-.045em;line-height:1.02;margin-top:26px">Crea tu cuenta</div>
+      <div style="font-size:15px;color:var(--ink2);margin-top:10px">Empieza a ordenar tu dinero hoy mismo.</div>
+      <div style="display:flex;flex-direction:column;gap:20px;margin-top:30px">
+        ${fld('Nombre completo',`<span style="color:#9A9A9A">${I('user',18)}</span><span>Juan Manuel Arias</span>`)}
+        ${fld('Correo electrónico',`<span style="color:#9A9A9A">${I('mail',18)}</span><span>juanm@upb.edu.co</span>`)}
+        <div>${fld('Contraseña',`<span class="dots">••••••••••</span><span style="color:#8A8A8A">${I('eye',18)}</span>`,true)}
+          <div style="display:flex;align-items:center;gap:10px;margin-top:14px"><div style="display:flex;gap:4px;flex:1">
+            <div style="flex:1;height:4px;border-radius:2px;background:#4D4D4D"></div><div style="flex:1;height:4px;border-radius:2px;background:#4D4D4D"></div><div style="flex:1;height:4px;border-radius:2px;background:#D6D6D6"></div></div>
+            <span style="font-size:12px;font-weight:600;color:var(--ink2)">Contraseña segura</span></div></div>
+        ${fld('Confirmar contraseña',`<span class="dots">••••••••••</span><span style="color:var(--pos)">${I('check',18,2.2)}</span>`)}
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:18px">
+      <div style="display:flex;align-items:flex-start;gap:10px"><div class="chk" style="margin-top:1px">${I('check',13,2.6)}</div>
+        <span style="font-size:13.5px;color:var(--ink2);line-height:1.5">Acepto los <b style="color:#000;text-decoration:underline;text-underline-offset:3px">términos de uso</b> y el tratamiento de mis datos.</span></div>
+      <div class="btn pri">Continuar</div>
+      <div style="text-align:center;font-size:14px;color:var(--ink2)">¿Ya tienes cuenta? <b style="color:#000">Inicia sesión</b></div>
+    </div>
+  </div>
+  <div class="homebar"></div></div></div>`;
+
+const srow=(ic,l,right,cls='')=>`<div class="srow"><div class="stamp ${cls}">${I(ic,18)}</div><span class="lbl" ${cls==='red'?'style="color:var(--neg)"':''}>${l}</span>${right}</div>`;
+const CH=`<span style="color:#B0B0B0">${I('chev',16)}</span>`;
+S.ajustes=`<div class="phone" id="ajustes"><div class="screen">${SB}
+  <div class="pad" style="padding-top:6px;padding-bottom:18px"><div style="font-size:30px;font-weight:700;letter-spacing:-.04em">Ajustes</div></div>
+  <div class="body pad" style="gap:16px">
+    <div class="card" style="padding:14px 16px;display:flex;align-items:center;gap:13px">
+      <div class="av" style="width:46px;height:46px;font-size:15px">JM</div>
+      <div class="g"><div class="tt" style="font-size:16px">Juan Manuel Arias</div><div class="ss">juanm@upb.edu.co</div></div>${CH}
+    </div>
+    <div><div class="gl">Preferencias</div><div class="card" style="padding:0 16px">
+      ${srow('bell','Notificaciones',`<span class="badge">2</span>${CH}`)}
+      ${srow('coin','Moneda',`<span class="val">COP $</span>${CH}`)}
+      ${srow('moon','Tema oscuro','<span class="tg"></span>')}
+      ${srow('cal','Recordatorio diario',`<span class="val">20:00</span>${CH}`)}
+    </div></div>
+    <div><div class="gl">Seguridad y datos</div><div class="card" style="padding:0 16px">
+      ${srow('finger','Desbloqueo con huella','<span class="tg on"></span>')}
+      ${srow('export','Exportar movimientos',`<span class="val">CSV</span>${CH}`)}
+    </div></div>
+    <div class="card" style="padding:0 16px">
+      ${srow('info','Créditos',CH)}
+      ${srow('out','Cerrar sesión','','red')}
+    </div>
+  </div>
+  ${nav('ajustes')}
+  <div class="homebar"></div></div></div>`;
+
+const moved=[['plus','Accesos rápidos: ingreso, gasto, meta','Botón + de la barra, en la hoja Registrar'],
+  ['trend','Gráfica de gasto mensual','Informe, al tocar la tarjeta de saldo'],
+  ['trend','Variación frente a agosto','Informe, comparada con tu promedio'],
+  ['target','Meta Viaje a Cartagena','Pestaña Metas, junto a las demás metas'],
+  ['bell','Campana de notificaciones','Ajustes']];
+S.antes=`<div class="board" id="antes">
+  <div class="bhead"><div><div class="muted" style="font-size:13px;font-weight:600">Chavos, estilo Monocromo</div>
+      <div class="btitle">Un inicio más limpio</div>
+      <div class="bsub">De seis bloques a tres. Ninguna función se pierde: cada una vive un toque más adentro, donde tiene espacio para respirar.</div></div>
+    <div style="text-align:right;font-size:13px;color:var(--ink2);line-height:1.6">El inicio responde dos preguntas:<br><b style="color:#000">¿cómo voy este mes?</b> y <b style="color:#000">¿qué acabo de gastar?</b></div></div>
+  <div class="bgrid">
+    <div><div class="plab"><div class="a">Antes</div><div class="b">Seis bloques en pantalla</div></div><img class="shot" src="png/monocromo/antes-inicio-t.png"></div>
+    <div><div class="plab"><div class="a">Después</div><div class="b">Tres bloques en pantalla</div></div><img class="shot" src="png/monocromo/inicio-t.png"></div>
+    <div>
+      <div class="maph">Se queda en Inicio</div>
+      <div class="keep"><span>${I('wallet',16)}Saldo del mes</span><span>${I('down',16)}Ingresos y gastos</span><span>${I('list',16)}Últimos movimientos</span><span>${I('plus',16)}Botón para registrar</span></div>
+      <div class="maph">Se mueve un nivel más adentro</div>
+      <div class="mtab">
+        <div class="mrow h"><span></span><span>Antes en Inicio</span><span>Ahora vive en</span></div>
+        ${moved.map(([ic,w,d])=>`<div class="mrow"><div class="stamp s36">${I(ic,18)}</div><span class="w">${w}</span><span class="d">${d}</span></div>`).join('')}
+      </div>
+      <div class="note">Con menos bloques, la lista de movimientos pasa de dos a cinco filas sin desplazarse, y la cifra de saldo gana tamaño.</div>
+    </div>
+  </div></div>`;
+
+const q=new URLSearchParams(location.search).get('s');
+if(q==='antes') document.body.style.background='#D6D6D3';
+if(new URLSearchParams(location.search).get('t')){ document.body.style.background='transparent'; document.getElementById('root').style.padding='44px';
+  document.head.insertAdjacentHTML('beforeend','<style>.phone{box-shadow:0 18px 36px -18px rgba(0,0,0,.35),0 0 0 1px rgba(0,0,0,.06)!important}</style>'); }
+document.getElementById('root').innerHTML = q ? S[q] : Object.values(S).join('');
+</script>
+</body>
+</html>

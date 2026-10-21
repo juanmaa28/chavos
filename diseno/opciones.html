@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Chavos — Opciones de estilo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Albert+Sans:wght@400;500;600;700&family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Figtree:wght@400;500;600;700;800&family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Geist+Mono:wght@400;500;600&family=Geist:wght@400;500;600;700&family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&family=Manrope:wght@400;500;600;700;800&family=Newsreader:opsz,wght@6..72,500;6..72,600&family=Onest:wght@400;500;600;700&family=Public+Sans:wght@400;500;600;700&family=Syne:wght@600;700;800&family=Unbounded:wght@400;500;600;700&family=Hanken+Grotesk:wght@400;500;600;700;800&family=Red+Hat+Display:wght@500;600;700;800&family=Red+Hat+Text:wght@400;500;600;700&family=Schibsted+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;-webkit-font-smoothing:antialiased}
+body{background:#D3D6D1}
+.num{font-variant-numeric:tabular-nums;font-feature-settings:"tnum" 1}
+.wrap{padding:24px}
+svg.i{fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;flex:0 0 auto}
+
+/* ================= BOARD ================= */
+.board{width:1400px;height:1000px;border-radius:30px;overflow:hidden;position:relative;background:var(--board);color:var(--ink);
+  font-family:var(--ui);padding:40px 44px}
+.board>*{position:relative}
+.fx{position:absolute!important;inset:0;pointer-events:none}
+.grain::after{content:'';position:absolute;inset:0;pointer-events:none;opacity:var(--grainO,.09);mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>")}
+
+.bh{display:flex;justify-content:space-between;align-items:flex-end;gap:40px;padding-bottom:22px;border-bottom:1px solid var(--line);margin-bottom:26px}
+.chips{display:flex;gap:8px}
+.tag{height:28px;padding:0 12px;border-radius:999px;display:inline-flex;align-items:center;gap:7px;font-size:12.5px;font-weight:600;
+  background:var(--surface);border:1px solid var(--line);color:var(--ink2)}
+.tag b{width:7px;height:7px;border-radius:50%;background:var(--accent)}
+.bname{font-family:var(--disp);font-weight:var(--dispW);letter-spacing:var(--dispTrack);font-size:56px;line-height:1;margin:16px 0 12px}
+.bdesc{font-size:15px;color:var(--ink2);max-width:640px;line-height:1.55}
+.fonts{display:flex;flex-direction:column;gap:10px;min-width:300px}
+.fp{display:flex;align-items:baseline;justify-content:space-between;gap:20px;border-bottom:1px solid var(--line);padding-bottom:9px}
+.fl{font-size:12px;font-weight:600;color:var(--ink3)}
+.fv{font-size:19px;font-weight:600;color:var(--ink)}
+
+.grid{display:grid;grid-template-columns:1fr 1fr 316px;gap:32px;align-items:start}
+.panel{display:flex;flex-direction:column}
+.h{font-size:14px;font-weight:700;display:flex;flex-direction:column;gap:7px;margin-bottom:13px;color:var(--ink)}
+.h::after{content:'';width:24px;height:3px;border-radius:2px;background:var(--accent)}
+.sws{display:grid;grid-template-columns:repeat(4,1fr);gap:9px}
+.sw{height:78px;border-radius:12px;padding:8px 10px;display:flex;flex-direction:column;justify-content:flex-end;font-size:10.5px;line-height:1.3}
+.sw .hx{font-weight:700;font-variant-numeric:tabular-nums}
+.sw .nm{font-weight:600;opacity:.92}
+.sw .rl{opacity:.7}
+.stamps{display:flex;gap:12px}
+.stampcol{display:flex;flex-direction:column;align-items:center;gap:6px;width:62px}
+.stampcol .sl{font-size:10.5px;font-weight:600;color:var(--ink2);text-align:center}
+.stampcol .sh{font-size:10px;color:var(--ink3);font-variant-numeric:tabular-nums}
+.valid{margin-top:14px;display:flex;align-items:flex-start;gap:8px;font-size:12px;line-height:1.5;color:var(--ink2)}
+.valid svg{color:var(--pos);margin-top:1px}
+.icons{display:flex;flex-wrap:wrap;gap:13px;color:var(--ink2)}
+
+.spec{border-bottom:1px solid var(--line);padding-bottom:14px;margin-bottom:14px}
+.specrow{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px}
+.specrow span:first-child{font-size:12px;font-weight:600;color:var(--ink3)}
+.specrow span:last-child{font-size:11.5px;color:var(--ink3)}
+.dispbig{font-family:var(--heroNum);font-weight:var(--dispW);letter-spacing:var(--dispTrack);font-size:44px;line-height:1.05}
+.dispmed{font-family:var(--disp);font-weight:var(--dispW);letter-spacing:var(--dispTrack);font-size:25px;line-height:1.15;margin-top:6px}
+.uit{font-size:19px;font-weight:700;letter-spacing:-.01em}
+.uib{font-size:14px;color:var(--ink2);line-height:1.5;margin-top:4px}
+.uil{font-size:12px;font-weight:600;color:var(--ink3);margin-top:8px}
+.princ{display:flex;flex-direction:column;gap:9px}
+.princ div{display:flex;gap:10px;font-size:13px;line-height:1.5;color:var(--ink2)}
+.princ i{font-style:normal;font-family:var(--ui);font-weight:700;color:var(--accent);font-size:13px;min-width:14px}
+
+/* shared controls */
+.btns{display:flex;gap:9px}
+.btn{height:44px;flex:1;border-radius:var(--rBtn);display:flex;align-items:center;justify-content:center;gap:7px;font-size:14px;font-weight:600}
+.b-pri{background:var(--primaryBg);color:var(--onPrimary);box-shadow:var(--btnShadow,none)}
+.b-sec{background:var(--surface);border:1.5px solid var(--line);color:var(--ink)}
+.b-neg{background:color-mix(in oklab,var(--neg) 16%,var(--surfaceSolid));color:var(--neg)}
+.crow{display:flex;gap:7px;align-items:center;margin-top:11px}
+.chip{height:32px;padding:0 13px;border-radius:var(--rChip,999px);display:inline-flex;align-items:center;font-size:12.5px;font-weight:600;
+  background:var(--surface);border:1px solid var(--line);color:var(--ink2)}
+.chip.on{background:var(--primaryBg);border-color:transparent;color:var(--onPrimary)}
+.tg{width:44px;height:26px;border-radius:999px;background:var(--tgOff);position:relative;flex:0 0 auto}
+.tg::after{content:'';position:absolute;width:20px;height:20px;top:3px;left:3px;border-radius:50%;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.25)}
+.tg.on{background:var(--primarySolid)}.tg.on::after{left:21px}
+.fields{display:flex;gap:14px;margin-top:13px}
+.fld{flex:1}
+.fld .fl2{font-size:12px;font-weight:600;color:var(--ink3);margin-bottom:7px}
+.fbox{font-size:14.5px;display:flex;align-items:center;min-height:22px}
+.f-underline .fbox{border-bottom:1.5px solid var(--line);padding-bottom:9px}
+.f-underline .on .fbox{border-bottom-color:var(--primarySolid)}
+.f-outline .fbox{border:1.5px solid var(--line);border-radius:var(--rBtn);padding:11px 12px}
+.f-outline .on .fbox{border-color:var(--primarySolid)}
+.f-filled .fbox{background:var(--surface2);border-radius:12px;padding:12px}
+.f-filled .on .fbox{box-shadow:inset 0 0 0 1.5px var(--primarySolid)}
+.f-glass .fbox{background:rgba(255,255,255,.08);border:1px solid var(--line);border-radius:14px;padding:11px 12px}
+.f-glass .on .fbox{border-color:var(--accent)}
+.ph-t{color:var(--ink3)}
+
+/* stamps */
+.stamp{width:40px;height:40px;border-radius:var(--rStamp);display:flex;align-items:center;justify-content:center;flex:0 0 auto}
+.stamp.big{width:48px;height:48px}
+.s-tint{background:color-mix(in oklab,var(--c) 15%,var(--surfaceSolid));color:var(--c)}
+.s-tintDark{background:color-mix(in oklab,var(--c) 24%,var(--surfaceSolid));color:color-mix(in oklab,var(--c) 55%,#fff)}
+.s-solid{background:var(--c);color:#fff}
+.s-mono{background:var(--surface2);color:var(--ink2)}
+.cpal{display:flex;gap:9px}
+.cpal div{flex:1;display:flex;flex-direction:column;gap:5px}
+.cpal i{height:28px;border-radius:6px;display:block}
+.cpal span{font-size:10.5px;color:var(--ink3);font-variant-numeric:tabular-nums}
+.t-grafitoclaro .hero{background:#26272B}
+.t-monocromo .hero{background:#000}
+.t-monocromo .num{font-variant-numeric:normal;font-feature-settings:normal}
+.t-arena .hero{background:#4F5A3A}
+.t-acero .hero{background:#222932;border:1px solid #313A45;box-shadow:inset 0 1px 0 rgba(255,255,255,.05)}
+.s-glow{background:color-mix(in oklab,var(--c) 22%,transparent);color:color-mix(in oklab,var(--c) 55%,#fff);
+  box-shadow:inset 0 0 0 1px color-mix(in oklab,var(--c) 60%,transparent),0 0 18px -5px var(--c)}
+
+/* ================= PHONE ================= */
+.phwrap{width:calc(390px * var(--S));height:calc(844px * var(--S));flex:0 0 auto;border-radius:calc(46px * var(--S));
+  box-shadow:0 30px 60px -24px rgba(0,0,0,.45),0 0 0 1px var(--phRing,rgba(0,0,0,.08))}
+.ph{width:390px;height:844px;transform:scale(var(--S));transform-origin:top left;border-radius:46px;overflow:hidden;position:relative;
+  background:var(--bg);color:var(--ink);font-family:var(--ui);display:flex;flex-direction:column}
+.ph>.fx{z-index:0}
+.ph>*:not(.fx){position:relative;z-index:1}
+.sb{height:46px;flex:0 0 46px;display:flex;align-items:center;justify-content:space-between;padding:0 26px 0 30px;font-size:14px;font-weight:600}
+.sbr{display:flex;align-items:center;gap:6px}
+.hd{display:flex;align-items:center;gap:12px;padding:0 20px 16px}
+.av{width:44px;height:44px;border-radius:var(--rAv,15px);background:var(--avBg);color:var(--avInk);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:15px;flex:0 0 auto}
+.hd-hi{font-size:12px;font-weight:600;color:var(--ink3)}
+.hd-name{font-size:16px;font-weight:700;letter-spacing:-.015em;margin-top:1px}
+.ib{width:38px;height:38px;border-radius:13px;background:var(--surface);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;position:relative}
+.ib .dt{position:absolute;top:9px;right:10px;width:7px;height:7px;border-radius:50%;background:var(--neg);border:1.5px solid var(--surfaceSolid)}
+.hdL{display:flex;align-items:flex-end;justify-content:space-between;padding:4px 20px 14px}
+.hdL-date{font-size:13px;font-weight:600;color:var(--ink3);letter-spacing:-.005em}
+.hdL-title{font-family:var(--disp);font-size:34px;font-weight:var(--dispW);letter-spacing:var(--dispTrack);line-height:1.05;margin-top:2px}
+.hdL .r{display:flex;gap:10px;align-items:center}
+.plusc{width:36px;height:36px;border-radius:50%;background:var(--plusBg);color:var(--plusInk);display:flex;align-items:center;justify-content:center}
+.scroll{flex:1 1 auto;overflow:hidden;display:flex;flex-direction:column;gap:11px;padding:0 20px 6px}
+.scroll>*{flex:0 0 auto}
+
+.hero{border-radius:var(--rHero);padding:16px 20px 14px;position:relative;overflow:hidden;color:var(--heroInk)}
+.hero>*{position:relative}
+.hero-top{display:flex;align-items:center;justify-content:space-between;font-size:12px;font-weight:600;color:var(--heroInk2)}
+.pill{height:24px;padding:0 9px;border-radius:999px;display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:600;
+  background:var(--pillBg);color:var(--heroInk);border:1px solid var(--pillLine)}
+.hero-amt{font-family:var(--heroNum);font-weight:var(--heroW,var(--dispW));letter-spacing:var(--heroTrack,var(--dispTrack));font-size:var(--heroSize,37px);line-height:1;margin-top:8px}
+.hero-rule{height:1px;margin:15px 0 12px;background:var(--heroRule)}
+.hero-split{display:flex}
+.hero-split>div{flex:1}
+.hl{display:flex;align-items:center;gap:6px;font-size:11px;font-weight:600;color:var(--heroInk2)}
+.hv{font-size:15px;font-weight:600;margin-top:3px;font-family:var(--num)}
+.vsep{flex:0 0 1px!important;background:var(--heroRule);margin:0 14px}
+.glow{position:absolute!important;width:220px;height:220px;right:-70px;top:-90px;border-radius:50%;background:radial-gradient(circle,var(--glow) 0%,transparent 70%)}
+
+.qa{display:flex;gap:9px}
+.qa>div{flex:1;background:var(--surface);border:1px solid var(--cardLine);border-radius:calc(var(--rCard) - 4px);padding:10px 6px;display:flex;flex-direction:column;align-items:center;gap:6px;font-size:11px;font-weight:600;box-shadow:var(--cardShadow)}
+.card{background:var(--surface);border:1px solid var(--cardLine);border-radius:var(--rCard);box-shadow:var(--cardShadow)}
+.chead{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px;min-height:27px}
+.ctitle{font-size:15px;font-weight:700;letter-spacing:-.005em;display:flex;flex-direction:column;gap:6px}
+.ctitle::after{content:'';width:24px;height:3px;border-radius:2px;background:var(--accent);display:var(--ruleDisp,block)}
+.cap{font-size:11.5px;color:var(--ink3)}
+.bars{display:flex;align-items:flex-end;gap:11px;height:76px;position:relative}
+.bar{flex:1;border-radius:4px 4px 0 0;background:var(--chartBar)}
+.bar.now{background:var(--chartNow)}
+.avg{position:absolute;left:0;right:0;bottom:62px;border-top:1.5px dashed var(--avgLine)}
+.xl{display:flex;gap:11px;margin-top:7px}
+.xl span{flex:1;text-align:center;font-size:10.5px;color:var(--ink3);font-weight:500}
+.xl span:last-child{color:var(--ink);font-weight:700}
+.row{display:flex;align-items:center;gap:12px;padding:9px 0}
+.row+.row{border-top:1px solid var(--rowLine)}
+.row .g{flex:1;min-width:0}
+.tt{font-size:14.5px;font-weight:600;letter-spacing:-.006em}
+.ss{font-size:11.5px;color:var(--ink3);margin-top:1px}
+.amt{font-size:14.5px;font-weight:600;font-family:var(--num);letter-spacing:-.01em}
+.sect{display:flex;justify-content:space-between;align-items:center;font-size:15px;font-weight:700;margin-top:2px}
+.lnk{font-size:12.5px;font-weight:600;color:var(--link)}
+
+/* nav variants */
+.nav{flex:0 0 78px;display:flex;align-items:flex-start;padding:11px 12px 0;background:var(--navBg);border-top:1px solid var(--navLine);backdrop-filter:blur(16px) saturate(160%)}
+.nav .it{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;color:var(--navOff);font-size:10.5px;font-weight:600}
+.nav .it.on{color:var(--navOn)}
+.nav .dot{width:4px;height:4px;border-radius:50%;background:var(--navOn)}
+.nfab{flex:0 0 62px;display:flex;justify-content:center}
+.nfab>div{width:52px;height:52px;border-radius:var(--rFab,18px);background:var(--primaryBg);color:var(--onPrimary);display:flex;align-items:center;justify-content:center;margin-top:-18px;box-shadow:var(--fabShadow)}
+.navfloat{position:absolute!important;left:18px;right:18px;bottom:24px;display:flex;gap:10px;z-index:3}
+.navfloat .cap2{flex:1;height:62px;border-radius:31px;display:flex;align-items:center;padding:0 8px;background:var(--navBg);border:1px solid var(--navLine);
+  backdrop-filter:blur(26px) saturate(180%);box-shadow:inset 0 1px 0 rgba(255,255,255,.32),0 14px 30px -12px rgba(0,0,0,.5)}
+.navfloat .it{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;color:var(--navOff);font-size:10px;font-weight:600;padding:6px 0;border-radius:24px}
+.navfloat .it.on{color:var(--navOn);background:var(--navOnBg)}
+.navfloat .fb{width:62px;height:62px;border-radius:50%;flex:0 0 auto;display:flex;align-items:center;justify-content:center;color:var(--onPrimary);
+  background:var(--floatFab);border:1px solid var(--navLine);backdrop-filter:blur(26px);box-shadow:inset 0 1px 0 rgba(255,255,255,.4),0 14px 30px -12px rgba(0,0,0,.5)}
+.homebar{position:absolute!important;left:50%;transform:translateX(-50%);bottom:8px;width:134px;height:5px;border-radius:3px;background:var(--homebar);z-index:4!important}
+
+/* ================= THEME SPECIFICS ================= */
+/* 0 actual */
+.t-actual .hero{background:linear-gradient(158deg,#164A3C 0%,#0C2B23 72%)}
+/* 1 pizarra — matte */
+.t-pizarra .hero{background:#3B4C63}
+/* 2 grafito — matte dark */
+.t-grafito .hero{background:#2B2C30;border:1px solid #37393E}
+/* 3 aurora */
+.t-aurora .fx.aur, .t-aurora .ph>.fx{background:
+  radial-gradient(ellipse 60% 40% at 15% 8%,rgba(106,77,255,.55),transparent 70%),
+  radial-gradient(ellipse 50% 35% at 90% 30%,rgba(0,194,184,.35),transparent 70%),
+  radial-gradient(ellipse 60% 40% at 60% 105%,rgba(214,51,132,.35),transparent 70%)}
+.t-aurora .hero{background:linear-gradient(140deg,rgba(106,77,255,.42),rgba(10,13,31,.25) 55%,rgba(47,224,200,.26));
+  border:1px solid rgba(255,255,255,.18);box-shadow:0 0 44px -14px rgba(106,77,255,.9),inset 0 1px 0 rgba(255,255,255,.2);backdrop-filter:blur(18px)}
+.t-aurora .card,.t-aurora .qa>div,.t-aurora .ib{backdrop-filter:blur(18px)}
+.t-aurora .panel,.t-glass .panel{background:var(--panelBg);border:1px solid var(--line);border-radius:22px;padding:20px 20px 22px;backdrop-filter:blur(20px)}
+/* 4 cromo */
+.t-cromo .fx.dots,.t-cromo .ph>.fx{background-image:radial-gradient(#C3C9D4 1px,transparent 1.3px);background-size:16px 16px;opacity:.7}
+.t-cromo .hero{background:linear-gradient(125deg,#FBFCFE 0%,#D2D7E0 24%,#F7F8FB 42%,#B4BBC9 66%,#E8EBF0 100%);border:1px solid #BFC6D2;
+  box-shadow:inset 0 1px 0 #fff,0 10px 24px -14px rgba(13,16,32,.45)}
+.t-cromo .hero::before{content:'';position:absolute;inset:0;background:linear-gradient(105deg,transparent 38%,rgba(255,255,255,.85) 47%,transparent 56%)}
+.t-cromo .hero-amt{color:var(--ink)}
+.t-cromo .hero .led{position:absolute!important;top:16px;right:20px;display:flex;align-items:center;gap:6px;font-family:var(--num);font-size:10.5px;color:#4A516B}
+/* 5 wallet */
+.t-wallet .hero{background:
+  radial-gradient(circle at 10% 15%,#FFB347 0%,transparent 45%),
+  radial-gradient(circle at 92% 8%,#FF5E9C 0%,transparent 50%),
+  radial-gradient(circle at 78% 100%,#6C63FF 0%,transparent 55%),
+  radial-gradient(circle at 6% 100%,#2EC5FF 0%,transparent 52%),#9A5CF0;box-shadow:0 16px 30px -16px rgba(120,70,220,.7)}
+/* 6 glass */
+.t-glass .fx.wall,.t-glass .ph>.fx{background:
+  radial-gradient(circle at 14% 10%,#3D5BFF 0%,transparent 40%),
+  radial-gradient(circle at 90% 28%,#C548A8 0%,transparent 42%),
+  radial-gradient(circle at 26% 88%,#FF8A3D 0%,transparent 40%),
+  linear-gradient(165deg,#0B1B4D 0%,#2E1A66 55%,#5E2458 100%)}
+.t-glass .ph>.fx{background:
+  radial-gradient(circle at 90% 12%,#FF8A3D 0%,transparent 32%),
+  radial-gradient(circle at 8% 28%,#3D5BFF 0%,transparent 42%),
+  radial-gradient(circle at 84% 56%,#C548A8 0%,transparent 38%),
+  linear-gradient(172deg,#1A2A78 0%,#2E1A66 52%,#17123F 100%)}
+.t-glass .ph .card{background:linear-gradient(rgba(255,255,255,.12),rgba(255,255,255,.07)),rgba(20,18,64,.30)}
+.t-glass .hero,.t-glass .card,.t-glass .qa>div,.t-glass .ib{backdrop-filter:blur(26px) saturate(170%)}
+.t-glass .hero{background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.36);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.55),inset 0 -1px 0 rgba(255,255,255,.12),0 20px 40px -20px rgba(0,0,0,.55)}
+.t-glass .card,.t-glass .qa>div{box-shadow:inset 0 1px 0 rgba(255,255,255,.4),0 16px 30px -18px rgba(0,0,0,.5)}
+
+/* ================= COMPARISON ================= */
+.cmp{width:2144px;border-radius:30px;background:#F4F5F2;padding:40px 44px 46px;font-family:'Public Sans',sans-serif;color:#16211C}
+.cmp-h{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:30px}
+.cmp-t{font-family:'Fraunces',serif;font-size:40px;font-weight:600;letter-spacing:-.025em}
+.cmp-row{display:flex;gap:24px}
+.cmp-col{display:flex;flex-direction:column;gap:14px}
+.cmp-lab .a{font-size:12px;font-weight:600;color:#7E8C84}
+.cmp-lab .b{font-size:22px;font-weight:700;letter-spacing:-.015em;margin-top:3px}
+.cmp-lab .c{font-size:12.5px;color:#4A574F;margin-top:3px}
+</style>
+</head>
+<body>
+<div class="wrap" id="root"></div>
+<script>
+const P={
+ home:'<path d="M3 10.2 12 3l9 7.2"/><path d="M5.5 9.3V20h13V9.3"/><path d="M9.8 20v-5.6h4.4V20"/>',
+ list:'<path d="M8 6h12M8 12h12M8 18h12"/><circle cx="4" cy="6" r="1.1"/><circle cx="4" cy="12" r="1.1"/><circle cx="4" cy="18" r="1.1"/>',
+ target:'<circle cx="12" cy="12" r="8.4"/><circle cx="12" cy="12" r="4.4"/><circle cx="12" cy="12" r="1"/>',
+ gear:'<circle cx="12" cy="12" r="3.1"/><path d="M19.3 14.2a1.5 1.5 0 0 0 .3 1.7l.1.1a1.8 1.8 0 1 1-2.6 2.6l-.1-.1a1.5 1.5 0 0 0-2.6 1.1v.3a1.8 1.8 0 1 1-3.6 0v-.2a1.5 1.5 0 0 0-2.7-1.1l-.1.1a1.8 1.8 0 1 1-2.6-2.6l.1-.1a1.5 1.5 0 0 0-1.1-2.6h-.3a1.8 1.8 0 0 1 0-3.6h.2A1.5 1.5 0 0 0 5.4 7l-.1-.1a1.8 1.8 0 1 1 2.6-2.6l.1.1a1.5 1.5 0 0 0 1.7.3h.1A1.5 1.5 0 0 0 10.7 3.3V3a1.8 1.8 0 1 1 3.6 0v.2a1.5 1.5 0 0 0 2.6 1.1l.1-.1a1.8 1.8 0 1 1 2.6 2.6l-.1.1a1.5 1.5 0 0 0 1.1 2.6h.3a1.8 1.8 0 0 1 0 3.6h-.2a1.5 1.5 0 0 0-1.4.9z"/>',
+ plus:'<path d="M12 5v14M5 12h14"/>',
+ bell:'<path d="M18 16.2V11a6 6 0 1 0-12 0v5.2L4.4 18.4h15.2z"/><path d="M10.2 21.2a2 2 0 0 0 3.6 0"/>',
+ trend:'<path d="M4 15.5 9 10l3.4 3.4L20 6"/><path d="M15.4 6H20v4.6"/>',
+ up:'<path d="M7 17 17 7M9 7h8v8"/>', down:'<path d="M17 7 7 17M15 17H7V9"/>',
+ cart:'<path d="M3 4h2.2l2 11.2h10.3l2-8.2H6.4"/><circle cx="9" cy="19.2" r="1.3"/><circle cx="17" cy="19.2" r="1.3"/>',
+ bus:'<rect x="4" y="4" width="16" height="13" rx="3"/><path d="M4 11h16"/><circle cx="8" cy="14.4" r="1"/><circle cx="16" cy="14.4" r="1"/><path d="M7 17v2.4M17 17v2.4"/>',
+ play:'<rect x="3" y="5" width="18" height="14" rx="3.2"/><path d="m10.5 9.6 4.4 2.4-4.4 2.4z"/>',
+ heart:'<path d="M12 19.5s-7.2-4.3-7.2-9A3.9 3.9 0 0 1 12 8.2a3.9 3.9 0 0 1 7.2 2.3c0 4.7-7.2 9-7.2 9z"/>',
+ wallet:'<path d="M4 7.5A2.5 2.5 0 0 1 6.5 5h11A1.5 1.5 0 0 1 19 6.5V8"/><rect x="4" y="7.5" width="16" height="11.5" rx="2.5"/><circle cx="16" cy="13.2" r="1.2"/>',
+ check:'<path d="m5.5 12.5 4 4 9-9"/>', search:'<circle cx="11" cy="11" r="6.6"/><path d="m16 16 4 4"/>',
+ card:'<rect x="3" y="5.5" width="18" height="13" rx="2.6"/><path d="M3 10h18M6.5 14.6h3.5"/>',
+ cal:'<rect x="3.6" y="5" width="16.8" height="15" rx="2.6"/><path d="M3.6 9.6h16.8M8.4 3.4v3.2M15.6 3.4v3.2"/>',
+ user:'<circle cx="12" cy="8.4" r="3.8"/><path d="M4.8 20c.9-3.6 3.8-5.6 7.2-5.6s6.3 2 7.2 5.6"/>',
+ shield:'<path d="M12 3.4 5 6v6c0 4.2 2.9 7.3 7 8.6 4.1-1.3 7-4.4 7-8.6V6z"/><path d="m9.2 12 2 2 3.6-3.8"/>',
+ edit:'<path d="M15.6 4.8 19.2 8.4 8.6 19H5v-3.6z"/><path d="m13.4 7 3.6 3.6"/>',
+ trash:'<path d="M4.6 6.6h14.8M9.4 6.6V4.8h5.2v1.8"/><path d="M6.6 6.6 7.6 19a1.4 1.4 0 0 0 1.4 1.3h6a1.4 1.4 0 0 0 1.4-1.3l1-12.4"/>',
+ wifi:'<path d="M2.5 9.2a14 14 0 0 1 19 0M5.8 12.6a9.4 9.4 0 0 1 12.4 0M9 16a4.8 4.8 0 0 1 6 0"/><circle cx="12" cy="19.2" r=".9" fill="currentColor" stroke="none"/>',
+};
+const I=(n,s=20,w)=>`<svg class="i" width="${s}" height="${s}" viewBox="0 0 24 24"${w?` style="stroke-width:${w}"`:''}>${P[n]}</svg>`;
+const BATT='<svg width="24" height="12" viewBox="0 0 24 12" fill="none"><rect x="1" y="1.5" width="18" height="9" rx="2.6" stroke="currentColor" stroke-width="1.2" opacity=".5"/><rect x="2.8" y="3.3" width="13" height="5.4" rx="1.5" fill="currentColor"/><path d="M21 5v2.4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" opacity=".5"/></svg>';
+const CAT={cart:'Alimentación',bus:'Transporte',target:'Metas',play:'Ocio',heart:'Salud'};
+
+function lum(h){if(!/^#[0-9a-f]{6}$/i.test(h))return .05;const c=[1,3,5].map(i=>parseInt(h.substr(i,2),16)/255).map(v=>v<=.04045?v/12.92:((v+.055)/1.055)**2.4);return .2126*c[0]+.7152*c[1]+.0722*c[2]}
+
+const T=[
+{id:'actual',n:0,cat:'Actual',mode:'light',name:'Chavos',dispName:'Fraunces',uiName:'Public Sans',
+ disp:"'Fraunces',serif",ui:"'Public Sans',sans-serif",dispW:600,dispTrack:'-0.025em',
+ v:{board:'#F2F3EE',bg:'#F2F3EE',surface:'#FFFFFF',surfaceSolid:'#FFFFFF',surface2:'#F4F5F0',line:'#E3E6DE',ink:'#16211C',ink2:'#4A574F',ink3:'#7E8C84',
+  primaryBg:'#146B55',primarySolid:'#146B55',onPrimary:'#fff',accent:'#C9891B',pos:'#0E7A5D',neg:'#B0432F',
+  heroInk:'#fff',heroInk2:'#A9C7BB',heroRule:'rgba(201,137,27,.7)',glow:'rgba(201,137,27,.42)',rHero:'26px',rCard:'20px',rBtn:'999px',rStamp:'13px',
+  avBg:'#0C2B23',avInk:'#fff',pillBg:'rgba(255,255,255,.12)',pillLine:'rgba(255,255,255,.22)',chartBar:'#0E7A5D',chartNow:'#C9891B',avgLine:'#C3CBC4',
+  cardLine:'#EEF0EA',rowLine:'#EEF0EA',cardShadow:'none',link:'#146B55',navBg:'rgba(255,255,255,.92)',navLine:'#EEF0EA',navOff:'#98A39B',navOn:'#146B55',
+  fabShadow:'0 12px 22px -8px rgba(20,107,85,.8)',homebar:'rgba(22,33,28,.25)',tgOff:'#D8DCD4'},
+ stamp:'tint',nav:'fab',header:'greeting',glow:true,grain:true,
+ cats:[['#0E7A5D','cart'],['#C9891B','target'],['#B0432F','play'],['#2D6BA8','bus'],['#8E4585','heart']]},
+
+{id:'pizarra',n:1,cat:'Mate',mode:'light',name:'Pizarra',dispName:'Newsreader',uiName:'Albert Sans',
+ disp:"'Newsreader',serif",ui:"'Albert Sans',sans-serif",dispW:600,dispTrack:'-0.02em',
+ desc:'Superficies de tiza fría, sin brillos ni degradados. Un serif literario para las cifras y un grotesco amable para la interfaz. Sereno, adulto, con aire de papelería fina.',
+ v:{board:'#E3E6E9',bg:'#E3E6E9',surface:'#F1F3F5',surfaceSolid:'#F1F3F5',surface2:'#E7EAED',line:'#D2D7DE',ink:'#1C232D',ink2:'#505A68',ink3:'#848E9B',
+  primaryBg:'#3B4C63',primarySolid:'#3B4C63',onPrimary:'#F2F4F6',accent:'#C5953B',pos:'#3D7A5F',neg:'#A44A5C',
+  heroInk:'#F2F4F6',heroInk2:'#B6C1CF',heroRule:'rgba(242,244,246,.2)',rHero:'16px',rCard:'14px',rBtn:'12px',rStamp:'10px',rChip:'10px',rFab:'14px',rAv:'12px',
+  avBg:'#3B4C63',avInk:'#F2F4F6',pillBg:'rgba(255,255,255,.1)',pillLine:'rgba(255,255,255,.18)',chartBar:'#3464A0',chartNow:'#C5953B',avgLine:'#B9C0C9',
+  cardLine:'#DDE1E6',rowLine:'#E2E6EA',cardShadow:'none',link:'#3B4C63',navBg:'#F1F3F5',navLine:'#D6DBE1',navOff:'#8F98A4',navOn:'#3B4C63',
+  fabShadow:'none',homebar:'rgba(28,35,45,.28)',tgOff:'#CBD1D8',grainO:'.12'},
+ stamp:'tint',nav:'fab',header:'greeting',grain:true,
+ cats:[['#349470','cart'],['#3464A0','bus'],['#C5953B','target'],['#A44A5C','play'],['#9674BB','heart']],
+ sw:[['#E3E6E9','Niebla','Fondo'],['#F1F3F5','Tiza','Tarjetas'],['#1C232D','Tinta','Texto'],['#848E9B','Grafito claro','Texto suave'],
+     ['#3B4C63','Pizarra','Acción'],['#C5953B','Ocre','Metas'],['#3D7A5F','Musgo','Ingresos'],['#A44A5C','Vino','Gastos']],
+ val:'Validada en modo claro. Separación para daltonismo ΔE 14,0 y visión normal ΔE 15,3.',
+ pr:['Sin sombras ni degradados: la profundidad sale del color y de un borde fino.','Esquinas moderadas y botones rectangulares en lugar de cápsulas.','Grano sutil sobre el bloque principal, como papel de algodón.']},
+
+{id:'grafito',n:2,cat:'Mate',mode:'dark',name:'Grafito',dispName:'Bricolage Grotesque',uiName:'Onest',
+ disp:"'Bricolage Grotesque',sans-serif",ui:"'Onest',sans-serif",dispW:700,dispTrack:'-0.035em',
+ desc:'Modo oscuro con acabado mate, como metal pintado al polvo. Tiza cálida en lugar de blanco puro, colores a media luz y un grotesco con carácter. Nocturno sin volverse frío.',
+ v:{board:'#1A1B1D',bg:'#1A1B1D',surface:'#232427',surfaceSolid:'#232427',surface2:'#2C2D31',line:'#34363B',ink:'#ECE9E2',ink2:'#AAA79F',ink3:'#7A7872',
+  primaryBg:'#E4DFD3',primarySolid:'#C9C3B5',onPrimary:'#1A1B1D',accent:'#C79A45',pos:'#7DB58C',neg:'#D98274',
+  heroInk:'#ECE9E2',heroInk2:'#9D9A93',heroRule:'rgba(236,233,226,.12)',rHero:'22px',rCard:'18px',rBtn:'14px',rStamp:'12px',rChip:'12px',rFab:'16px',rAv:'14px',
+  avBg:'#E4DFD3',avInk:'#1A1B1D',pillBg:'rgba(236,233,226,.07)',pillLine:'rgba(236,233,226,.14)',chartBar:'#5779B8',chartNow:'#C79A45',avgLine:'#4A4C52',
+  cardLine:'#2E3034',rowLine:'#2F3135',cardShadow:'none',link:'#E4DFD3',navBg:'#1F2023',navLine:'#2E3034',navOff:'#6E6C67',navOn:'#ECE9E2',
+  fabShadow:'none',homebar:'rgba(236,233,226,.3)',tgOff:'#3A3C41',grainO:'.07',phRing:'rgba(255,255,255,.06)'},
+ stamp:'tintDark',nav:'fab',header:'greeting',grain:true,
+ cats:[['#5A9E6A','cart'],['#955C98','play'],['#B58A3A','target'],['#5779B8','bus'],['#BB6456','heart']],
+ sw:[['#1A1B1D','Grafito','Fondo'],['#232427','Carbón','Tarjetas'],['#ECE9E2','Tiza','Texto'],['#7A7872','Ceniza','Texto suave'],
+     ['#E4DFD3','Tiza cálida','Acción'],['#C79A45','Latón','Metas'],['#7DB58C','Salvia','Ingresos'],['#D98274','Coral apagado','Gastos']],
+ val:'Validada en modo oscuro. Separación para daltonismo ΔE 13,3 y visión normal ΔE 19,9; todos los colores superan 3:1.',
+ pr:['Nunca negro ni blanco puros: grafito de fondo y tiza para el texto.','Colores de datos a media luz, sin brillo ni neón.','El botón principal es claro, así destaca sin necesidad de color.']},
+
+{id:'aurora',n:3,cat:'Futurista',mode:'dark',name:'Aurora',dispName:'Unbounded',uiName:'Manrope',
+ disp:"'Unbounded',sans-serif",ui:"'Manrope',sans-serif",dispW:600,dispTrack:'-0.03em',
+ desc:'Noche índigo iluminada por luces boreales. Paneles de vidrio, bordes con degradado y una tipografía ancha de geometría redonda para las cifras. Se siente como un tablero de a bordo.',
+ v:{board:'#0A0D1F',bg:'#0A0D1F',surface:'rgba(255,255,255,.055)',surfaceSolid:'#151936',surface2:'rgba(255,255,255,.09)',line:'rgba(255,255,255,.11)',
+  ink:'#F3F4FF',ink2:'#A9AED3',ink3:'#737A9F',primaryBg:'linear-gradient(100deg,#6A4DFF,#3B6CF6)',primarySolid:'#6A4DFF',onPrimary:'#fff',
+  accent:'#2FE0C8',pos:'#3DDC97',neg:'#FF7A9A',heroInk:'#fff',heroInk2:'#B7BDE6',heroRule:'linear-gradient(90deg,rgba(47,224,200,.7),rgba(106,77,255,0))',
+  rHero:'26px',rCard:'22px',rBtn:'999px',rStamp:'14px',rAv:'50%',heroSize:'31px',
+  avBg:'linear-gradient(135deg,#6A4DFF,#2FE0C8)',avInk:'#fff',pillBg:'rgba(47,224,200,.14)',pillLine:'rgba(47,224,200,.4)',chartBar:'#8264E7',chartNow:'#2FE0C8',avgLine:'rgba(255,255,255,.22)',
+  cardLine:'rgba(255,255,255,.1)',rowLine:'rgba(255,255,255,.08)',cardShadow:'none',link:'#2FE0C8',
+  navBg:'rgba(20,24,52,.55)',navLine:'rgba(255,255,255,.14)',navOff:'#8288B0',navOn:'#fff',navOnBg:'rgba(255,255,255,.1)',
+  floatFab:'linear-gradient(135deg,#6A4DFF,#3B6CF6)',btnShadow:'0 8px 24px -8px rgba(106,77,255,.8)',homebar:'rgba(255,255,255,.35)',tgOff:'rgba(255,255,255,.16)',
+  panelBg:'rgba(255,255,255,.035)',phRing:'rgba(255,255,255,.1)'},
+ stamp:'glow',nav:'float',header:'greeting',
+ cats:[['#00A8A2','cart'],['#8264E7','bus'],['#CA3A80','heart'],['#C88004','target'],['#036BB9','play']],
+ sw:[['#0A0D1F','Noche','Fondo'],['#151936','Vidrio','Tarjetas, 5 % blanco'],['#F3F4FF','Luz','Texto'],['#737A9F','Bruma','Texto suave'],
+     ['#6A4DFF','Violeta','Acción'],['#2FE0C8','Aurora','Acento'],['#3DDC97','Menta','Ingresos'],['#FF7A9A','Rosa neón','Gastos']],
+ val:'Validada en modo oscuro. Separación para daltonismo ΔE 16,0 y visión normal ΔE 20,5; todos superan 3:1 sobre el fondo.',
+ pr:['Vidrio translúcido sobre un cielo con luces difusas.','Bordes con degradado y un halo suave solo en lo importante.','Cifras en tipografía ancha, como la pantalla de un tablero.']},
+
+{id:'cromo',n:4,cat:'Futurista',mode:'light',name:'Cromo',dispName:'Syne',uiName:'Geist',numName:'Geist Mono',
+ disp:"'Syne',sans-serif",ui:"'Geist',sans-serif",num:"'Geist Mono',monospace",heroNum:"'Geist Mono',monospace",dispW:800,dispTrack:'-0.02em',
+ desc:'Titanio cepillado, retícula técnica de puntos y ultravioleta eléctrico. Titulares anchos y cifras en monoespaciada, como la lectura de un instrumento. Preciso, industrial, de laboratorio.',
+ v:{board:'#EDEFF3',bg:'#EDEFF3',surface:'#FFFFFF',surfaceSolid:'#FFFFFF',surface2:'#F4F5F8',line:'#D8DDE5',ink:'#0D1020',ink2:'#474D66',ink3:'#878EA6',
+  primaryBg:'#4B2EE8',primarySolid:'#4B2EE8',onPrimary:'#fff',accent:'#04A3BE',pos:'#1E8A48',neg:'#C8307A',
+  heroInk:'#0D1020',heroInk2:'#4A516B',heroRule:'rgba(13,16,32,.16)',rHero:'14px',rCard:'12px',rBtn:'10px',rStamp:'8px',rChip:'8px',rFab:'12px',rAv:'10px',
+  heroW:'500',heroTrack:'-0.04em',heroSize:'34px',
+  avBg:'#0D1020',avInk:'#fff',pillBg:'#0D1020',pillLine:'#0D1020',chartBar:'#4B2EE8',chartNow:'#04A3BE',avgLine:'#B7BECB',
+  cardLine:'#DDE1E8',rowLine:'#E7EAEF',cardShadow:'0 1px 0 rgba(13,16,32,.04)',link:'#4B2EE8',navBg:'rgba(255,255,255,.9)',navLine:'#DDE1E8',navOff:'#8C93AA',navOn:'#4B2EE8',
+  fabShadow:'0 10px 20px -8px rgba(75,46,232,.7)',homebar:'rgba(13,16,32,.25)',tgOff:'#D3D8E1'},
+ stamp:'tint',nav:'fab',header:'greeting',led:true,
+ cats:[['#04A3BE','bus'],['#EC7C0E','target'],['#CD3380','play'],['#543BE5','heart'],['#25984D','cart']],
+ sw:[['#EDEFF3','Titanio','Fondo'],['#FFFFFF','Blanco','Tarjetas'],['#0D1020','Tinta','Texto'],['#878EA6','Acero','Texto suave'],
+     ['#4B2EE8','Ultravioleta','Acción'],['#04A3BE','Aqua','Acento'],['#1E8A48','Verde','Ingresos'],['#C8307A','Magenta','Gastos']],
+ val:'Validada en modo claro. Separación para daltonismo ΔE 16,9 y visión normal ΔE 22,2.',
+ pr:['Metal cepillado en la tarjeta principal y retícula de puntos al fondo.','Esquinas cortas y líneas de 1 px: precisión de instrumento.','Cifras en monoespaciada para que no bailen cuando cambian.']},
+
+{id:'wallet',n:5,cat:'Tendencia Apple',mode:'light',name:'Wallet',dispName:'Inter, corte Display',uiName:'Inter',
+ disp:"'Inter',sans-serif",ui:"'Inter',sans-serif",dispW:700,dispTrack:'-0.035em',
+ desc:'El lenguaje de iOS: fondos agrupados, títulos grandes, íconos blancos en cuadros de color y botones cápsula. La tarjeta de saldo toma el degradado multicolor de Apple Card. Familiar desde el primer toque.',
+ v:{board:'#F2F2F7',bg:'#F2F2F7',surface:'#FFFFFF',surfaceSolid:'#FFFFFF',surface2:'#EFEFF4',line:'#E3E3E8',ink:'#000000',ink2:'#6C6C70',ink3:'#8E8E93',
+  primaryBg:'#007AFF',primarySolid:'#007AFF',onPrimary:'#fff',accent:'#FF9500',pos:'#248A3D',neg:'#D70015',
+  heroInk:'#fff',heroInk2:'rgba(255,255,255,.82)',heroRule:'rgba(255,255,255,.3)',rHero:'24px',rCard:'22px',rBtn:'999px',rStamp:'9px',rAv:'50%',
+  avBg:'linear-gradient(180deg,#A2A7B0,#7D828C)',avInk:'#fff',pillBg:'rgba(255,255,255,.22)',pillLine:'rgba(255,255,255,.3)',chartBar:'#007AFF',chartNow:'#FF9500',avgLine:'#C7C7CC',
+  cardLine:'transparent',rowLine:'#E5E5EA',cardShadow:'none',link:'#007AFF',navBg:'rgba(249,249,251,.94)',navLine:'#DCDCE0',navOff:'#8E8E93',navOn:'#007AFF',
+  plusBg:'#E4E4E9',plusInk:'#007AFF',homebar:'rgba(0,0,0,.3)',tgOff:'#E9E9EA',ruleDisp:'none'},
+ stamp:'solid',nav:'ios',header:'large',neutral:'#8E8E93',
+ cats:[['#FF9500','target'],['#AF52DE','play'],['#34C759','cart'],['#007AFF','bus'],['#FF2D55','heart']],
+ sw:[['#F2F2F7','Agrupado','Fondo'],['#FFFFFF','Blanco','Tarjetas'],['#000000','Etiqueta','Texto'],['#8E8E93','Gris','Texto suave'],
+     ['#007AFF','Azul sistema','Acción'],['#FF9500','Naranja','Metas'],['#34C759','Verde','Ingresos'],['#FF3B30','Rojo','Gastos']],
+ val:'Colores del sistema iOS, reordenados para daltonismo: ΔE 25,6 entre vecinos. En texto se usan sus variantes de alto contraste.',
+ pr:['Convenciones de iOS: título grande, listas agrupadas y barra de pestañas.','Íconos blancos sobre cuadros de color sólido, como en Ajustes.','Un solo momento de color vivo: la tarjeta de saldo.']},
+
+{id:'glass',n:6,cat:'Tendencia Apple',mode:'dark',name:'Vidrio líquido',dispName:'Figtree',uiName:'Figtree',
+ disp:"'Figtree',sans-serif",ui:"'Figtree',sans-serif",dispW:700,dispTrack:'-0.03em',
+ desc:'Inspirado en Liquid Glass de iOS 26: el contenido flota en capas de vidrio que refractan un fondo vivo, con bordes que atrapan la luz y una barra de pestañas flotante. Emocional y actual.',
+ v:{board:'#1A1F52',bg:'#1A1F52',surface:'rgba(255,255,255,.13)',surfaceSolid:'#2A2E5C',surface2:'rgba(255,255,255,.18)',line:'rgba(255,255,255,.2)',
+  ink:'#FFFFFF',ink2:'rgba(255,255,255,.76)',ink3:'rgba(255,255,255,.56)',primaryBg:'rgba(255,255,255,.94)',primarySolid:'#64D2FF',onPrimary:'#1B1F4B',
+  accent:'#64D2FF',pos:'#30D158',neg:'#FF6961',heroInk:'#fff',heroInk2:'rgba(255,255,255,.78)',heroRule:'rgba(255,255,255,.24)',
+  rHero:'30px',rCard:'26px',rBtn:'999px',rStamp:'10px',rAv:'50%',
+  avBg:'rgba(255,255,255,.24)',avInk:'#fff',pillBg:'rgba(255,255,255,.18)',pillLine:'rgba(255,255,255,.34)',chartBar:'rgba(255,255,255,.82)',chartNow:'#64D2FF',avgLine:'rgba(255,255,255,.3)',
+  cardLine:'rgba(255,255,255,.26)',rowLine:'rgba(255,255,255,.14)',link:'#64D2FF',
+  navBg:'rgba(255,255,255,.14)',navLine:'rgba(255,255,255,.3)',navOff:'rgba(255,255,255,.62)',navOn:'#fff',navOnBg:'rgba(255,255,255,.18)',
+  floatFab:'rgba(255,255,255,.16)',plusBg:'rgba(255,255,255,.18)',plusInk:'#fff',homebar:'rgba(255,255,255,.5)',tgOff:'rgba(255,255,255,.22)',ruleDisp:'none',
+  panelBg:'rgba(255,255,255,.1)',phRing:'rgba(255,255,255,.18)'},
+ stamp:'solid',nav:'float',header:'large',neutral:'rgba(255,255,255,.26)',floatInk:'#fff',
+ cats:[['#17A750','cart'],['#9751D7','play'],['#BD8703','target'],['#009EDB','bus'],['#DA4433','heart']],
+ sw:[['#0B1B4D','Medianoche','Fondo, inicio'],['#2E1A66','Índigo','Fondo, centro'],['#FF8A3D','Ámbar','Luz del fondo'],['rgba(255,255,255,.14)','Vidrio','Tarjetas, 14 %'],
+     ['#FFFFFF','Blanco','Texto y acción'],['#64D2FF','Cian','Acento'],['#30D158','Verde','Ingresos'],['#FF6961','Coral','Gastos']],
+ val:'Validada en modo oscuro. Separación para daltonismo ΔE 23,3 y visión normal ΔE 27,0. Los íconos llevan glifo blanco y etiqueta.',
+ pr:['Capas de vidrio que refractan un fondo vivo y dejan ver lo que hay debajo.','Bordes que atrapan la luz y sombras largas y suaves.','Barra de pestañas flotante, separada del borde de la pantalla.']},
+
+{id:'grafitoclaro',n:'2B',cat:'Mate',mode:'light',name:'Grafito claro',dispName:'Bricolage Grotesque',uiName:'Onest',
+ disp:"'Bricolage Grotesque',sans-serif",ui:"'Onest',sans-serif",dispW:700,dispTrack:'-0.035em',
+ desc:'La misma identidad de Grafito llevada al día: fondo de tiza, tinta de grafito y el latón como único acento. El botón principal se invierte y pasa a ser oscuro. Mismas fuentes, mismos radios, misma calma.',
+ v:{board:'#E6E5E1',bg:'#E6E5E1',surface:'#F2F1EE',surfaceSolid:'#F2F1EE',surface2:'#E9E8E4',line:'#D5D3CD',ink:'#1F2023',ink2:'#54534F',ink3:'#8A8882',
+  primaryBg:'#26272B',primarySolid:'#26272B',onPrimary:'#F2F1EE',accent:'#A57A2C',pos:'#3F7A55',neg:'#B0574A',
+  heroInk:'#ECE9E2',heroInk2:'#9D9A93',heroRule:'rgba(236,233,226,.14)',rHero:'22px',rCard:'18px',rBtn:'14px',rStamp:'12px',rChip:'12px',rFab:'16px',rAv:'14px',
+  avBg:'#26272B',avInk:'#ECE9E2',pillBg:'rgba(236,233,226,.08)',pillLine:'rgba(236,233,226,.16)',chartBar:'#5779B8',chartNow:'#B58A3A',avgLine:'#BDBBB5',
+  cardLine:'#E0DED9',rowLine:'#E3E1DC',cardShadow:'none',link:'#26272B',navBg:'#F2F1EE',navLine:'#DDDBD5',navOff:'#8F8D87',navOn:'#1F2023',
+  fabShadow:'none',homebar:'rgba(31,32,35,.28)',tgOff:'#D2D0CA',grainO:'.09'},
+ stamp:'tint',nav:'fab',header:'greeting',grain:true,
+ cats:[['#5A9E6A','cart'],['#955C98','play'],['#B58A3A','target'],['#5779B8','bus'],['#BB6456','heart']],
+ sw:[['#E6E5E1','Tiza','Fondo'],['#F2F1EE','Tiza clara','Tarjetas'],['#1F2023','Grafito','Texto'],['#8A8882','Ceniza','Texto suave'],
+     ['#26272B','Carbón','Acción'],['#A57A2C','Latón','Metas'],['#3F7A55','Salvia','Ingresos'],['#B0574A','Coral apagado','Gastos']],
+ val:'Mismos colores de categoría que Grafito, validados ahora sobre fondo claro: daltonismo ΔE 13,3 y visión normal ΔE 19,9.',
+ pr:['Los papeles se invierten: tiza de fondo y grafito para texto y acción.','Latón más oscuro que en modo oscuro, para no perder contraste sobre claro.','El usuario puede alternar entre claro y oscuro sin sentir que cambió de app.']},
+
+{id:'monocromo',n:7,cat:'Sobria',mode:'light',name:'Monocromo',dispName:'Schibsted Grotesk',uiName:'Schibsted Grotesk',
+ disp:"'Schibsted Grotesk',sans-serif",ui:"'Schibsted Grotesk',sans-serif",dispW:700,dispTrack:'-0.035em',
+ desc:'Blanco, negro y grises, en la tradición del diseño suizo y de los aparatos de Braun. Un solo grotesco editorial para todo. El color aparece únicamente en ingresos, gastos y gráficas.',
+ v:{board:'#EDEDED',bg:'#EDEDED',surface:'#FFFFFF',surfaceSolid:'#FFFFFF',surface2:'#F1F1F1',line:'#D9D9D9',ink:'#000000',ink2:'#4D4D4D',ink3:'#8A8A8A',
+  primaryBg:'#000000',primarySolid:'#000000',onPrimary:'#FFFFFF',accent:'#000000',pos:'#2E6B45',neg:'#9E2A2B',
+  heroInk:'#FFFFFF',heroInk2:'#9A9A9A',heroRule:'rgba(255,255,255,.18)',rHero:'12px',rCard:'10px',rBtn:'8px',rStamp:'8px',rChip:'8px',rFab:'10px',rAv:'8px',
+  avBg:'#000',avInk:'#fff',pillBg:'rgba(255,255,255,.1)',pillLine:'rgba(255,255,255,.22)',chartBar:'#C8C8C8',chartNow:'#000000',avgLine:'#9A9A9A',
+  cardLine:'#E3E3E3',rowLine:'#EBEBEB',cardShadow:'none',link:'#000000',navBg:'#FFFFFF',navLine:'#E0E0E0',navOff:'#9A9A9A',navOn:'#000000',
+  fabShadow:'none',homebar:'rgba(0,0,0,.3)',tgOff:'#D6D6D6'},
+ stamp:'mono',nav:'fab',header:'greeting',
+ cats:[['#3B8D5D','cart'],['#A280C8','play'],['#255691','bus'],['#CFA354','target'],['#984646','heart']],
+ sw:[['#EDEDED','Gris claro','Fondo'],['#FFFFFF','Blanco','Tarjetas'],['#000000','Negro','Texto y acción'],['#8A8A8A','Gris medio','Texto suave'],
+     ['#D9D9D9','Gris línea','Bordes'],['#4D4D4D','Gris oscuro','Texto secundario'],['#2E6B45','Verde bosque','Ingresos'],['#9E2A2B','Rojo óxido','Gastos']],
+ val:'La interfaz no usa color para las categorías. Los colores de gráficas están validados en modo claro: daltonismo ΔE 14,6 y visión normal ΔE 22,7.',
+ pr:['Sin color en la interfaz: la jerarquía sale del peso, el tamaño y el espacio.','Íconos de categoría en gris, reconocibles por su forma y su etiqueta.','La tarjeta de saldo es el único bloque negro de la pantalla.']},
+
+{id:'arena',n:8,cat:'Sobria',mode:'light',name:'Arena',dispName:'Hanken Grotesk',uiName:'Hanken Grotesk',
+ disp:"'Hanken Grotesk',sans-serif",ui:"'Hanken Grotesk',sans-serif",dispW:700,dispTrack:'-0.03em',
+ desc:'Neutros cálidos de piedra y un verde oliva apagado, en la línea de las marcas de objetos simples y naturales. Formas suaves y un grotesco sereno. Tranquila, cercana y sin estridencias.',
+ v:{board:'#E9E7E2',bg:'#E9E7E2',surface:'#F4F3F0',surfaceSolid:'#F4F3F0',surface2:'#E9E7E1',line:'#D8D5CD',ink:'#26241F',ink2:'#5E5A51',ink3:'#8F8A7F',
+  primaryBg:'#4F5A3A',primarySolid:'#4F5A3A',onPrimary:'#F4F3F0',accent:'#8E7A4E',pos:'#4F6B3F',neg:'#8A4450',
+  heroInk:'#F4F3F0',heroInk2:'#C3C7B4',heroRule:'rgba(244,243,240,.2)',rHero:'26px',rCard:'22px',rBtn:'999px',rStamp:'14px',rAv:'50%',rFab:'50%',
+  avBg:'#4F5A3A',avInk:'#F4F3F0',pillBg:'rgba(244,243,240,.12)',pillLine:'rgba(244,243,240,.22)',chartBar:'#A9A497',chartNow:'#4F5A3A',avgLine:'#BDB8AC',
+  cardLine:'#E1DED6',rowLine:'#E4E1DA',cardShadow:'none',link:'#4F5A3A',navBg:'#F4F3F0',navLine:'#DEDBD3',navOff:'#9A958A',navOn:'#4F5A3A',
+  fabShadow:'0 10px 20px -10px rgba(79,90,58,.7)',homebar:'rgba(38,36,31,.28)',tgOff:'#D3CFC6',grainO:'.1'},
+ stamp:'mono',nav:'fab',header:'greeting',grain:true,
+ cats:[['#556E1C','cart'],['#13A5B2','bus'],['#1A588F','play'],['#CFA354','target'],['#AC5D7E','heart']],
+ sw:[['#E9E7E2','Piedra','Fondo'],['#F4F3F0','Arena','Tarjetas'],['#26241F','Carbón','Texto'],['#8F8A7F','Topo','Texto suave'],
+     ['#4F5A3A','Oliva','Acción'],['#8E7A4E','Caqui','Metas'],['#4F6B3F','Musgo','Ingresos'],['#8A4450','Ciruela','Gastos']],
+ val:'La interfaz no usa color para las categorías. Los colores de gráficas están validados en modo claro: daltonismo ΔE 19,9 y visión normal ΔE 21,3.',
+ pr:['Neutros cálidos de piedra en lugar de blanco puro.','Oliva como único color de acción; todo lo demás es neutro.','Esquinas generosas y botones cápsula: se siente suave al tacto.']},
+
+{id:'acero',n:9,cat:'Sobria',mode:'dark',name:'Acero',dispName:'Red Hat Display',uiName:'Red Hat Text',
+ disp:"'Red Hat Display',sans-serif",ui:"'Red Hat Text',sans-serif",dispW:700,dispTrack:'-0.025em',
+ desc:'Modo oscuro de azul noche y gris acero, sobrio como la app de un banco privado. Sin brillos ni degradados: bordes finos y un azul acero discreto para las acciones. Serio y confiable.',
+ v:{board:'#14181D',bg:'#14181D',surface:'#1C2128',surfaceSolid:'#1C2128',surface2:'#252B33',line:'#2D343D',ink:'#E6EAEF',ink2:'#A3ADB9',ink3:'#6E7885',
+  primaryBg:'#3E5A78',primarySolid:'#5B7A9C',onPrimary:'#E6EAEF',accent:'#8FA9C4',pos:'#6FA68A',neg:'#C98080',
+  heroInk:'#E6EAEF',heroInk2:'#8D98A6',heroRule:'rgba(230,234,239,.1)',rHero:'18px',rCard:'16px',rBtn:'12px',rStamp:'12px',rChip:'10px',rFab:'14px',rAv:'12px',
+  avBg:'#3E5A78',avInk:'#E6EAEF',pillBg:'rgba(143,169,196,.12)',pillLine:'rgba(143,169,196,.28)',chartBar:'#4A6484',chartNow:'#C9D4E0',avgLine:'#3E4752',
+  cardLine:'#262D35',rowLine:'#29303A',cardShadow:'none',link:'#8FA9C4',navBg:'#181D23',navLine:'#262D35',navOff:'#687280',navOn:'#E6EAEF',
+  fabShadow:'none',homebar:'rgba(230,234,239,.3)',tgOff:'#333B45',phRing:'rgba(255,255,255,.06)'},
+ stamp:'mono',nav:'fab',header:'greeting',
+ cats:[['#2D8B61','cart'],['#9977BE','play'],['#B28938','target'],['#3077AD','bus'],['#984646','heart']],
+ sw:[['#14181D','Noche','Fondo'],['#1C2128','Pizarra oscura','Tarjetas'],['#E6EAEF','Niebla','Texto'],['#6E7885','Acero','Texto suave'],
+     ['#3E5A78','Azul acero','Acción'],['#8FA9C4','Plata azul','Acento'],['#6FA68A','Salvia','Ingresos'],['#C98080','Rosa viejo','Gastos']],
+ val:'La interfaz no usa color para las categorías. Los colores de gráficas están validados en modo oscuro: daltonismo ΔE 12,8 y visión normal ΔE 20,5.',
+ pr:['Azul noche en lugar de negro: más profundidad y menos dureza.','Un único azul acero para acciones; el resto es una escala de grises fríos.','Tarjetas separadas por bordes de 1 px, sin sombras.']},
+];
+
+function vars(t,S){
+  const v={...t.v, disp:t.disp, ui:t.ui, num:t.num||t.ui, heroNum:t.heroNum||t.disp, dispW:t.dispW, dispTrack:t.dispTrack, S};
+  return Object.entries(v).map(([k,x])=>`--${k}:${x}`).join(';');
+}
+const stampCls=t=>'s-'+t.stamp;
+function stamp(t,c,icon,big){return `<div class="stamp ${stampCls(t)}${big?' big':''}" style="--c:${c}">${I(icon,big?24:20)}</div>`}
+function neutralStamp(t){
+  if(t.stamp==='solid') return `<div class="stamp s-solid" style="--c:${t.neutral}">${I('wallet')}</div>`;
+  return `<div class="stamp ${stampCls(t)}" style="--c:${t.v.ink3}">${I('wallet')}</div>`;
+}
+
+function phone(t){
+  const [c0,i0]=t.cats.find(x=>x[1]==='cart');
+  const header = t.header==='large'
+    ? `<div class="hdL"><div><div class="hdL-date">Lunes 22 de septiembre</div><div class="hdL-title">Resumen</div></div>
+        <div class="r"><div class="plusc">${I('plus',20,2.2)}</div><div class="av" style="width:36px;height:36px;font-size:13px">JM</div></div></div>`
+    : `<div class="hd"><div class="av">JM</div><div style="flex:1"><div class="hd-hi">Buenos días,</div><div class="hd-name">Juan Manuel</div></div>
+        <div class="ib">${I('bell')}<span class="dt"></span></div></div>`;
+  const qa=[['Ingreso','down','pos'],['Gasto','up','neg'],['Meta','target','accent'],['Informe','trend','link']]
+    .map(([l,ic,col])=>`<div><span style="color:var(--${col})">${I(ic)}</span>${l}</div>`).join('');
+  let nav;
+  if(t.nav==='fab') nav=`<div class="nav"><div class="it on">${I('home',24)}Inicio<div class="dot"></div></div><div class="it">${I('list',24)}Movimientos</div>
+      <div class="nfab"><div>${I('plus',24)}</div></div><div class="it">${I('target',24)}Metas</div><div class="it">${I('gear',24)}Ajustes</div></div>`;
+  else if(t.nav==='ios') nav=`<div class="nav" style="padding-top:8px"><div class="it on">${I('home',25)}Resumen</div><div class="it">${I('list',25)}Movimientos</div>
+      <div class="it">${I('target',25)}Metas</div><div class="it">${I('gear',25)}Ajustes</div></div>`;
+  else nav=`<div class="navfloat"><div class="cap2"><div class="it on">${I('home',22)}Inicio</div><div class="it">${I('list',22)}Movimientos</div>
+      <div class="it">${I('target',22)}Metas</div><div class="it">${I('gear',22)}Ajustes</div></div><div class="fb" style="color:${t.floatInk||'#fff'}">${I('plus',24,2)}</div></div>`;
+  const ringTrack='color-mix(in oklab, var(--accent) 22%, transparent)';
+  return `<div class="phwrap"><div class="ph">
+    <div class="fx ${t.id==='aurora'?'aur':t.id==='glass'?'wall':t.id==='cromo'?'dots':''}"></div>
+    <div class="sb"><span class="num">9:41</span><span class="sbr">${I('wifi',16)}${BATT}</span></div>
+    ${header}
+    <div class="scroll" ${t.nav==='float'?'style="padding-bottom:0"':''}>
+      <div class="hero ${t.grain?'grain':''}">
+        ${t.glow?'<div class="glow"></div>':''}
+        ${t.led?`<div class="led"><span style="width:6px;height:6px;border-radius:50%;background:#04A3BE;box-shadow:0 0 8px #04A3BE"></span>SEP 2026</div>`:''}
+        <div class="hero-top"><span>Saldo disponible</span>${t.led?'':`<span class="pill">${I('trend',12,2.2)}12,4%</span>`}</div>
+        <div class="hero-amt num">$1.250.000</div>
+        <div class="hero-rule"></div>
+        <div class="hero-split"><div><div class="hl">${I('down',12,2.2)}Ingresos</div><div class="hv num">$2.500.000</div></div><div class="vsep"></div>
+          <div><div class="hl">${I('up',12,2.2)}Gastos</div><div class="hv num">$1.250.000</div></div></div>
+      </div>
+      <div class="qa">${qa}</div>
+      <div class="card" style="padding:14px 16px 12px">
+        <div class="chead"><span class="ctitle">Gasto mensual</span><span class="cap num">Promedio $1,09 M</span></div>
+        <div style="position:relative"><div class="bars"><div class="avg"></div>
+          <div class="bar" style="height:55px"></div><div class="bar" style="height:63px"></div><div class="bar" style="height:49px"></div>
+          <div class="bar" style="height:70px"></div><div class="bar" style="height:62px"></div><div class="bar now" style="height:76px"></div></div>
+          <div class="num" style="position:absolute;right:0;bottom:80px;font-size:11.5px;font-weight:700;font-family:var(--num)">$1,25 M</div></div>
+        <div class="xl"><span>abr</span><span>may</span><span>jun</span><span>jul</span><span>ago</span><span>sep</span></div>
+      </div>
+      <div class="card" style="padding:12px 16px;display:flex;align-items:center;gap:14px">
+        <svg width="56" height="56" viewBox="0 0 56 56" style="flex:0 0 auto"><circle cx="28" cy="28" r="23" stroke="${ringTrack}" stroke-width="6" fill="none"/>
+          <circle cx="28" cy="28" r="23" stroke="var(--accent)" stroke-width="6" fill="none" stroke-linecap="round" stroke-dasharray="144.5 144.5" stroke-dashoffset="54.9" transform="rotate(-90 28 28)"/>
+          <text x="28" y="32" text-anchor="middle" style="font-family:var(--ui);font-size:14px;font-weight:700;fill:var(--ink)">62%</text></svg>
+        <div style="flex:1;min-width:0"><div style="font-size:15px;font-weight:700">Viaje a Cartagena</div>
+          <div class="num" style="font-size:12.5px;color:var(--ink2);margin-top:4px;font-family:var(--num)">$3.100.000 de $5.000.000</div>
+          <div class="cap" style="margin-top:3px">Ahorra $475.000 al mes para llegar a tiempo</div></div>
+      </div>
+      <div class="sect"><span>Movimientos recientes</span><span class="lnk">Ver todos</span></div>
+      <div class="card" style="padding:0 14px 4px;margin-top:-4px">
+        <div class="row">${stamp(t,c0,'cart')}<div class="g"><div class="tt">Mercado del mes</div><div class="ss">Alimentación, hoy</div></div><div class="amt num" style="color:var(--neg)">−$120.000</div></div>
+        <div class="row">${neutralStamp(t)}<div class="g"><div class="tt">Salario</div><div class="ss">Ingresos, ayer</div></div><div class="amt num" style="color:var(--pos)">+$2.500.000</div></div>
+      </div>
+    </div>
+    ${nav}
+    <div class="homebar"></div>
+  </div></div>`;
+}
+
+function board(t){
+  const sws=t.sw.map(([bg,nm,rl])=>{
+    const light = /^#/.test(bg) ? lum(bg)>.35 : false;
+    const ink = light ? '#15181D' : '#FFFFFF';
+    const bd = (bg===t.v.board||bg===t.v.surface||/rgba/.test(bg)) ? `border:1px solid ${t.v.line};` : '';
+    const hex = /rgba/.test(bg) ? 'rgba 255 · 14 %' : bg;
+    return `<div class="sw" style="background:${bg};color:${ink};${bd}"><div class="hx">${/rgba/.test(bg)?'Blanco 14 %':bg}</div><div class="nm">${nm}</div><div class="rl">${rl}</div></div>`;
+  }).join('');
+  const mono=t.stamp==='mono';
+  const stamps=t.cats.map(([c,ic])=>`<div class="stampcol">${stamp(t,c,ic,true)}<span class="sl">${CAT[ic]}</span>${mono?'':`<span class="sh">${c}</span>`}</div>`).join('');
+  const cpal=mono?`<div class="h" style="margin-top:20px">Colores para gráficas por categoría</div><div class="cpal">${t.cats.map(([c])=>`<div><i style="background:${c}"></i><span>${c}</span></div>`).join('')}</div>`:'';
+  const icons=['home','list','target','gear','plus','search','up','down','wallet','card','cal','bell','user','shield','edit','trash','trend','check'].map(n=>I(n,23)).join('');
+  const fieldCls={pizarra:'f-outline',grafito:'f-filled',aurora:'f-glass',cromo:'f-outline',wallet:'f-filled',glass:'f-glass',
+    grafitoclaro:'f-filled',monocromo:'f-underline',arena:'f-filled',acero:'f-outline'}[t.id];
+  const fx = t.id==='aurora'?'<div class="fx aur"></div>':t.id==='glass'?'<div class="fx wall"></div>':t.id==='cromo'?'<div class="fx dots"></div>':t.grain?'<div class="fx grain"></div>':'';
+  return `<div class="board t-${t.id}" style="${vars(t,.78)}">${fx}
+    <div class="bh"><div>
+        <div class="chips"><span class="tag">Opción ${t.n}</span><span class="tag"><b></b>${t.cat}</span></div>
+        <div class="bname">${t.name}</div><p class="bdesc">${t.desc}</p></div>
+      <div class="fonts">
+        <div class="fp"><span class="fl">Display</span><span class="fv" style="font-family:${t.disp};font-weight:${t.dispW};letter-spacing:${t.dispTrack}">${t.dispName}</span></div>
+        <div class="fp"><span class="fl">Interfaz</span><span class="fv">${t.uiName}</span></div>
+        ${t.numName?`<div class="fp"><span class="fl">Cifras</span><span class="fv" style="font-family:${t.num}">${t.numName}</span></div>`:''}
+      </div></div>
+    <div class="grid">
+      <div class="panel">
+        <div class="h">Color</div><div class="sws">${sws}</div>
+        <div class="h" style="margin-top:24px">Categorías</div><div class="stamps">${stamps}</div>
+        ${cpal}
+        <div class="valid">${I('check',16,2.4)}<span>${t.val}</span></div>
+        <div class="h" style="margin-top:22px">Íconos</div><div class="icons">${icons}</div>
+      </div>
+      <div class="panel">
+        <div class="h">Tipografía</div>
+        <div class="spec"><div class="specrow"><span>${t.numName?t.numName:t.dispName}</span><span>Cifras</span></div>
+          <div class="dispbig num">$1.250.000</div>
+          <div class="specrow" style="margin-top:12px"><span>${t.dispName}</span><span>Titulares</span></div>
+          <div class="dispmed">Tus finanzas, en calma.</div></div>
+        <div class="spec" style="border:0;padding-bottom:0"><div class="specrow"><span>${t.uiName}</span><span>Interfaz</span></div>
+          <div class="uit">Movimientos recientes</div><div class="uib">Registra ingresos y gastos, define metas y revisa tu mes de un vistazo.</div></div>
+        <div class="h" style="margin-top:20px">Componentes</div>
+        <div class="btns"><div class="btn b-pri">Guardar</div><div class="btn b-sec">Editar</div><div class="btn b-neg">Eliminar</div></div>
+        <div class="crow"><span class="chip on">Todos</span><span class="chip">Ingresos</span><span class="chip">Gastos</span><span style="flex:1"></span><span class="tg on"></span><span class="tg"></span></div>
+        <div class="fields ${fieldCls}"><div class="fld on"><div class="fl2">Correo</div><div class="fbox">juanm@upb.edu.co</div></div>
+          <div class="fld"><div class="fl2">Nota</div><div class="fbox ph-t">Escribe una nota…</div></div></div>
+        <div class="h" style="margin-top:22px">Carácter</div>
+        <div class="princ">${t.pr.map((p,i)=>`<div><i>${i+1}</i><span>${p}</span></div>`).join('')}</div>
+      </div>
+      <div>${phone(t)}</div>
+    </div></div>`;
+}
+
+function compare(ids,title,sub){
+  const list=ids.map(id=>T.find(t=>t.id===id));
+  const cols=list.map(t=>`<div class="cmp-col">
+      <div class="cmp-lab"><div class="a">${t.n===0?'Diseño actual':'Opción '+t.n+', '+t.cat.charAt(0).toLowerCase()+t.cat.slice(1)}</div><div class="b">${t.name}</div>
+        <div class="c">${t.dispName}${t.uiName!==t.dispName&&!t.dispName.startsWith(t.uiName)?' + '+t.uiName:''}</div></div>
+      <div class="t-${t.id}" style="${vars(t,.7)}">${phone(t)}</div></div>`).join('');
+  const w=list.length*273+(list.length-1)*24+88;
+  return `<div class="cmp" style="width:${w}px"><div class="cmp-h"><div><div style="font-size:13px;font-weight:600;color:#7E8C84;margin-bottom:6px">Chavos, entrega 3</div>
+      <div class="cmp-t">${title}</div></div>
+      <div style="font-size:13px;color:#4A574F;text-align:right;line-height:1.6">${sub}</div></div>
+    <div class="cmp-row">${cols}</div></div>`;
+}
+
+const q=new URLSearchParams(location.search).get('o');
+const ph=new URLSearchParams(location.search).get('p');
+const root=document.getElementById('root');
+if(ph){ const t=T.find(x=>x.id===ph); const tr=new URLSearchParams(location.search).get('t');
+  root.style.padding=tr?'44px':'20px'; document.body.style.background=tr?'transparent':'#E4E4E2';
+  if(tr) document.head.insertAdjacentHTML('beforeend','<style>.phwrap{box-shadow:0 18px 36px -18px rgba(0,0,0,.35),0 0 0 1px rgba(0,0,0,.08)!important}</style>');
+  root.innerHTML=`<div class="t-${t.id}" style="${vars(t,1)}">${phone(t)}</div>`; }
+else if(q==='cmp') root.innerHTML=compare(['actual','pizarra','grafito','aurora','cromo','wallet','glass'],'Seis direcciones de estilo, lado a lado','Misma pantalla, mismos datos.<br>Cambian color, tipografía, materiales y forma.');
+else if(q==='cmp2') root.innerHTML=compare(['grafito','grafitoclaro','monocromo','arena','acero'],'Grafito en claro y tres opciones sobrias','Misma pantalla, mismos datos.<br>Menos color, más calma.');
+else { const t=T.find(x=>String(x.n)===q) || T[1]; root.innerHTML=board(t); }
+</script>
+</body>
+</html>
