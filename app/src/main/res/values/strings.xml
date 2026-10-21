@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Chavos</string>
+
+    <!-- Datos de la pantalla de Créditos -->
+    <string name="estudiante_nombre">Juan Manuel Arias</string>
+    <string name="estudiante_programa">Ingeniería de Sistemas</string>
+    <string name="universidad">Universidad Pontificia Bolivariana</string>
+    <string name="curso">Aplicaciones Móviles</string>
+    <string name="periodo">2026-2</string>
+    <string name="entrega">3 · App nativa</string>
+</resources>
