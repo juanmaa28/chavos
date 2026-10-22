@@ -5,7 +5,7 @@ Permite registrar gastos e ingresos, ahorrar para metas y ver en qué se va el d
 Todo se guarda en el teléfono: no hay servidor ni cuentas en la nube.
 
 **Entrega 3 · App nativa** — Aplicaciones Móviles, Universidad Pontificia Bolivariana, 2026-2.
-Autor: Juan Manuel Arias.
+Equipo: Juan Manuel Arias y Juan Andrés Ciro.
 
 <p>
   <img src="docs/capturas/01-login.png" width="180" alt="Inicio de sesión">
@@ -114,6 +114,7 @@ La app está lista para subirse a Play Console:
 El estilo visual se llama **Monocromo**: negro, blanco y grises, con color solo para distinguir
 ingresos (verde) y gastos (rojo). La tipografía es Schibsted Grotesk.
 
+- `diseno/wireframe-boceto/` — wireframe de baja fidelidad en estilo boceto: las 13 pantallas y el flujo entre ellas.
 - `diseno/figma/` — wireframe digital: las pantallas exportadas del archivo de Figma.
 - `diseno/png/` — maquetas de todas las pantallas, incluidas las opciones de estilo que se descartaron.
 - `diseno/chavos-monocromo-figma.md` — especificación completa (colores, tipografía, medidas y componentes) usada para construir el archivo de Figma.
