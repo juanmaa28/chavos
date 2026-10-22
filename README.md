@@ -100,12 +100,22 @@ app/src/main/java/com/jmarias/chavos/
     └── pantallas/   Una carpeta por sección
 ```
 
+## Publicación en Google Play
+
+La app está lista para subirse a Play Console:
+
+- `./gradlew :app:bundleRelease` genera el AAB firmado (la llave de subida no está en el repositorio).
+- [`docs/play-store/PUBLICACION.md`](docs/play-store/PUBLICACION.md) tiene la ficha (textos, categoría, clasificación y seguridad de los datos) y los pasos.
+- `docs/play-store/` tiene el ícono de 512 px, el gráfico de funciones de 1024 × 500 y ocho capturas.
+- [`PRIVACIDAD.md`](PRIVACIDAD.md) es la política de privacidad.
+
 ## Diseño
 
 El estilo visual se llama **Monocromo**: negro, blanco y grises, con color solo para distinguir
 ingresos (verde) y gastos (rojo). La tipografía es Schibsted Grotesk.
 
-- `diseno/png/` — maquetas de todas las pantallas.
+- `diseno/figma/` — wireframe digital: las pantallas exportadas del archivo de Figma.
+- `diseno/png/` — maquetas de todas las pantallas, incluidas las opciones de estilo que se descartaron.
 - `diseno/chavos-monocromo-figma.md` — especificación completa (colores, tipografía, medidas y componentes) usada para construir el archivo de Figma.
 - `docs/capturas/` — capturas de la app funcionando en el emulador.
 
