@@ -114,7 +114,7 @@ La app está lista para subirse a Play Console:
 El estilo visual se llama **Monocromo**: negro, blanco y grises, con color solo para distinguir
 ingresos (verde) y gastos (rojo). La tipografía es Schibsted Grotesk.
 
-- `diseno/wireframe-boceto/` — wireframe de baja fidelidad en estilo boceto: las 13 pantallas y el flujo entre ellas.
+- `diseno/wireframe-boceto/` — bocetos de baja fidelidad de las pantallas (PDF original y una imagen por pantalla).
 - `diseno/figma/` — wireframe digital: las pantallas exportadas del archivo de Figma.
 - `diseno/png/` — maquetas de todas las pantallas, incluidas las opciones de estilo que se descartaron.
 - `diseno/chavos-monocromo-figma.md` — especificación completa (colores, tipografía, medidas y componentes) usada para construir el archivo de Figma.
