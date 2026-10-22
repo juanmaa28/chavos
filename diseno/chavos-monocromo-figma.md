@@ -545,6 +545,56 @@ En el prototipo: el FAB de la barra de pestañas abre esta hoja con animación *
 4. `Tab bar` Active=Ajustes.
 5. `Home indicator`.
 
+### 8.8 `08 Movimientos` (listado)
+1. `Status bar`.
+2. Título "Movimientos" (`Title/Page 34`), px 20, relleno superior 6 e inferior 18.
+3. **Cuerpo** — vertical, espacio 16, px 20:
+   - Selector de mes igual al de `05 Informe`, con "Septiembre 2026".
+   - `Card` de resumen, horizontal, relleno 16, tres columnas FILL iguales: etiqueta (`Label/Meta 12.5`, `color/ink/tertiary`) y valor (`Body/Value 16`) debajo con 4 px de separación: "Ingresos" $2.500.000 · "Gastos" $1.250.000 · "Balance" $1.250.000.
+   - Fila de filtros (espacio 8): chips "Todos" (relleno negro, texto blanco), "Ingresos" y "Gastos" (relleno `color/bg/surface`, borde `color/line/card`, texto negro). Chip: alto 36, radio 10, px 16, texto 14 SemiBold.
+   - Grupos por día (vertical, espacio 8 dentro del grupo y 18 entre grupos). Cada grupo: fila `space-between` con el día (`Label/Field 13`, `color/ink/secondary`) y el total del día (12.5 Medium, `color/ink/tertiary`) · `Card` con relleno 2 arriba y abajo, 16 a los lados, con sus `Transaction row`, subtítulo "Categoría, hora":
+
+     | Día | Total | Filas |
+     |---|---|---|
+     | Hoy | −$155.000 | cart · Mercado del mes · Alimentación, 10:24 · −$120.000 / bus · Metro y buses · Transporte, 08:10 · −$35.000 |
+     | Ayer | +$2.500.000 | wallet · Salario · Salario, 09:00 · +$2.500.000 |
+     | Lunes 21 de septiembre | −$35.000 | play · Netflix · Ocio y suscripciones, 20:15 · −$35.000 |
+4. `Tab bar` Active=Movimientos.
+5. `Home indicator`.
+
+### 8.9 `09 Detalle`
+1. `Status bar`.
+2. `Top bar` Type=Title, texto "Detalle".
+3. **Cuerpo** — vertical, alto FILL, px 20, relleno superior 14:
+   - Columna centrada: `Category icon` Size=46 Tone=Muted con `Icon/heart` · "−$60.000" (`Display/Number 40`, `color/negative`), margen superior 18 · "Farmacia" (`Body/Row title 16`), margen superior 10 · "Domingo 20 de septiembre, 10:24" (`Label/Meta 12.5`, `color/ink/tertiary`), margen superior 4.
+   - `Card` con relleno lateral 16, margen superior 26, con tres filas de dato (alto 48, `space-between`, etiqueta `Label/Field 13` `color/ink/tertiary` a la izquierda y valor `Body/Value 15` a la derecha, separador entre filas): "Tipo" Gasto · "Categoría" Salud · "Fecha" 20 de septiembre de 2026. Si el movimiento es un aporte, se agrega la fila "Meta" con el nombre de la meta.
+   - Abajo del todo (relleno inferior 34), fila de dos botones FILL con espacio 12: `Button` Secondary con `Icon/pencil` "Editar" · `Button` Secondary con `Icon/trash` "Eliminar" (texto e ícono `color/negative`).
+4. `Home indicator`. Sin barra de pestañas.
+
+### 8.10 `10 Formulario`
+1. `Status bar`.
+2. `Top bar` Type=Title con `Icon/x` en lugar de la flecha, texto "Nuevo gasto".
+3. **Cuerpo** — vertical, alto FILL, px 20:
+   - Control segmentado: `Card` de alto 48, relleno 4, dos opciones FILL: "Gasto" (relleno negro, texto blanco, radio 10) e "Ingreso" (texto negro, sin relleno).
+   - "Monto" (`Label/Meta 12.5`, `color/ink/tertiary`), centrado, margen superior 24 · "$28.500" (`Display/Amount 44`; el "$" en 22 Bold `color/ink/tertiary`), centrado · "Pesos colombianos" (`Label/Caption 12`, `color/ink/tertiary`), centrado.
+   - "Categoría" (`Label/Field 12.5`, `color/ink/tertiary`), margen superior 28 · cuadrícula de 4 columnas y 2 filas, espacio vertical 14: cada celda es un cuadro de 50 × 50, radio 12, con el ícono, y el nombre debajo (`Label/Category 12`). La seleccionada va con cuadro negro, ícono blanco y texto negro; las demás con cuadro `color/bg/muted` y texto `color/ink/tertiary`. Orden: Alimentos (cart, seleccionada), Transporte (bus), Ocio (play), Salud (heart), Hogar (home), Estudio (book), Metas (target), Otros (more).
+   - `Card` con una `Settings row` `calendar` "Fecha" con Value "24 sep 2026" y chevron, margen superior 24.
+   - `Text field` "Nota" con el valor "Taxi al aeropuerto", margen superior 22.
+   - `Button` Primary "Guardar gasto" anclado abajo, relleno inferior 34.
+4. `Home indicator`. Sin barra de pestañas.
+
+Variantes de la misma pantalla: con "Ingreso" seleccionado el título es "Nuevo ingreso" y las categorías son Salario, Ventas, Regalos y Otros; desde "Aporte a una meta" se oculta el segmentado y la cuadrícula, y aparece "Meta" con chips de las metas.
+
+### 8.11 `11 Créditos`
+1. `Status bar`.
+2. `Top bar` Type=Title, texto "Créditos".
+3. **Cuerpo** — vertical, espacio 24, px 20, relleno superior 10:
+   - Fila (espacio 16, centro): `Avatar` de 64 × 64 con "JM" · columna con "Juan Manuel Arias" (`Title/Greeting 26`) e "Ingeniería de Sistemas" (`Body/Lead 15`, `color/ink/secondary`).
+   - `Card` con relleno lateral 16 y cuatro filas (alto 48, separador entre filas): ícono 16 `color/ink/tertiary` + etiqueta (`Label/Field 13`, `color/ink/tertiary`) a la izquierda, valor (`Body/Value 15`) a la derecha: book "Universidad" Universidad Pontificia Bolivariana · laptop "Curso" Aplicaciones Móviles · calendar "Periodo" 2026-2 · target "Entrega" 3 · App nativa.
+   - "Construido con" (`Label/Field 12.5`, `color/ink/tertiary`) y debajo chips en flujo (espacio 8): Kotlin, Jetpack Compose, Room, DataStore, Material 3, Android Studio.
+   - Pie centrado: `Brand/Logo mark` 22 + "Chavos" (`Title/Wordmark 20`) · "Versión 1.0.0" y "Hecho con Kotlin en Medellín, Colombia" (`Label/Caption 12`, `color/ink/tertiary`).
+4. `Home indicator`. Sin barra de pestañas.
+
 ---
 
 ## 9. Detalles que se pierden con facilidad
