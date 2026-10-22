@@ -24,6 +24,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.res.stringArrayResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -32,6 +33,7 @@ import com.jmarias.chavos.R
 import com.jmarias.chavos.dominio.Validacion
 import com.jmarias.chavos.ui.componentes.Avatar
 import com.jmarias.chavos.ui.componentes.BarraSuperior
+import com.jmarias.chavos.ui.componentes.Divisor
 import com.jmarias.chavos.ui.componentes.FilaDato
 import com.jmarias.chavos.ui.componentes.LogoChavos
 import com.jmarias.chavos.ui.componentes.Tarjeta
@@ -42,28 +44,33 @@ import com.jmarias.chavos.ui.tema.Texto
 @Composable
 fun CreditosPantalla(onVolver: () -> Unit) {
     val c = Chavos.colores
-    val nombre = stringResource(R.string.estudiante_nombre)
+    val integrantes = stringArrayResource(R.array.integrantes)
 
     Column(Modifier.fillMaxSize().background(c.fondo).statusBarsPadding()) {
         BarraSuperior("Créditos", onVolver)
         Column(
             Modifier.fillMaxWidth().verticalScroll(rememberScrollState()).navigationBarsPadding().padding(horizontal = 20.dp),
         ) {
-            Row(
-                modifier = Modifier.padding(top = 10.dp, bottom = 24.dp),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.spacedBy(16.dp),
-            ) {
-                Avatar(Validacion.iniciales(nombre), 64.dp)
-                Column {
-                    Text(nombre, style = Texto.saludo, color = c.tinta)
-                    Spacer(Modifier.height(4.dp))
-                    Text(stringResource(R.string.estudiante_programa), style = Texto.cuerpo, color = c.tintaSecundaria)
+            Text("Equipo", style = Texto.etiqueta, color = c.tintaTerciaria, modifier = Modifier.padding(top = 10.dp))
+            Spacer(Modifier.height(10.dp))
+            Tarjeta(relleno = PaddingValues(horizontal = 16.dp, vertical = 4.dp)) {
+                integrantes.forEachIndexed { i, nombre ->
+                    if (i > 0) Divisor()
+                    Row(
+                        modifier = Modifier.fillMaxWidth().padding(vertical = 12.dp),
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.spacedBy(14.dp),
+                    ) {
+                        Avatar(Validacion.iniciales(nombre), 46.dp)
+                        Text(nombre, style = Texto.fila16, color = c.tinta)
+                    }
                 }
             }
 
+            Spacer(Modifier.height(16.dp))
             Tarjeta(relleno = PaddingValues(vertical = 2.dp)) {
-                FilaDato("Universidad", stringResource(R.string.universidad), conDivisor = false, icono = R.drawable.ic_book)
+                FilaDato("Programa", stringResource(R.string.programa), conDivisor = false, icono = R.drawable.ic_user)
+                FilaDato("Universidad", stringResource(R.string.universidad), conDivisor = true, icono = R.drawable.ic_book)
                 FilaDato("Curso", stringResource(R.string.curso), conDivisor = true, icono = R.drawable.ic_laptop)
                 FilaDato("Periodo", stringResource(R.string.periodo), conDivisor = true, icono = R.drawable.ic_calendar)
                 FilaDato("Entrega", stringResource(R.string.entrega), conDivisor = true, icono = R.drawable.ic_target)

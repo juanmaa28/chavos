@@ -3,8 +3,11 @@
     <string name="app_name">Chavos</string>
 
     <!-- Datos de la pantalla de Créditos -->
-    <string name="estudiante_nombre">Juan Manuel Arias</string>
-    <string name="estudiante_programa">Ingeniería de Sistemas</string>
+    <string-array name="integrantes">
+        <item>Juan Manuel Arias</item>
+        <item>Juan Andrés Ciro</item>
+    </string-array>
+    <string name="programa">Ingeniería de Sistemas</string>
     <string name="universidad">Universidad Pontificia Bolivariana</string>
     <string name="curso">Aplicaciones Móviles</string>
     <string name="periodo">2026-2</string>
