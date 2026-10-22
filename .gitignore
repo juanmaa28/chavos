@@ -11,3 +11,8 @@
 .cxx/
 *.apk
 *.aab
+
+# Firma para Google Play
+keystore.properties
+*.jks
+*.keystore
