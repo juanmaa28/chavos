@@ -1,5 +1,6 @@
 package com.jmarias.chavos.dominio
 
+/** Reglas de validación de los campos de los formularios. */
 object Validacion {
     private val CORREO = Regex("^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$")
     private val ESPACIOS = Regex("\\s+")
