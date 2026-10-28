@@ -16,6 +16,7 @@ import androidx.core.view.WindowCompat
 
 private val LocalColores = staticCompositionLocalOf { ColoresClaros }
 
+/** Acceso a los colores y estilos del tema actual. */
 object Chavos {
     val colores: ColoresChavos
         @Composable @ReadOnlyComposable get() = LocalColores.current
