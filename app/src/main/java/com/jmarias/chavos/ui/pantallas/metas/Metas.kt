@@ -85,6 +85,7 @@ import java.time.Instant
 import java.time.LocalDate
 import java.time.ZoneOffset
 
+/** Estado de la pantalla de metas de ahorro. */
 data class MetasEstado(
     val metas: List<MetaConAhorro> = emptyList(),
     val totalAhorrado: Long = 0,
