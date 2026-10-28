@@ -67,6 +67,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
+/** Estado de la pantalla de inicio de sesión. */
 data class LoginEstado(
     val correo: String = "",
     val clave: String = "",
