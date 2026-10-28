@@ -42,9 +42,14 @@ object DatosDeEjemplo {
     /** Variación del gasto en los cinco meses anteriores al actual, del más antiguo al más reciente. */
     private val FACTORES = listOf(0.88, 1.0, 0.78, 1.11, 0.99)
 
-    suspend fun sembrarSiVacio(bd: ChavosDatabase, hoy: LocalDate = LocalDate.now(), zona: ZoneId = ZoneId.systemDefault()) {
-        if (bd.usuarioDao().contar() > 0) return
+    suspend fun sembrarSiVacio(bd: ChavosDatabase) {
+        if (bd.usuarioDao().contar() == 0) crear(bd)
+    }
 
+    /** Id de la cuenta de demostración; la vuelve a crear si se borró la base o nunca existió. */
+    suspend fun cuentaDemo(bd: ChavosDatabase): Long = bd.usuarioDao().porCorreo(CORREO)?.id ?: crear(bd)
+
+    private suspend fun crear(bd: ChavosDatabase, hoy: LocalDate = LocalDate.now(), zona: ZoneId = ZoneId.systemDefault()): Long {
         val ahora = System.currentTimeMillis()
         val sal = Claves.nuevaSal()
         val usuarioId = bd.usuarioDao().insertar(
@@ -96,5 +101,6 @@ object DatosDeEjemplo {
             }
         }
         bd.movimientoDao().insertarTodos(lista)
+        return usuarioId
     }
 }

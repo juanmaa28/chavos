@@ -26,7 +26,7 @@ class Contenedor(contexto: Context) {
         Room.databaseBuilder(app, ChavosDatabase::class.java, "chavos.db").build()
 
     val sesion = SesionRepository(app.almacen)
-    val auth = AuthRepository(bd.usuarioDao())
+    val auth = AuthRepository(bd.usuarioDao()) { DatosDeEjemplo.cuentaDemo(bd) }
     val finanzas = FinanzasRepository(bd.movimientoDao(), bd.metaDao())
 
     init {

@@ -50,7 +50,7 @@ para poder recorrer todas las pantallas con datos:
 - Correo: `demo@chavos.app`
 - Contraseña: `Chavos2026`
 
-Los datos de ejemplo están en `data/DatosDeEjemplo.kt`. También se puede crear una cuenta nueva desde "Crear cuenta".
+En la pantalla de inicio de sesión, "Explorar con datos de ejemplo" entra a esa cuenta sin escribir nada. Los datos de ejemplo están en `data/DatosDeEjemplo.kt`. También se puede crear una cuenta nueva desde "Crear cuenta".
 
 ## Tecnologías
 

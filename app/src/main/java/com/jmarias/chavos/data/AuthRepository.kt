@@ -8,7 +8,10 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.withContext
 
-class AuthRepository(private val usuarios: UsuarioDao) {
+class AuthRepository(private val usuarios: UsuarioDao, private val cuentaDemo: suspend () -> Long) {
+
+    /** Id de la cuenta con datos de ejemplo, para explorar la app sin registrarse. */
+    suspend fun demo(): Long = cuentaDemo()
 
     suspend fun correoRegistrado(correo: String): Boolean =
         usuarios.porCorreo(Validacion.normalizarCorreo(correo)) != null

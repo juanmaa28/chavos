@@ -40,6 +40,7 @@ import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.fragment.app.FragmentActivity
@@ -106,6 +107,11 @@ class LoginViewModel(private val auth: AuthRepository, private val sesion: Sesio
                 sesion.iniciar(usuario.id, actual.recordar)
             }
         }
+    }
+
+    /** Entra a la cuenta de demostración sin contraseña; la sesión no se recuerda al cerrar la app. */
+    fun explorarDemo() {
+        viewModelScope.launch { sesion.iniciar(auth.demo(), recordar = false) }
     }
 
     fun entrarConHuella(usuarioId: Long) {
@@ -208,6 +214,13 @@ fun LoginPantalla(onCrearCuenta: () -> Unit) {
                                 },
                             )
                         }
+                        Text(
+                            "Explorar con datos de ejemplo",
+                            style = Texto.enlace135.copy(textDecoration = TextDecoration.Underline),
+                            color = c.tintaSecundaria,
+                            textAlign = TextAlign.Center,
+                            modifier = Modifier.fillMaxWidth().clickable(role = Role.Button, onClick = vm::explorarDemo).padding(vertical = 6.dp),
+                        )
                         Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) {
                             Text("¿Aún no tienes cuenta? ", style = Texto.cuerpo, color = c.tintaSecundaria)
                             Text(
