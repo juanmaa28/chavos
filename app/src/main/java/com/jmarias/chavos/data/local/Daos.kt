@@ -6,6 +6,7 @@ import androidx.room.Query
 import androidx.room.Update
 import kotlinx.coroutines.flow.Flow
 
+/** Consultas sobre la tabla de usuarios. */
 @Dao
 interface UsuarioDao {
     @Insert
