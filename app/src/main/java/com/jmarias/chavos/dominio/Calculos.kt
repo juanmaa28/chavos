@@ -11,6 +11,7 @@ import kotlin.math.ceil
 import kotlin.math.roundToInt
 import kotlin.math.roundToLong
 
+/** Totales de ingresos y gastos de un mes. */
 data class ResumenMes(val ingresos: Long = 0, val gastos: Long = 0) {
     val saldo: Long get() = ingresos - gastos
 }
