@@ -8,6 +8,7 @@ import com.jmarias.chavos.data.local.MovimientoEntity
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
 
+/** Acceso a movimientos y metas de ahorro de cada usuario. */
 class FinanzasRepository(
     private val movimientos: MovimientoDao,
     private val metas: MetaDao,
