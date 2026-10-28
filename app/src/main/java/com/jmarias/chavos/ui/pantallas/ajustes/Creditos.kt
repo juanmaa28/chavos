@@ -40,6 +40,7 @@ import com.jmarias.chavos.ui.componentes.Tarjeta
 import com.jmarias.chavos.ui.tema.Chavos
 import com.jmarias.chavos.ui.tema.Texto
 
+/** Pantalla de créditos con los integrantes del equipo. */
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun CreditosPantalla(onVolver: () -> Unit) {
