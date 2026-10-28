@@ -50,6 +50,7 @@ import com.jmarias.chavos.ui.pantallas.movimientos.FormularioPantalla
 import com.jmarias.chavos.ui.pantallas.movimientos.MovimientosPantalla
 import com.jmarias.chavos.ui.tema.Chavos
 
+/** Rutas de navegación de todas las pantallas. */
 object Rutas {
     const val LOGIN = "login"
     const val REGISTRO = "registro"
