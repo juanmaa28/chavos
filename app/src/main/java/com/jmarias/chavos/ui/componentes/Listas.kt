@@ -24,6 +24,7 @@ import com.jmarias.chavos.R
 import com.jmarias.chavos.ui.tema.Chavos
 import com.jmarias.chavos.ui.tema.Texto
 
+/** Fila de un movimiento en las listas de inicio y movimientos. */
 @Composable
 fun FilaMovimiento(
     @DrawableRes icono: Int,
