@@ -34,6 +34,7 @@ import com.jmarias.chavos.ui.tema.Chavos
 import com.jmarias.chavos.ui.tema.Texto
 import java.time.YearMonth
 
+/** Pestaña de la barra inferior: ruta, etiqueta e ícono. */
 data class Pestana(val ruta: String, val etiqueta: String, @DrawableRes val icono: Int)
 
 /** Barra inferior con cuatro pestañas y el botón + al centro, que sobresale 18 dp. */
