@@ -72,6 +72,7 @@ import com.jmarias.chavos.ui.tema.Texto
 import com.jmarias.chavos.ui.vistaModelo
 import kotlinx.coroutines.launch
 
+/** Estado del formulario de registro. */
 data class RegistroEstado(
     val paso: Int = 1,
     val nombre: String = "",
