@@ -7,6 +7,7 @@ import androidx.biometric.BiometricPrompt
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentActivity
 
+/** Autenticación con huella mediante BiometricPrompt. */
 object Huella {
     fun disponible(contexto: Context): Boolean =
         BiometricManager.from(contexto).canAuthenticate(BIOMETRIC_WEAK) == BiometricManager.BIOMETRIC_SUCCESS
