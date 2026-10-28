@@ -56,6 +56,7 @@ import com.jmarias.chavos.R
 import com.jmarias.chavos.ui.tema.Chavos
 import com.jmarias.chavos.ui.tema.Texto
 
+/** Ícono vectorial de la app con tamaño y color configurables. */
 @Composable
 fun Icono(
     @DrawableRes id: Int,
