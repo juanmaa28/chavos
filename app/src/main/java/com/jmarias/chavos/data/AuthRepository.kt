@@ -8,6 +8,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.withContext
 
+/** Registro e inicio de sesión de usuarios guardados en la base local. */
 class AuthRepository(private val usuarios: UsuarioDao, private val cuentaDemo: suspend () -> Long) {
 
     /** Id de la cuenta con datos de ejemplo, para explorar la app sin registrarse. */
