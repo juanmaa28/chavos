@@ -33,6 +33,7 @@ import com.jmarias.chavos.dominio.Formato
 import com.jmarias.chavos.ui.tema.Chavos
 import com.jmarias.chavos.ui.tema.Texto
 
+/** Dato de una barra de la gráfica: etiqueta del mes y monto. */
 data class BarraMes(val etiqueta: String, val valor: Long)
 
 /**
