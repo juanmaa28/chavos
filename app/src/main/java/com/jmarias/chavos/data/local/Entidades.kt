@@ -28,6 +28,7 @@ enum class Categoria(val etiqueta: String, val corta: String, val tipo: TipoMovi
 
 enum class IconoMeta { VIAJE, EMERGENCIA, TECNOLOGIA, HOGAR, ESTUDIO, REGALO, OTRA }
 
+/** Usuario registrado; guarda el hash de la contraseña, nunca la contraseña. */
 @Entity(tableName = "usuarios", indices = [Index(value = ["correo"], unique = true)])
 data class UsuarioEntity(
     @PrimaryKey(autoGenerate = true) val id: Long = 0,
